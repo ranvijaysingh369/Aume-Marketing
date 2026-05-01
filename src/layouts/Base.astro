@@ -1,0 +1,142 @@
+---
+import '../styles/global.css';
+import { images } from '@lib/assets';
+const logo = images['logo-3d'];
+
+interface Props {
+  title: string;
+  description?: string;
+  navMode?: 'over-hero' | 'solid';
+  currentPath?: string;
+}
+const {
+  title,
+  description = 'aumé Himalayan Clear Honey — raw, single origin, cold extracted from the Kashmir Valley above 11,000 ft.',
+  navMode = 'solid',
+  currentPath = '/',
+} = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@300;400;500&display=swap" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class={`nav ${navMode === 'over-hero' ? 'nav--over-hero' : 'nav--solid'}`} role="banner" id="site-nav">
+  <a class="nav__logo" href="/" aria-label="aumé — home">aumé</a>
+  <nav class="nav__links" aria-label="Primary">
+    <a class="nav__link" href="/story" aria-current={currentPath === '/story' ? 'page' : undefined}>Story</a>
+    <a class="nav__link" href="/the-honey" aria-current={currentPath === '/the-honey' ? 'page' : undefined}>The Honey</a>
+    <a class="nav__cta" href="/buy" aria-current={currentPath === '/buy' ? 'page' : undefined}>Shop Now</a>
+  </nav>
+</header>
+
+<main id="main">
+  <slot />
+</main>
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__top">
+    <div>
+      <div class="footer__brand">aumé</div>
+      <div class="footer__from">From the Earth</div>
+      <p class="footer__bio">Himalayan Clear Honey — raw, single origin, sourced directly from the Kashmir Valley.</p>
+    </div>
+    <div>
+      <div class="footer__col-head">Shop</div>
+      <ul class="footer__links">
+        <li><a href="/the-honey">Himalayan Clear Honey</a></li>
+        <li><a href="/buy">Order</a></li>
+        <li><a href="/buy">Subscribe &amp; Save</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer__col-head">Learn</div>
+      <ul class="footer__links">
+        <li><a href="/story">Our Origin</a></li>
+        <li><a href="/the-honey">The Process</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer__col-head">Support</div>
+      <ul class="footer__links">
+        <li><a href="mailto:hello@aume.honey">Contact</a></li>
+        <li><a href="mailto:wholesale@aume.honey">Wholesale</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>© 2026 aumé. Product of India. Distributed by aumé LLC, New Jersey, USA.</span>
+    <img class="footer__logo-img" src={logo.webp} alt="aumé" width="80" height="80" loading="lazy" decoding="async" />
+  </div>
+</footer>
+
+<script>
+  /* ============================================================
+   * Site-wide scroll & motion (post Phase-5 perf strip)
+   *
+   * Removed: Lenis, GSAP scrub pins, parallax, ongoing tickers.
+   * Kept: native scroll, single IntersectionObserver for fade-up,
+   *       single IntersectionObserver to pause hero video off-screen,
+   *       nav-on-scroll toggle.
+   * ============================================================ */
+
+  // 1. Nav scroll state — only meaningful when nav is over a hero
+  const nav = document.getElementById('site-nav');
+  if (nav && nav.classList.contains('nav--over-hero')) {
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 100);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // 2. Fade-up reveals — single one-shot observer, no scrub timelines
+  const reveals = document.querySelectorAll<HTMLElement>('.fade-up');
+  if (reveals.length) {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+    );
+    reveals.forEach((el) => io.observe(el));
+  }
+
+  // 3. Pause backdrop video when its hero section leaves the viewport.
+  //    Runs on every page; no-ops if no element matches.
+  const bgVid = document.querySelector<HTMLVideoElement>('[data-bg-video]');
+  const bgHost = document.querySelector<HTMLElement>('[data-bg-video-host]');
+  if (bgVid && bgHost) {
+    const vio = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          bgVid.play().catch(() => {});
+        } else {
+          bgVid.pause();
+        }
+      },
+      { threshold: 0 }
+    );
+    vio.observe(bgHost);
+
+    // If reduced motion is on, never play
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      bgVid.pause();
+      vio.disconnect();
+    }
+  }
+</script>
+
+</body>
+</html>

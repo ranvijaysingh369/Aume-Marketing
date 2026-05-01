@@ -1,0 +1,218 @@
+---
+/**
+ * /buy — Order (3 sections, ~2.85 vh)
+ * Source: content-brief.md §C /buy, structure.md §A /buy
+ */
+import Base from '@layouts/Base.astro';
+import { images } from '@lib/assets';
+const jar  = images['honey-jar'];     // single canonical jar image
+const logo = images['logo-3d'];
+---
+<Base
+  title="Order — aumé"
+  description="Order a jar of Himalayan Clear Honey. $44.99. Ships from New Jersey."
+  navMode="solid"
+  currentPath="/buy"
+>
+
+<!-- §1 PRODUCT + FORM -->
+<section class="buy">
+  <div class="buy__inner">
+    <figure class="buy__image fade-up">
+      <img src={jar.webp} alt={jar.description} loading="eager" decoding="async" />
+    </figure>
+
+    <form class="buy__form" id="buy-form">
+      <span class="eyebrow fade-up">Order</span>
+      <h1 class="h1 fade-up" style="margin-top:16px">Himalayan <em>Clear Honey.</em></h1>
+      <p class="caption fade-up" style="margin-top:8px; letter-spacing:0.18em; text-transform:uppercase">12 oz &nbsp;·&nbsp; single origin &nbsp;·&nbsp; raw &nbsp;·&nbsp; spring 2026 harvest</p>
+
+      <div class="buy__price-row fade-up">
+        <span class="numeric buy__price">$44.99</span>
+        <span class="buy__unit">/ 12 oz (340g)</span>
+      </div>
+
+      <p class="body fade-up" style="margin-top: 12px">
+        A single jar from the spring 2026 harvest. Limited release —
+        when this batch is gone, the next valley window opens in autumn.
+      </p>
+
+      <div class="fade-up" style="margin-top:24px">
+        <span class="eyebrow eyebrow--solo" style="display:block; margin-bottom:8px">Quantity</span>
+        <div class="buy__qty">
+          <button type="button" aria-label="Decrease quantity" data-qty-step="-1">&minus;</button>
+          <input type="number" min="1" value="1" aria-label="Quantity" />
+          <button type="button" aria-label="Increase quantity" data-qty-step="1">+</button>
+        </div>
+      </div>
+
+      <div class="buy__row fade-up">
+        <label><span class="eyebrow eyebrow--solo">First name</span><input type="text" required autocomplete="given-name" /></label>
+        <label><span class="eyebrow eyebrow--solo">Last name</span><input type="text" required autocomplete="family-name" /></label>
+      </div>
+      <div class="buy__row buy__row--single fade-up">
+        <label><span class="eyebrow eyebrow--solo">Email</span><input type="email" required autocomplete="email" placeholder="you@domain.com" /></label>
+      </div>
+      <div class="buy__row buy__row--single fade-up">
+        <label><span class="eyebrow eyebrow--solo">Shipping address</span><input type="text" required autocomplete="street-address" /></label>
+      </div>
+
+      <button class="btn-primary buy__cta fade-up" type="submit">Place Order — $44.99</button>
+    </form>
+
+    <div id="buy-confirmation" hidden class="buy__form" role="status" aria-live="polite">
+      <span class="eyebrow eyebrow--solo">Order Placed</span>
+      <h2 class="h1" style="margin-top:16px">Thank you.</h2>
+      <p class="lead" style="margin-top:16px">A confirmation will arrive shortly. Your jar is on its way from New Jersey.</p>
+      <a class="btn-outline" href="/" style="margin-top:24px; display:inline-block">Return Home</a>
+    </div>
+  </div>
+</section>
+
+<!-- §2 TRUST STRIP -->
+<section class="trust" data-skip>
+  <div class="trust__inner">
+    <span class="eyebrow eyebrow--center fade-up">What You Can Count On</span>
+    <div class="trust__row">
+      <div class="trust__item fade-up">
+        <span class="eyebrow eyebrow--solo">Shipping</span>
+        <p class="body">Free over $75. Otherwise $9 flat. Ships within three business days from New Jersey.</p>
+      </div>
+      <div class="trust__item fade-up">
+        <span class="eyebrow eyebrow--solo">Returns</span>
+        <p class="body">Unopened jars returnable within 30 days. We refund the jar; we don't refund the journey.</p>
+      </div>
+      <div class="trust__item fade-up">
+        <span class="eyebrow eyebrow--solo">Provenance</span>
+        <p class="body">Each jar signed. Trace harvester, apiary, and harvest week on the back label.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- §3 WATERMARK CLOSE -->
+<section class="watermark" data-skip aria-hidden="true">
+  <img src={logo.webp} alt="" class="watermark__logo" />
+  <p class="watermark__line">Limited release · 2026 harvest</p>
+</section>
+
+</Base>
+
+<style>
+  .buy {
+    background: var(--cream);
+    padding: 144px var(--pad-section-x) var(--pad-section-y);
+  }
+  .buy__inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    max-width: var(--container-wide);
+    margin: 0 auto;
+  }
+  /* honey-jar is portrait 3:4 — match container, fill edge-to-edge. */
+  .buy__image {
+    position: sticky; top: 100px;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    margin: 0;
+  }
+  .buy__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .buy__form { display: flex; flex-direction: column; gap: 0; }
+  .buy__price-row { display: flex; align-items: baseline; gap: 12px; margin-top: 16px; }
+  .buy__price { font-size: 32px; color: var(--mocha); }
+  .buy__unit { font-size: 12px; letter-spacing: 0.05em; color: var(--text-muted); }
+
+  .buy__qty {
+    display: flex; align-items: center;
+    width: max-content;
+    border: 1px solid var(--mocha);
+  }
+  .buy__qty button {
+    width: 40px; height: 40px;
+    font-family: var(--serif); font-size: 20px; line-height: 1;
+    color: var(--mocha);
+  }
+  .buy__qty input {
+    width: 44px; height: 40px;
+    text-align: center; border: 0; background: transparent;
+    font-family: var(--serif); font-size: 18px; color: var(--mocha);
+    -moz-appearance: textfield; appearance: textfield;
+  }
+  .buy__qty input::-webkit-outer-spin-button,
+  .buy__qty input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+  .buy__row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+    margin-top: 16px;
+  }
+  .buy__row--single { grid-template-columns: 1fr; }
+  .buy__row label { display: flex; flex-direction: column; gap: 6px; }
+  .buy__row input {
+    font-family: var(--sans); font-size: 15px; padding: 12px;
+    border: 1px solid var(--parchment);
+    background: var(--white);
+    color: var(--mocha);
+    transition: border-color var(--dur-reveal) var(--ease-out-expo);
+  }
+  .buy__row input:focus { outline: none; border-color: var(--gold); }
+
+  .buy__cta { width: 100%; margin-top: 24px; padding: 16px 32px; }
+
+  @media (max-width: 900px) {
+    .buy { padding: 112px 24px 64px; }
+    .buy__inner { grid-template-columns: 1fr; gap: 32px; }
+    .buy__image { position: static; aspect-ratio: 1/1; }
+    .buy__row { grid-template-columns: 1fr; }
+  }
+
+  /* §2 TRUST */
+  .trust {
+    background: var(--cream2);
+    padding: 64px var(--pad-section-x);
+  }
+  .trust__inner { max-width: var(--container); margin: 0 auto; text-align: center; }
+  .trust__row {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    margin-top: 24px;
+    text-align: left;
+  }
+  .trust__item .body { font-size: 13px; line-height: 1.65; margin-top: 8px; }
+  @media (max-width: 900px) { .trust__row { grid-template-columns: 1fr; } }
+
+  /* §3 WATERMARK */
+  .watermark {
+    background: var(--cream);
+    padding: 64px var(--pad-section-x);
+    text-align: center;
+  }
+  .watermark__logo { width: 240px; opacity: 0.10; margin: 0 auto; }
+  .watermark__line {
+    margin-top: 16px;
+    font-size: 11px; letter-spacing: 0.40em; text-transform: uppercase;
+    color: var(--text-muted);
+  }
+</style>
+
+<script>
+  // Quantity stepper
+  document.querySelectorAll<HTMLButtonElement>('[data-qty-step]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const step = parseInt(btn.dataset.qtyStep || '0', 10);
+      const input = btn.parentElement?.querySelector<HTMLInputElement>('input');
+      if (!input) return;
+      input.value = String(Math.max(1, (parseInt(input.value, 10) || 1) + step));
+    });
+  });
+
+  // Form submit → swap to confirmation
+  const form = document.getElementById('buy-form') as HTMLFormElement | null;
+  const conf = document.getElementById('buy-confirmation') as HTMLElement | null;
+  if (form && conf) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      form.hidden = true;
+      conf.hidden = false;
+    });
+  }
+</script>

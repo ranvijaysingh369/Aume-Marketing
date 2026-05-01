@@ -1,0 +1,306 @@
+---
+/**
+ * / — Home (4 sections, ~3.66 vh)
+ * Sources of truth: content-brief.md §C `/`, structure.md §A `/`
+ *
+ * Phase-5 amendments:
+ *   - Hero video: full-bleed backdrop (position: fixed),
+ *     edge-to-edge 100vw × 100vh, object-cover.
+ *   - Hero video paused via IO when its host leaves the viewport
+ *     (Base.astro `[data-bg-video-host]` + `[data-bg-video]`).
+ *   - Lenis removed; native scroll only.
+ *   - GPU promotion only on the fixed video (.bg-video).
+ *   - content-visibility: auto on every off-screen section
+ *     downstream of the hero.
+ */
+import Base from '@layouts/Base.astro';
+import { videos, images } from '@lib/assets';
+const heroVid = videos['honey-hover'];   // honey-hover backdrop, encoded at CRF 17 native 1440²
+const jar     = images['honey-jar'];     // single canonical jar image, used site-wide
+---
+<Base
+  title="aumé — From the Earth"
+  description="aumé Himalayan Clear Honey — single origin, raw, cold extracted from the Kashmir Valley. Two ancestral originals. One mission."
+  navMode="over-hero"
+  currentPath="/"
+>
+
+<!-- §1 HERO — full-bleed backdrop, 100vw × 100vh -->
+<section class="home-hero" data-bg-video-host>
+  <video
+    class="home-hero__video bg-video"
+    data-bg-video
+    autoplay muted loop playsinline preload="metadata"
+    poster={heroVid.poster}
+    disablepictureinpicture disableremoteplayback
+    aria-hidden="true"
+  >
+    <source src={heroVid.src720} type="video/mp4" media="(max-width: 768px)" />
+    <source src={heroVid.src} type="video/mp4" />
+  </video>
+  <div class="home-hero__vignette" aria-hidden="true"></div>
+  <div class="home-hero__copy">
+    <h1 class="display home-hero__brand">aumé</h1>
+    <p class="home-hero__tag">From the Earth &nbsp;·&nbsp; Single Origin &nbsp;·&nbsp; Raw</p>
+  </div>
+  <div class="home-hero__scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="home-hero__scroll-line"></span>
+  </div>
+</section>
+
+<!-- §2 THE PREMISE -->
+<section class="premise" data-skip>
+  <div class="premise__inner">
+    <div class="premise__copy">
+      <span class="eyebrow fade-up">The Premise</span>
+      <h2 class="h1 fade-up" style="margin-top:16px">One valley. <em>One jar.</em></h2>
+      <p class="body fade-up" style="margin-top:24px">
+        The honey on the supermarket shelf has been heated, filtered, and
+        blended into something closer to syrup than honey. aumé exists to
+        give it back — raw, unheated, unfiltered Himalayan honey that still
+        carries its pollen, its enzymes, and its origin.
+      </p>
+      <p class="body fade-up" style="margin-top:16px"><em>One harvest. One jar at a time.</em></p>
+    </div>
+    <figure class="premise__image fade-up">
+      <img src={jar.webp} alt={jar.description} loading="eager" decoding="async" />
+    </figure>
+  </div>
+</section>
+
+<!-- §3 THE HONEY — copy-only; the jar shot already served §2, the hero
+     video already showed the product in motion. No third repetition. -->
+<section class="featured featured--copy-only" data-skip>
+  <div class="featured__inner">
+    <div class="featured__copy">
+      <span class="eyebrow fade-up">The Honey</span>
+      <h2 class="h1 fade-up" style="margin-top:16px">The Only Honey <em>Worth Using.</em></h2>
+      <p class="body fade-up" style="margin-top:20px">
+        Cold extracted and unheated from the wildflower meadows of high
+        altitude Kashmir. Single origin, raw, unfiltered. Never pasteurised.
+        Never blended. The rarest expression of wildflower nectar on earth.
+      </p>
+      <ul class="featured__attrs fade-up">
+        <li>Raw &amp; Unheated</li>
+        <li>Cold Extracted</li>
+        <li>Single Origin</li>
+        <li>Wild Foraged</li>
+      </ul>
+      <div class="featured__price fade-up">
+        <span class="numeric featured__price-num">$44.99</span>
+        <span class="featured__price-unit">/ 12 oz (340g)</span>
+      </div>
+      <div class="featured__ctas fade-up">
+        <a class="btn-primary" href="/buy">Add to Cart</a>
+        <a class="btn-link" href="/story">The Story →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Copy-only featured: single column, max 60ch, centred. Removes the
+     2-column grid that previously paired jar + copy. */
+  .featured--copy-only .featured__inner { display: block; max-width: 720px; }
+  .featured--copy-only .featured__copy  { display: flex; flex-direction: column; }
+</style>
+
+<!-- §4 CLOSING CTA -->
+<section class="closing" data-skip>
+  <div class="closing__inner">
+    <span class="eyebrow eyebrow--center fade-up">Limited Release</span>
+    <h2 class="h1 fade-up" style="text-align:center; margin-top:16px">Spring 2026 <em>harvest.</em></h2>
+    <p class="body fade-up" style="margin: 20px auto 32px; text-align:center">
+      Small-batch from the Kashmir valley. When this run is gone, the next
+      valley window opens in autumn.
+    </p>
+    <div class="closing__ctas fade-up">
+      <a class="btn-primary" href="/buy">Order a Jar — $44.99</a>
+      <a class="btn-link" href="/story">Read the Story →</a>
+    </div>
+  </div>
+</section>
+
+</Base>
+
+<style>
+  /* ============================================================
+   * §1 HERO — FULL-BLEED BACKDROP
+   * The host section is 100vh tall. The <video> sits position:fixed
+   * inside it so it doesn't repaint with scroll; once the user scrolls
+   * past, downstream sections paint OVER the still-mounted video.
+   * ============================================================ */
+  .home-hero {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: var(--mocha);
+  }
+  .home-hero__video {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+    z-index: var(--z-bg);
+    /* GPU promotion + repaint avoidance via .bg-video class */
+  }
+  /* Two-layer scrim: full-bottom gradient + corner radial under copy.
+     Lifts text legibility on bright video frames without darkening the
+     whole hero. */
+  .home-hero__vignette {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: 100vh;
+    z-index: calc(var(--z-bg) + 1);
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 50% at 22% 88%, rgba(0,0,0,0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 30% at 88% 88%, rgba(0,0,0,0.35) 0%, transparent 70%),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 45%,
+        rgba(0, 0, 0, 0.32) 78%,
+        rgba(0, 0, 0, 0.55) 100%
+      );
+  }
+  .home-hero__copy {
+    position: absolute;
+    left: 48px;
+    bottom: 48px;
+    z-index: calc(var(--z-bg) + 2);
+    color: var(--cream);
+    max-width: 640px;
+  }
+  .home-hero__brand {
+    color: var(--cream);
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.65),
+      0 4px 32px rgba(0, 0, 0, 0.55);
+  }
+  .home-hero__tag {
+    margin-top: 12px;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(247, 240, 230, 0.95);
+    text-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.75),
+      0 1px 12px rgba(0, 0, 0, 0.55);
+  }
+  .home-hero__scroll {
+    position: absolute;
+    right: 48px;
+    bottom: 48px;
+    z-index: calc(var(--z-bg) + 2);
+    display: flex; align-items: center; gap: 14px;
+    color: rgba(247, 240, 230, 0.92);
+    font-size: 9px; letter-spacing: 0.40em; text-transform: uppercase;
+    text-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.7),
+      0 1px 12px rgba(0, 0, 0, 0.5);
+  }
+  .home-hero__scroll-line {
+    width: 64px; height: 1px;
+    background: var(--gold);
+    position: relative; overflow: hidden;
+  }
+  .home-hero__scroll-line::before {
+    content: '';
+    position: absolute; left: -40%; top: 0;
+    width: 40%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--cream) 50%, transparent);
+    animation: scroll-cue 2.6s var(--ease-out-expo) infinite;
+  }
+  @keyframes scroll-cue { to { left: 120%; } }
+
+  @media (max-width: 900px) {
+    .home-hero__copy   { left: 24px; bottom: 32px; }
+    .home-hero__scroll { right: 24px; bottom: 32px; }
+  }
+
+  /* Once we leave the hero, downstream sections paint OVER the fixed
+   * video naturally. They need a non-transparent background to do so. */
+
+  /* §2 PREMISE */
+  .premise {
+    background: var(--cream);
+    padding: var(--pad-section-y) var(--pad-section-x);
+    position: relative;       /* establish stacking context above bg video */
+    z-index: var(--z-content);
+  }
+  .premise__inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    max-width: var(--container);
+    margin: 0 auto;
+    align-items: center;
+  }
+  /* Image fills the container edge-to-edge — no inner padding, no visible
+     box-in-box gutter. The jar photo's own backdrop becomes the surface. */
+  .premise__image { aspect-ratio: 3/4; overflow: hidden; margin: 0; max-width: 80%; }
+  .premise__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 900px) {
+    .premise__inner { grid-template-columns: 1fr; gap: 32px; }
+    .premise__image { max-width: 70%; }
+  }
+
+  /* §3 FEATURED */
+  .featured {
+    background: var(--cream2);
+    padding: var(--pad-section-y) var(--pad-section-x);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .featured__inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    max-width: var(--container);
+    margin: 0 auto;
+    align-items: center;
+  }
+  .featured__image {
+    aspect-ratio: 4/5;
+    background: var(--cream3); overflow: hidden; margin: 0;
+  }
+  .featured__image img { width: 100%; height: 100%; object-fit: contain; padding: 16px; }
+  .featured__attrs {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-top: 24px;
+  }
+  .featured__attrs li {
+    font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+    border: 1px solid var(--parchment);
+    padding: 5px 12px;
+    color: var(--text-body);
+  }
+  .featured__price {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-top: 32px;
+  }
+  .featured__price-num { font-size: 32px; color: var(--mocha); }
+  .featured__price-unit { font-size: 12px; letter-spacing: 0.05em; color: var(--text-muted); }
+  .featured__ctas { display: flex; align-items: center; gap: 24px; margin-top: 24px; }
+  @media (max-width: 900px) {
+    .featured__inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* §4 CLOSING */
+  .closing {
+    background: var(--cream);
+    padding: var(--pad-section-y) var(--pad-section-x);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .closing__inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    text-align: center;
+  }
+  .closing__ctas {
+    display: flex; justify-content: center; align-items: center; gap: 24px;
+    flex-wrap: wrap;
+  }
+</style>

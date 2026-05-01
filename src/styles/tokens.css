@@ -1,0 +1,86 @@
+/* ============================================================
+ * tokens.css — primitives only.
+ *
+ * Source of truth: structure.md §C (type & spacing)
+ *                  content-brief.md (palette implicit via blueprint)
+ *
+ * No hex literals outside this file.
+ * ============================================================ */
+
+:root {
+  /* --- Surface (warm cream → parchment ladder) --- */
+  --cream:      #F7F0E6;
+  --cream2:     #EEE4D4;
+  --cream3:     #E5D9C8;
+  --parchment:  #DDD0BC;
+  --mist:       #F2EBE0;
+  --white:      #FDFAF6;
+
+  /* --- Mocha (deep editorial dark) --- */
+  --mocha:      #3D2B1F;
+  --mocha2:     #5C4033;
+
+  /* --- Gold (accent only) --- */
+  --gold:       #B8924A;
+  --gold2:      #CDA96A;
+  --sand:       #C4AA88;
+
+  /* --- Text --- */
+  --text-body:  #4A3728;
+  --text-light: #8B7060;
+  --text-muted: #B0957E;
+
+  /* --- Type --- */
+  --serif: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  --sans:  'Jost', 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Modular scale 1.25× anchored at 16px body (structure.md §C) */
+  --t-caption:  13px;
+  --t-body:     16px;
+  --t-lead:     20px;
+  --t-h3:       25px;
+  --t-h2:       clamp(31px, 3.2vw, 39px);
+  --t-h1:       clamp(39px, 4.5vw, 49px);
+  --t-display:  clamp(61px, 8vw, 76px);
+  --t-eyebrow:  11px;
+
+  /* --- Spacing (8px base; no space-8/144 — that token retired) --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 40px;
+  --space-6: 64px;
+  --space-7: 96px;
+
+  --pad-section-y: 96px;
+  --pad-section-x: 56px;
+  --gutter:        24px;
+
+  --container:        1200px;
+  --container-wide:   1440px;
+  --container-narrow: 720px;
+
+  /* --- Motion (structure.md §B) --- */
+  --dur-reveal: 600ms;
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* --- Borders & radii --- */
+  --radius-1: 0px;
+  --radius-2: 2px;
+  --border-hairline: 1px solid var(--parchment);
+  --border-hairline-soft: 1px solid var(--cream3);
+
+  /* --- Z-index --- */
+  --z-bg:      0;
+  --z-content: 1;
+  --z-overlay: 50;
+  --z-nav:     100;
+}
+
+@media (max-width: 900px) {
+  :root {
+    --pad-section-y: 64px;
+    --pad-section-x: 24px;
+  }
+}

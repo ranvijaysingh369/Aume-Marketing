@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: aume
+    runtime: static
+    plan: free
+    branch: main
+    buildCommand: npm ci && npx astro build
+    staticPublishPath: dist
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+    headers:
+      - path: /assets/video/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /assets/images/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+    routes:
+      - type: rewrite
+        source: /journal
+        destination: /

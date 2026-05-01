@@ -1,0 +1,261 @@
+---
+/**
+ * /the-honey — Product
+ * Phase-6: §1 hero refactored to fixed full-bleed video backdrop
+ *          using dancer-honey.mp4. Right-column jar image moved out
+ *          of §1 (the dancer footage shows the jar prominently).
+ *
+ * Sources: content-brief.md §C /the-honey, structure.md §A /the-honey
+ */
+import Base from '@layouts/Base.astro';
+import { videos, images } from '@lib/assets';
+const heroVid = videos['dancer-honey'];
+const jarFB   = images['honey-front-and-back']; // labels visible — earns the §3 back-label slot
+---
+<Base
+  title="Himalayan Clear Honey — aumé"
+  description="What's in the jar — specs, tasting notes, what's printed on the label."
+  navMode="over-hero"
+  currentPath="/the-honey"
+>
+
+<!-- §1 HERO — full-bleed backdrop -->
+<section class="ph-hero" data-bg-video-host>
+  <video
+    class="ph-hero__video bg-video"
+    data-bg-video
+    autoplay muted loop playsinline preload="metadata"
+    poster={heroVid.poster}
+    disablepictureinpicture disableremoteplayback
+    aria-hidden="true"
+  >
+    <source src={heroVid.src720} type="video/mp4" media="(max-width: 768px)" />
+    <source src={heroVid.src} type="video/mp4" />
+  </video>
+  <div class="ph-hero__vignette" aria-hidden="true"></div>
+  <div class="ph-hero__copy">
+    <span class="eyebrow eyebrow--cream eyebrow--solo">The Honey</span>
+    <h1 class="h1 ph-hero__title">
+      Himalayan <em>Clear Honey.</em>
+    </h1>
+    <div class="ph-hero__price">
+      <span class="numeric ph-hero__price-num">$44.99</span>
+      <span class="ph-hero__price-unit">/ 12 oz (340g)</span>
+    </div>
+    <p class="ph-hero__notes"><em>Floral.</em> <em>Bright.</em> <em>Mineral.</em></p>
+    <div class="ph-hero__ctas">
+      <a class="btn-primary btn-primary--cream" href="/buy">Add to Cart</a>
+      <a class="btn-link ph-hero__link" href="/story">The Story →</a>
+    </div>
+    <p class="ph-hero__caption">In stock &nbsp;·&nbsp; Spring 2026 harvest &nbsp;·&nbsp; Ships from New Jersey</p>
+  </div>
+</section>
+
+<!-- §2 SPECIFICATIONS -->
+<section class="specs">
+  <div class="specs__inner">
+    <div class="specs__head fade-up">
+      <span class="eyebrow eyebrow--center">Specifications</span>
+      <h2 class="h2" style="text-align:center; margin-top:16px">What's <em>in the jar.</em></h2>
+    </div>
+    <table class="specs__table" aria-label="Product specifications">
+      <tbody>
+        <tr class="fade-up"><td class="specs__lbl">Origin</td><td class="specs__val">Kashmir Valley, India</td></tr>
+        <tr class="fade-up"><td class="specs__lbl">Altitude</td><td class="specs__val numeric">11,000 ft +</td></tr>
+        <tr class="fade-up"><td class="specs__lbl">Floral source</td><td class="specs__val">Wild clover, thyme, rhododendron</td></tr>
+        <tr class="fade-up"><td class="specs__lbl">Harvest</td><td class="specs__val">Spring 2026</td></tr>
+        <tr class="fade-up"><td class="specs__lbl">Process</td><td class="specs__val">Cold extracted, linen strained at ambient temperature</td></tr>
+        <tr class="fade-up"><td class="specs__lbl">Net weight</td><td class="specs__val numeric">12 oz / 340 g</td></tr>
+        <tr class="fade-up"><td class="specs__lbl">Source to seal</td><td class="specs__val numeric">48 hrs, every batch</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- §3 THE BACK LABEL -->
+<section class="back-label">
+  <div class="back-label__inner">
+    <figure class="back-label__image fade-up">
+      <img src={jarFB.webp} alt={jarFB.description} loading="lazy" decoding="async" />
+    </figure>
+    <div class="back-label__copy">
+      <span class="eyebrow fade-up">Notes</span>
+
+      <h3 class="back-label__head fade-up">Traditionally used for.</h3>
+      <p class="body fade-up" style="margin-top:12px">
+        In the valleys it comes from, raw honey has been taken at first light
+        for soothing the throat, settling the stomach, and lifting the
+        morning. We carry the tradition forward without changing it.
+      </p>
+
+      <h3 class="back-label__head fade-up" style="margin-top:32px">A spoonful contains.</h3>
+      <p class="body fade-up" style="margin-top:12px">
+        Naturally occurring antioxidants and polyphenols. Trace minerals from
+        high altitude soil. Live enzymes — glucose oxidase, invertase,
+        diastase — that pasteurised honey no longer has. And nothing else.
+        No additives, no fillers, no heat above 38°C.
+      </p>
+    </div>
+  </div>
+</section>
+
+</Base>
+
+<style>
+  /* ============================================================
+   * §1 HERO — FULL-BLEED BACKDROP
+   * ============================================================ */
+  .ph-hero {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    background: var(--mocha);
+  }
+  .ph-hero__video {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    object-position: center;
+    z-index: var(--z-bg);
+  }
+  .ph-hero__vignette {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: 100vh;
+    z-index: calc(var(--z-bg) + 1);
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 60% 60% at 22% 78%, rgba(0,0,0,0.70) 0%, transparent 70%),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 35%,
+        rgba(0, 0, 0, 0.42) 75%,
+        rgba(0, 0, 0, 0.65) 100%
+      );
+  }
+  .ph-hero__copy {
+    position: absolute;
+    left: 48px;
+    bottom: 48px;
+    z-index: calc(var(--z-bg) + 2);
+    color: var(--cream);
+    max-width: 720px;
+    display: flex; flex-direction: column;
+  }
+  .ph-hero__title {
+    color: var(--cream);
+    margin-top: 16px;
+    text-shadow:
+      0 2px 8px rgba(0, 0, 0, 0.78),
+      0 4px 32px rgba(0, 0, 0, 0.6);
+  }
+  .ph-hero__title em { color: var(--gold-light, #E2C98A); }
+  .ph-hero__copy .eyebrow {
+    text-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.75),
+      0 1px 12px rgba(0, 0, 0, 0.55);
+  }
+  .ph-hero__price {
+    display: flex; align-items: baseline; gap: 12px;
+    margin-top: 24px;
+    text-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.75),
+      0 1px 12px rgba(0, 0, 0, 0.5);
+  }
+  .ph-hero__price-num { font-size: 36px; color: var(--cream); }
+  .ph-hero__price-unit { font-size: 13px; color: rgba(247,240,230,0.92); letter-spacing: 0.05em; }
+  .ph-hero__notes {
+    margin-top: 12px;
+    font-family: var(--serif); font-weight: 300;
+    font-size: var(--t-h3);
+    color: rgba(247,240,230,0.98);
+    letter-spacing: 0.01em;
+    text-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.75),
+      0 1px 12px rgba(0, 0, 0, 0.5);
+  }
+  .ph-hero__notes em { font-style: italic; color: var(--gold-light, #E2C98A); }
+  .ph-hero__ctas {
+    display: flex; align-items: center; gap: 24px;
+    margin-top: 24px;
+  }
+  .ph-hero__caption {
+    margin-top: 16px;
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: rgba(247,240,230,0.92);
+    text-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.75),
+      0 1px 12px rgba(0, 0, 0, 0.5);
+  }
+  .ph-hero__link { color: var(--cream); border-bottom-color: rgba(247,240,230,0.55); }
+  .ph-hero__link:hover { color: var(--gold-light, #E2C98A); border-bottom-color: var(--gold); }
+
+  /* Cream-fill primary button reads on dark video */
+  .btn-primary--cream {
+    background: var(--cream); color: var(--mocha);
+  }
+  .btn-primary--cream:hover { background: var(--gold-light, #E2C98A); color: var(--mocha); }
+
+  @media (max-width: 900px) {
+    .ph-hero__copy { left: 24px; bottom: 32px; }
+  }
+
+  /* ============================================================
+   * §2 SPECS — solid bg paints OVER the fixed video
+   * ============================================================ */
+  .specs {
+    background: var(--white);
+    padding: var(--pad-section-y) var(--pad-section-x);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .specs__inner { max-width: var(--container); margin: 0 auto; }
+  .specs__head { margin-bottom: 40px; }
+  .specs__table {
+    width: 100%; border-collapse: collapse;
+    border-top: 1px solid var(--parchment);
+  }
+  .specs__table tr { border-bottom: 1px solid var(--cream3); }
+  .specs__table td { padding: 16px 0; vertical-align: baseline; }
+  .specs__lbl {
+    width: 30%;
+    font-family: var(--sans); font-size: 10px;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--gold);
+  }
+  .specs__val {
+    font-family: var(--serif); font-size: var(--t-h3);
+    color: var(--mocha);
+  }
+
+  /* §3 BACK LABEL */
+  .back-label {
+    background: var(--cream);
+    padding: var(--pad-section-y) var(--pad-section-x);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .back-label__inner {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+    max-width: var(--container-wide);
+    margin: 0 auto;
+    align-items: center;
+  }
+  /* honey-front-and-back is a 1:1 square — match the container so it
+     fills edge-to-edge. */
+  .back-label__image { aspect-ratio: 1/1; overflow: hidden; margin: 0; }
+  .back-label__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .back-label__head {
+    font-family: var(--serif); font-weight: 400;
+    font-size: var(--t-h3);
+    color: var(--mocha);
+    margin-top: 16px;
+  }
+  @media (max-width: 900px) {
+    .back-label__inner { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>

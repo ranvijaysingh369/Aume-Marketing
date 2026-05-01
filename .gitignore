@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Astro / build artifacts (regenerable)
+.astro/
+dist/
+.cache/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
+
+# Local env
+.env
+.env.local
+.env.*.local
+
+# DO commit public/assets/ — those are the optimised images and videos
+# the deployed site serves. They're regenerable from the marketing folder
+# locally, but on Render the build VM has no access to that source folder.
