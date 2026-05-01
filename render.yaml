@@ -2,7 +2,6 @@ services:
   - type: web
     name: aume
     runtime: static
-    plan: free
     branch: main
     buildCommand: npm ci && npx astro build
     staticPublishPath: dist
