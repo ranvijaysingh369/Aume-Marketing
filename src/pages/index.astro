@@ -43,10 +43,6 @@ const jar     = images['honey-jar'];     // single canonical jar image, used sit
     <h1 class="display home-hero__brand">aumé</h1>
     <p class="home-hero__tag">From the Earth &nbsp;·&nbsp; Single Origin &nbsp;·&nbsp; Raw</p>
   </div>
-  <div class="home-hero__scroll" aria-hidden="true">
-    <span>Scroll</span>
-    <span class="home-hero__scroll-line"></span>
-  </div>
 </section>
 
 <!-- §2 THE PREMISE -->
@@ -175,6 +171,11 @@ const jar     = images['honey-jar'];     // single canonical jar image, used sit
     z-index: calc(var(--z-bg) + 2);
     color: var(--cream);
     max-width: 640px;
+    /* Explicit flex column so wordmark sits ABOVE tagline, no exceptions.
+       Block flow already does this, but flex makes it deterministic. */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
   .home-hero__brand {
     color: var(--cream);
@@ -192,35 +193,8 @@ const jar     = images['honey-jar'];     // single canonical jar image, used sit
       0 1px 4px rgba(0, 0, 0, 0.75),
       0 1px 12px rgba(0, 0, 0, 0.55);
   }
-  .home-hero__scroll {
-    position: absolute;
-    right: 48px;
-    bottom: 48px;
-    z-index: calc(var(--z-bg) + 2);
-    display: flex; align-items: center; gap: 14px;
-    color: rgba(247, 240, 230, 0.92);
-    font-size: 9px; letter-spacing: 0.40em; text-transform: uppercase;
-    text-shadow:
-      0 1px 4px rgba(0, 0, 0, 0.7),
-      0 1px 12px rgba(0, 0, 0, 0.5);
-  }
-  .home-hero__scroll-line {
-    width: 64px; height: 1px;
-    background: var(--gold);
-    position: relative; overflow: hidden;
-  }
-  .home-hero__scroll-line::before {
-    content: '';
-    position: absolute; left: -40%; top: 0;
-    width: 40%; height: 100%;
-    background: linear-gradient(90deg, transparent, var(--cream) 50%, transparent);
-    animation: scroll-cue 2.6s var(--ease-out-expo) infinite;
-  }
-  @keyframes scroll-cue { to { left: 120%; } }
-
   @media (max-width: 900px) {
-    .home-hero__copy   { left: 24px; bottom: 32px; }
-    .home-hero__scroll { right: 24px; bottom: 32px; }
+    .home-hero__copy { left: 24px; bottom: 32px; }
   }
 
   /* Once we leave the hero, downstream sections paint OVER the fixed
