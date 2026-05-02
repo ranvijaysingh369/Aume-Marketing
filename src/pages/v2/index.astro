@@ -59,24 +59,18 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
     <span class="v2-tile__index-line" aria-hidden="true"></span>
   </div>
 
-  <!-- Lockup centered — wordmark rises from below to optical
-       center; hairline draws beneath; tagline lifts in last. -->
-  <div class="v2-hero__copy">
-    <h1 class="v2-hero__brand" aria-label="aumé">
-      <span class="v2-hero__brand-char" style="--ch:0">a</span><span
-            class="v2-hero__brand-char" style="--ch:1">u</span><span
-            class="v2-hero__brand-char" style="--ch:2">m</span><span
-            class="v2-hero__brand-char" style="--ch:3">é</span>
-    </h1>
-    <span class="v2-hero__hairline" aria-hidden="true"></span>
-    <span class="v2-eyebrow v2-eyebrow--solo v2-eyebrow--center v2-hero__eyebrow">From&nbsp;the&nbsp;Earth</span>
-  </div>
+  <!-- Hero copy intentionally omitted — the From-the-Earth video
+       has the wordmark + tagline baked in, so any HTML overlay
+       would double up. The video IS the lockup.
+       Semantic <h1> for SEO/a11y is provided as a visually-hidden
+       label below. -->
+  <h1 class="v2-hero__sr">aumé — From the Earth</h1>
 </section>
 
 <!-- ============================================================
-     §2 THE HONEY — dancer-honey backdrop, cinematic dark
+     §2 THE HONEY — sub-section sized (~62vh), independent block
      ============================================================ -->
-<section class="v2-tile" data-tile-video-host id="the-honey">
+<section class="v2-tile v2-tile--sub" data-tile-video-host id="the-honey">
   <video
     class="v2-tile__video"
     data-tile-video
@@ -122,11 +116,10 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
 </section>
 
 <!-- ============================================================
-     §3 THE GHEE — honey-drinking-flower placeholder (different
-     atmospheric scene from §2 so the page doesn't read as a
-     duplicate). Hard rule: ghee never claims mountains here.
+     §3 THE GHEE — sub-section sized (~62vh), independent block.
+     Hard rule: ghee never claims mountains on this page.
      ============================================================ -->
-<section class="v2-tile" data-tile-video-host id="the-ghee">
+<section class="v2-tile v2-tile--sub" data-tile-video-host id="the-ghee">
   <video
     class="v2-tile__video"
     data-tile-video
@@ -206,6 +199,18 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
     background: var(--v2-bg);
     isolation: isolate;
   }
+  /* Visually-hidden semantic h1 for SEO + a11y. The video has the
+     wordmark + tagline baked in, so we don't render text overlay. */
+  .v2-hero__sr {
+    position: absolute;
+    width: 1px; height: 1px;
+    margin: -1px; padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    border: 0;
+    white-space: nowrap;
+  }
   .v2-hero__video {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
@@ -221,18 +226,22 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
      the mountain mid-tones (no text-shadow). All-over mocha tint
      matched to the §2/§3 tile scrim so the four sections read as
      one continuous twilight palette. */
+  /* Hero scrim — lighter, since the wordmark is baked into the
+     video and we don't need to lift cream copy off the mid-tones.
+     Just a soft top + bottom darken plus the warm-amber wash for
+     chromatic continuity with the §2 / §3 tiles. */
   .v2-hero__scrim {
     position: absolute; inset: 0;
     z-index: 1;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 55% 45% at 50% 55%, rgba(0, 0, 0, 0.45) 0%, transparent 75%),
-      radial-gradient(ellipse 50% 40% at 82% 12%, rgba(197, 149, 42, 0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 82% 12%, rgba(197, 149, 42, 0.10) 0%, transparent 70%),
       linear-gradient(
         to bottom,
-        rgba(6, 5, 4, 0.32) 0%,
-        rgba(61, 43, 31, 0.20) 50%,
-        rgba(6, 5, 4, 0.50) 100%
+        rgba(6, 5, 4, 0.18) 0%,
+        transparent 35%,
+        transparent 65%,
+        rgba(6, 5, 4, 0.32) 100%
       );
   }
 
