@@ -1,6 +1,6 @@
 ---
 /**
- * /v2/the-ghee — A2 Bilona Ghee product page (3 sections).
+ * /v2/the-ghee — A2 Bilona Ghee product page (3 sections, dark-cinema).
  *
  * Brief §5.3 layout. Brand-strategy hard rules from §2.2 of the
  * build brief: this page proves ghee on its own legible levers
@@ -8,13 +8,19 @@
  * provenance words from the honey side of the brand are kept off
  * this page entirely. See §7.5 of the brief.
  *
+ * UI rules from ui-ux-pro-max:
+ *   - single dark surface throughout (no cream sections)
+ *   - eyebrows ALL CAPS gold tracked 0.22em above each Cormorant headline
+ *   - no text-shadows
+ *   - tile videos color-graded for tonal cohesion
+ *
  * Sections:
  *   §1 Product hero    placeholder video, copy left, price + CTAs
- *   §2 Specifications  table — Origin / Cattle / Method / Tradition / COA / Weight
+ *   §2 Specifications  table on dark — Origin / Cattle / Method / etc
  *   §3 Notes           "Traditionally used for" + "A spoonful contains"
  *
- * Hyphen discipline: every hyphen in display copy is the Unicode
- * non-breaking hyphen (U+2011, &#8209;) so the §7.4 sweep stays clean.
+ * Hyphen discipline: every hyphen in display copy is U+2011
+ * non-breaking hyphen (&#8209;) so the §7.4 sweep stays clean.
  */
 import V2Base from '@layouts/V2Base.astro';
 import { videos } from '@lib/assets';
@@ -28,7 +34,7 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
 >
 
 <!-- ============================================================
-     §1 PRODUCT HERO — full-bleed placeholder video, copy left
+     §1 PRODUCT HERO — full-bleed placeholder video
      ============================================================ -->
 <section class="v2-tile" data-tile-video-host>
   <video
@@ -42,7 +48,7 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
     <source src={heroVid.src720} type="video/mp4" media="(max-width: 768px)" />
     <source src={heroVid.src} type="video/mp4" />
   </video>
-  <div class="v2-tile__scrim v2-tile__scrim--ghee" aria-hidden="true"></div>
+  <div class="v2-tile__scrim" aria-hidden="true"></div>
   <div class="v2-tile__frame" aria-hidden="true"></div>
 
   <div class="v2-tile__index">
@@ -51,7 +57,7 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
   </div>
 
   <div class="v2-tile__copy v2-tile__copy--product">
-    <span class="v2-eyebrow v2-eyebrow--cream">The Ghee</span>
+    <span class="v2-eyebrow">The Ghee</span>
     <h1 class="v2-tile__title">A2 <em>Bilona&nbsp;Ghee.</em></h1>
     <p class="v2-tile__notes">
       <em>A2&nbsp;Beta&#8209;Casein.</em>&nbsp;<em>Bilona&nbsp;Churned.</em>&nbsp;<em>Five Thousand Years.</em>
@@ -77,7 +83,7 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
 </section>
 
 <!-- ============================================================
-     §2 SPECIFICATIONS — table, no body paragraph
+     §2 SPECIFICATIONS — dark surface table
      ============================================================ -->
 <section class="v2-specs" id="specifications">
   <div class="v2-specs__inner">
@@ -117,8 +123,7 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
 </section>
 
 <!-- ============================================================
-     §3 NOTES — "Traditionally used for" + "A spoonful contains"
-     Mirrors /the-honey §3 pattern with a single image-free editorial column.
+     §3 NOTES — single dark column, beige body
      ============================================================ -->
 <section class="v2-notes">
   <div class="v2-notes__inner">
@@ -150,11 +155,7 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
 </V2Base>
 
 <style>
-  /* ============================================================
-   * §1 inherits .v2-tile / .v2-tile__copy from v2-global.css.
-   * Adds: .v2-tile__copy--product (slightly tighter), .v2-tile__notes
-   * (italic Cormorant accent line), .v2-tile__caption (footer line).
-   * ============================================================ */
+  /* §1 inherits .v2-tile / .v2-tile__copy from v2-global.css. */
   .v2-tile__copy--product { gap: 18px; max-width: 760px; }
   .v2-tile__notes {
     margin-top: 4px;
@@ -162,12 +163,11 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
     font-weight: 300;
     font-size: clamp(20px, 2.4vw, 26px);
     line-height: 1.35;
-    color: rgba(247, 240, 230, 0.96);
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+    color: var(--v2-cream);
   }
   .v2-tile__notes em {
     font-style: italic;
-    color: var(--gold-light);
+    color: var(--v2-gold-2);
   }
   .v2-tile__caption {
     margin-top: 12px;
@@ -176,15 +176,14 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
     font-size: 11px;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: rgba(247, 240, 230, 0.84);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+    color: color-mix(in oklab, var(--v2-beige) 75%, transparent);
   }
 
   /* ============================================================
-   * §2 SPECIFICATIONS — cream surface, hairline rows
+   * §2 SPECIFICATIONS — dark surface
    * ============================================================ */
   .v2-specs {
-    background: var(--white);
+    background: var(--v2-bg);
     padding: var(--pad-cinema-y) var(--tile-overlay-pad-x);
     position: relative;
     z-index: var(--z-content);
@@ -205,21 +204,18 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
     font-family: var(--serif);
     font-weight: 300;
     font-size: var(--t-h2);
-    color: var(--mocha);
+    color: var(--v2-cream);
     margin: 0;
     text-wrap: balance;
   }
-  .v2-notes__head {
-    text-wrap: balance;
-  }
-  .v2-specs__title em { font-style: italic; color: var(--mocha2); }
+  .v2-specs__title em { font-style: italic; color: var(--v2-gold-2); }
   .v2-specs__table {
     width: 100%;
     border-collapse: collapse;
-    border-top: 1px solid color-mix(in oklab, var(--gold) 24%, transparent);
+    border-top: 1px solid color-mix(in oklab, var(--v2-gold) 30%, transparent);
   }
   .v2-specs__table tr {
-    border-bottom: 1px solid color-mix(in oklab, var(--mocha) 6%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, var(--v2-cream) 8%, transparent);
   }
   .v2-specs__table td {
     padding: 22px 0;
@@ -232,23 +228,24 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
     font-size: 10px;
     letter-spacing: 0.40em;
     text-transform: uppercase;
-    color: var(--gold);
+    color: color-mix(in oklab, var(--v2-gold) 80%, transparent);
   }
   .v2-specs__val {
     font-family: var(--serif);
     font-weight: 300;
     font-size: clamp(20px, 2.2vw, 26px);
-    color: var(--mocha);
+    color: var(--v2-cream);
   }
 
   /* ============================================================
-   * §3 NOTES — single column, max 60ch reading width
+   * §3 NOTES — dark surface, beige body, max 60ch
    * ============================================================ */
   .v2-notes {
-    background: var(--cream);
-    padding: var(--pad-cinema-y) var(--tile-overlay-pad-x);
+    background: var(--v2-bg);
+    padding: var(--pad-cinema-y) var(--tile-overlay-pad-x) calc(var(--pad-cinema-y) + 32px);
     position: relative;
     z-index: var(--z-content);
+    border-top: 1px solid color-mix(in oklab, var(--v2-cream) 6%, transparent);
   }
   .v2-notes__inner {
     max-width: 680px;
@@ -258,15 +255,16 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
     font-family: var(--serif);
     font-weight: 400;
     font-size: clamp(28px, 3.4vw, 36px);
-    color: var(--mocha);
+    color: var(--v2-cream);
     margin-top: 16px;
     line-height: 1.18;
+    text-wrap: balance;
   }
   .v2-notes__rule {
     display: block;
     width: 56px;
     height: 1px;
-    background: var(--gold);
+    background: var(--v2-gold);
     margin: 64px auto;
     opacity: 0.55;
   }
@@ -276,7 +274,7 @@ const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile deliv
     font-weight: 300;
     font-size: clamp(18px, 2vw, 24px);
     line-height: 1.55;
-    color: var(--mocha2);
+    color: color-mix(in oklab, var(--v2-beige) 88%, transparent);
     max-width: 56ch;
     margin: 0 auto;
   }

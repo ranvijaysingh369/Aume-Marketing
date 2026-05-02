@@ -1,29 +1,32 @@
 /* ============================================================
- * v2-tokens.css — extends v1 tokens for the /v2/ prototype.
+ * v2-tokens.css — dark-cinema palette per ui-ux-pro-max.
  *
- * v1 tokens still authoritative for the brand palette (cream /
- * mocha / gold ladder). v2 layers on:
- *   - declared --gold-light (v1 used the literal #E2C98A inline)
- *   - Plus Jakarta Sans family (replaces v1 Jost; legacy sans barred per /high-end-visual-design)
- *   - cinematic motion curves
- *   - macro-whitespace scale for the closing tagline
- *   - tile-architecture sizing
+ * v1 tokens are imported (other v1 routes still need them) but
+ * the v2 palette is its own dark-cinema language: a single deep
+ * near-black surface from edge to edge, with cream/beige type
+ * and a sparing gold accent. No section-level surface changes.
  *
- * Imports v1 tokens.css so any v1 var keeps resolving on a v2 page.
+ * Reference: AUMÉ ui-ux-pro-max skill §1 (aesthetic), §2 (palette).
  * ============================================================ */
 
 @import './tokens.css';
 
 :root {
   /* --- Type — v2 sans is Plus Jakarta Sans.
-     The Jakarta family ships at 200/300/400/500/600/700; v2 uses
-     200 (atmospheric eyebrows), 300 (body), 500 (CTA labels).
      Legacy generic sans typefaces barred per /high-end-visual-design §2. */
   --jakarta: 'Plus Jakarta Sans', 'Jost', system-ui, -apple-system, sans-serif;
 
-  /* Re-declare gold-light as a token so v2 stops the v1 hex literal
-     creep into page styles. v1 inlines #E2C98A; v2 uses the token. */
-  --gold-light: #E2C98A;
+  /* --- v2 dark-cinema palette --------------------------------- */
+  --v2-bg:      #060504;   /* deep near-black, single page surface */
+  --v2-bg2:     #0B0907;   /* one stop lighter for divisions in shadow */
+  --v2-cream:   #FAF5EB;   /* primary text — cream, never pure white */
+  --v2-beige:   #D4C4A8;   /* body / sub copy on dark */
+  --v2-gold:    #C5952A;   /* accent only — eyebrows, hairlines, marks */
+  --v2-gold-2:  #DBB35E;   /* warmer gold accent — wordmark gradient end */
+  --v2-sage:    #7A8B6F;   /* secondary muted accent (used sparingly) */
+
+  /* Re-declare gold-light token (legacy) — points at v2-gold-2 now */
+  --gold-light: var(--v2-gold-2);
 
   /* --- Cinematic motion curves -------------------------------- */
   --ease-cinema:  cubic-bezier(0.22, 1, 0.36, 1);   /* reveals — gentle out */
@@ -34,30 +37,28 @@
   --dur-reveal-v2: 800ms;
   --dur-cta:      450ms;
 
-  /* --- Macro-whitespace for the closing tile (§4 cream surface) --
-     Calibrated against the 4-viewport scroll ceiling: 100vh × 3 tiles
-     leaves ~600px for closing + footer + bottom strip. */
-  --pad-cinema-y: clamp(64px, 8vw, 112px);
+  /* --- Whitespace --------------------------------------------- */
+  --pad-cinema-y: clamp(72px, 12vh, 144px);
 
   /* --- Tile architecture -------------------------------------- */
   --tile-overlay-pad-x: clamp(28px, 5vw, 72px);
   --tile-overlay-pad-y: clamp(40px, 7vh, 88px);
-  --tile-meta-max-w:    clamp(280px, 36vw, 460px);
 
-  /* --- Hairlines (gold + parchment) ---------------------------- */
-  --hairline-gold:      1px solid color-mix(in oklab, var(--gold) 70%, transparent);
-  --hairline-cream:     1px solid color-mix(in oklab, var(--cream) 30%, transparent);
+  /* --- Hairlines ---------------------------------------------- */
+  --hairline-gold:  1px solid color-mix(in oklab, var(--v2-gold) 60%, transparent);
+  --hairline-cream: 1px solid color-mix(in oklab, var(--v2-cream) 18%, transparent);
 
-  /* --- v2 surface ladder — same hex as v1, used here so any v2
-     section is grep-able as `var(--v2-surface-*)` ------------- */
-  --v2-surface-warm: var(--cream);
-  --v2-surface-deep: var(--mocha);
+  /* --- Tile video color grade — single-axis brightness only.
+     Multi-filter chains (sepia/saturate/contrast on a 100vh video)
+     drop /v2/ to ~37 fps. Brightness alone is GPU-cheap; the warm
+     tone comes from the scrim's amber-mocha overlay below. */
+  --tile-grade: brightness(0.62);
 }
 
 @media (max-width: 900px) {
   :root {
     --tile-overlay-pad-x: 24px;
     --tile-overlay-pad-y: 40px;
-    --pad-cinema-y: 72px;
+    --pad-cinema-y: 96px;
   }
 }

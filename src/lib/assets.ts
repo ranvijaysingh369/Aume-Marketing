@@ -93,15 +93,30 @@ export const videos = {
     subject: 'Himalayan first-light footage — brand-level signifier hero (not a product origin claim)',
     usedOn: ['/v2/ §1 hero backdrop'],
   },
-  // PLACEHOLDER paths until the real ghee tile video lands. See docs/v2-build-brief.md §6 + §10.
+  // v2 §2 honey tile — points at dancer-honey for the cinematic
+  // dark register that matches the hero's mood. honey-hover is too
+  // bright/jar-dominant for the dark-cinema language.
+  'honey-tile': {
+    id: 'honey-tile',
+    source: 'dancer honey.mp4',
+    src:    '/assets/video/dancer-honey.mp4',
+    src720: '/assets/video/dancer-honey-720.mp4',
+    poster: '/assets/images/poster-dancer-honey.jpg',
+    subject: 'Dancer interacting with falling honey — cinematic dark, pulled into warm-mocha by the v2 tile color grade',
+    usedOn: ['/v2/ §2 honey tile backdrop'],
+  },
+  // PLACEHOLDER paths for §3 ghee until the real ghee tile lands.
+  // Pointed at honey-drinking-flower (atmospheric, slow, dark) so it
+  // reads as a different scene from §2 (which uses dancer-honey).
+  // See docs/v2-build-brief.md §6 + §10 for the swap procedure.
   'ghee-tile': {
     id: 'ghee-tile',
     source: '(pending — see docs/v2-build-brief.md §6 + §10)',
-    src:    '/assets/video/honey-hover.mp4',
-    src720: '/assets/video/honey-hover-720.mp4',
-    poster: '/assets/images/poster-honey-hover.jpg',
+    src:    '/assets/video/honey-drinking-flower.mp4',
+    src720: '/assets/video/honey-drinking-flower-720.mp4',
+    poster: '/assets/images/poster-honey-drinking-flower.jpg',
     subject: 'PLACEHOLDER — to be replaced with golden ghee video on delivery',
-    usedOn: ['/v2/ §3 ghee tile backdrop'],
+    usedOn: ['/v2/ §3 ghee tile backdrop', '/v2/the-ghee §1 product hero'],
   },
 } as const satisfies Record<string, VideoAsset>;
 
