@@ -105,17 +105,14 @@ export const videos = {
     subject: 'Dancer interacting with falling honey — cinematic dark, pulled into warm-mocha by the v2 tile color grade',
     usedOn: ['/v2/ §2 honey tile backdrop'],
   },
-  // PLACEHOLDER paths for §3 ghee until the real ghee tile lands.
-  // Pointed at honey-drinking-flower (atmospheric, slow, dark) so it
-  // reads as a different scene from §2 (which uses dancer-honey).
-  // See docs/v2-build-brief.md §6 + §10 for the swap procedure.
+  // §3 ghee tile — real footage delivered (Bilona Ghee Making Video).
   'ghee-tile': {
     id: 'ghee-tile',
-    source: '(pending — see docs/v2-build-brief.md §6 + §10)',
-    src:    '/assets/video/honey-drinking-flower.mp4',
-    src720: '/assets/video/honey-drinking-flower-720.mp4',
-    poster: '/assets/images/poster-honey-drinking-flower.jpg',
-    subject: 'PLACEHOLDER — to be replaced with golden ghee video on delivery',
+    source: 'Bilona Ghee Making Video.mp4',
+    src:    '/assets/video/aume-ghee.mp4',
+    src720: '/assets/video/aume-ghee-720.mp4',
+    poster: '/assets/images/poster-aume-ghee.jpg',
+    subject: 'Bilona ghee making — slow hand-churn process footage',
     usedOn: ['/v2/ §3 ghee tile backdrop', '/v2/the-ghee §1 product hero'],
   },
 } as const satisfies Record<string, VideoAsset>;
