@@ -105,7 +105,7 @@ export const videos = {
     subject: 'Dancer interacting with falling honey — cinematic dark, pulled into warm-mocha by the v2 tile color grade',
     usedOn: ['/v2/ §2 honey tile backdrop'],
   },
-  // §3 ghee tile — real footage delivered (Bilona Ghee Making Video).
+  // §3 ghee tile on /v2/ home — Bilona Ghee Making process footage.
   'ghee-tile': {
     id: 'ghee-tile',
     source: 'Bilona Ghee Making Video.mp4',
@@ -113,7 +113,19 @@ export const videos = {
     src720: '/assets/video/aume-ghee-720.mp4',
     poster: '/assets/images/poster-aume-ghee.jpg',
     subject: 'Bilona ghee making — slow hand-churn process footage',
-    usedOn: ['/v2/ §3 ghee tile backdrop', '/v2/the-ghee §1 product hero'],
+    usedOn: ['/v2/ §3 ghee tile backdrop'],
+  },
+  // /v2/the-ghee §1 product hero — separate slot. Placeholder until
+  // the user provides the bottle/jar product video. When it lands,
+  // swap the src/src720/poster paths in this entry only.
+  'ghee-product': {
+    id: 'ghee-product',
+    source: '(pending — separate ghee bottle/jar video coming)',
+    src:    '/assets/video/honey-drinking-flower.mp4',
+    src720: '/assets/video/honey-drinking-flower-720.mp4',
+    poster: '/assets/images/poster-honey-drinking-flower.jpg',
+    subject: 'PLACEHOLDER — to be replaced with ghee bottle/jar product video',
+    usedOn: ['/v2/the-ghee §1 product hero'],
   },
 } as const satisfies Record<string, VideoAsset>;
 
