@@ -113,7 +113,10 @@ const VIDEOS = [
   { src: 'honey drinking flower.mp4', id: 'honey-drinking-flower' },
   { src: 'aume hero page video.mp4', id: 'aume-hero' },
   { src: 'Bilona Ghee Making Video.mp4', id: 'aume-ghee' },
-  { src: 'From the earth hero page.mp4', id: 'aume-hero-fte' },
+  // 'hero' quality preset: 1080p CRF 20 6Mbps — crisper for the
+  // /v2/ §1 hero where the wordmark + tagline are baked in and
+  // detail clarity matters. Mobile variant stays on the perf preset.
+  { src: 'From the earth hero page.mp4', id: 'aume-hero-fte', quality: 'hero' },
 ];
 
 async function ensureDir(p) { await fs.mkdir(p, { recursive: true }); }
@@ -216,8 +219,17 @@ async function processVideo(entry) {
   const posterOut = path.join(OUT_IMG, `poster-${entry.id}.jpg`);
 
   if (FFMPEG_AVAILABLE) {
-    await transcode(srcPath, fullOut);                // default: 720p CRF 28, 2.5Mbps
-    await fs.copyFile(fullOut, mobileOut);            // mobile = same file (perf preset is invisible at backdrop scale)
+    if (entry.quality === 'hero') {
+      // Hero preset: 1080p CRF 20 6Mbps — crisper detail.
+      await transcode(srcPath, fullOut, {
+        maxW: 1920, maxH: 1080, crf: 20, preset: 'slow', maxBitrate: '6000k',
+      });
+      // Mobile variant on the perf preset (saves bandwidth).
+      await transcode(srcPath, mobileOut);
+    } else {
+      await transcode(srcPath, fullOut);              // default: 720p CRF 28, 2.5Mbps
+      await fs.copyFile(fullOut, mobileOut);          // mobile = same file (perf preset is invisible at backdrop scale)
+    }
     const at = Math.min(0.5, Math.max(0.05, durationSec / 2));
     await extractPoster(srcPath, posterOut, at);
     const buf = await fs.readFile(posterOut);
