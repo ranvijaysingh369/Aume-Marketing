@@ -25,8 +25,8 @@ const honeyVid = videos['honey-hover'];
 const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
 ---
 <V2Base
-  title="aumé — From the Earth · At First Light"
-  description="Two ancestral originals, taken at first light. Himalayan Clear Honey + A2 Bilona Ghee."
+  title="aumé — From the Earth"
+  description="Himalayan Clear Honey + A2 Bilona Ghee. Two ancestral originals. From the Earth."
   navMode="over-hero"
   currentPath="/v2/"
 >
@@ -54,14 +54,20 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
   <!-- Hairline frame — Aesop window-shop set-in -->
   <div class="v2-hero__frame" aria-hidden="true"></div>
 
-  <!-- Top-right index marker -->
-  <div class="v2-hero__index">
+  <!-- Top-right index marker — same column the tiles use, so the
+       hero is Chapter 01 of a continuous editorial flow. -->
+  <div class="v2-tile__index">
     <span>N° 01 · The Pairing</span>
     <span class="v2-tile__index-line" aria-hidden="true"></span>
   </div>
 
-  <!-- The lockup -->
-  <div class="v2-hero__copy">
+  <!-- Hero lockup, bottom-left — same x-column the tile titles
+       below sit in, so the eye scans one continuous left edge from
+       §1 → §2 → §3 → §4. Eyebrow + headline pattern matches the
+       tile architecture exactly; the difference is the headline IS
+       the wordmark. -->
+  <div class="v2-tile__copy v2-hero__copy">
+    <span class="v2-eyebrow v2-eyebrow--cream v2-hero__eyebrow">From&nbsp;the&nbsp;Earth</span>
     <h1 class="v2-hero__brand" aria-label="aumé">
       <span class="v2-hero__brand-char" style="--ch:0">a</span><span
             class="v2-hero__brand-char" style="--ch:1">u</span><span
@@ -69,10 +75,9 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
             class="v2-hero__brand-char" style="--ch:3">é</span>
     </h1>
     <span class="v2-hero__hairline" aria-hidden="true"></span>
-    <p class="v2-hero__tag">From&nbsp;the&nbsp;Earth&nbsp;&nbsp;·&nbsp;&nbsp;At&nbsp;First&nbsp;Light</p>
   </div>
 
-  <!-- Bottom scroll cue, mirrored from v1 — minimal, gold hairline -->
+  <!-- Bottom scroll cue, opposite column from copy -->
   <div class="v2-hero__scroll" aria-hidden="true">
     <span>Scroll</span>
     <span class="v2-hero__scroll-line"></span>
@@ -205,6 +210,9 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
    * Adapted: char-split for cascading rise, tighter tracking,
    * gold hairline beneath, abstract tagline tracked 0.40em.
    * ============================================================ */
+  /* Hero is structurally a tile (full-bleed video, scrim, frame,
+     bottom-left copy column). Compose by extending .v2-tile so the
+     scroll between §1 → §2 → §3 reads as one continuous flow. */
   .v2-hero {
     position: relative;
     height: 100vh;
@@ -223,17 +231,24 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
     transform: translateZ(0);
     backface-visibility: hidden;
   }
+  /* Scrim treatment matches the tile scrims — bottom-left dark
+     to lift cream copy + a warm amber wash from the top-right that
+     mirrors the sunrise warmth in the footage. This is the same
+     family the §2/§3 tiles below use, so the chromatic register
+     reads continuous from sunrise → honey → ghee → cream. */
   .v2-hero__scrim {
     position: absolute; inset: 0;
     z-index: 1;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.32) 80%),
+      radial-gradient(ellipse 70% 60% at 18% 92%, rgba(0, 0, 0, 0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 82% 10%, rgba(226, 201, 138, 0.14) 0%, transparent 70%),
       linear-gradient(
         to bottom,
-        rgba(0, 0, 0, 0.18) 0%,
-        rgba(0, 0, 0, 0.12) 40%,
-        rgba(0, 0, 0, 0.30) 100%
+        rgba(0, 0, 0, 0.10) 0%,
+        transparent 40%,
+        transparent 60%,
+        rgba(0, 0, 0, 0.40) 100%
       );
   }
   .v2-hero__frame {
@@ -243,32 +258,24 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
     pointer-events: none;
     border: 1px solid color-mix(in oklab, var(--cream) 18%, transparent);
   }
-  .v2-hero__index {
-    position: absolute;
-    top: var(--tile-overlay-pad-y);
-    right: var(--tile-overlay-pad-x);
-    z-index: 3;
-    display: flex; align-items: center; gap: 12px;
-    font-family: var(--jakarta);
-    font-size: 10px;
-    letter-spacing: 0.40em;
-    text-transform: uppercase;
-    color: rgba(247, 240, 230, 0.86);
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
-    /* Slow fade in alongside the wordmark choreography */
+  /* Hero index marker — same as tile index. Slow fade alongside
+     the wordmark choreography. */
+  .v2-hero .v2-tile__index {
     opacity: 0;
     animation: v2-hero-fade 1200ms var(--ease-cinema) 1800ms forwards;
   }
+  /* Hero copy — overlay style identical to .v2-tile__copy below.
+     Inherits left/bottom positioning + max-width from the tile
+     class; the only override is gap (a touch tighter so the
+     wordmark + eyebrow read as one mark, not two paragraphs). */
   .v2-hero__copy {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    color: var(--cream);
-    text-align: center;
-    pointer-events: none;
-    padding-bottom: 6vh;  /* optical-center bias, not mathematical */
+    gap: 8px;
+  }
+  .v2-hero__eyebrow {
+    /* Eyebrow sits ABOVE the wordmark — same eyebrow language
+       (caps, gold-light, hairline rule) as §2 / §3 tiles. */
+    opacity: 0;
+    animation: v2-hero-fade 900ms var(--ease-cinema) 600ms forwards;
   }
 
   /* The wordmark — character split for cascading rise. Each <span>
@@ -284,9 +291,12 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
     font-weight: 300;
     font-size: var(--t-display);
     line-height: 1;
-    letter-spacing: 0.05em;
+    letter-spacing: -0.005em;
     color: var(--cream);
     margin: 0;
+    /* Negative margin pulls the wordmark closer to the eyebrow rule
+       so they read as one stamped lockup, not two stacked items. */
+    margin-top: 6px;
     text-shadow:
       0 0 48px rgba(226, 201, 138, 0.28),
       0 2px 14px rgba(0, 0, 0, 0.55),
@@ -319,27 +329,15 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
     }
   }
 
+  /* Hairline beneath the wordmark — draws after the wordmark settles. */
   .v2-hero__hairline {
     display: block;
     width: 0;
     height: 1px;
     background: var(--gold-light);
-    margin: 28px 0 18px;
+    margin: 18px 0 0;
     box-shadow: 0 0 18px rgba(226, 201, 138, 0.55);
-    animation: v2-hero-hairline 900ms var(--ease-cinema) 2900ms both;
-  }
-
-  .v2-hero__tag {
-    font-family: var(--jakarta);
-    font-weight: 300;
-    font-size: 11px;
-    letter-spacing: 0.40em;
-    text-transform: uppercase;
-    color: rgba(247, 240, 230, 0.94);
-    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    transform: translateY(14px);
-    animation: v2-hero-tag 1200ms var(--ease-cinema) 3300ms forwards;
+    animation: v2-hero-hairline 900ms var(--ease-cinema) 3000ms both;
   }
 
   .v2-hero__scroll {
@@ -376,11 +374,7 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
   }
   @keyframes v2-hero-hairline {
     0%   { width: 0; }
-    100% { width: 112px; }
-  }
-  @keyframes v2-hero-tag {
-    0%   { opacity: 0; transform: translateY(14px); }
-    100% { opacity: 1; transform: translateY(0); }
+    100% { width: 84px; }
   }
   @keyframes v2-hero-fade {
     0%   { opacity: 0; }
@@ -399,10 +393,10 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
     }
     .v2-hero__hairline {
       animation: none;
-      width: 112px;
+      width: 84px;
     }
-    .v2-hero__tag,
-    .v2-hero__index,
+    .v2-hero__eyebrow,
+    .v2-hero .v2-tile__index,
     .v2-hero__scroll {
       animation: none;
       opacity: 1;
@@ -412,9 +406,8 @@ const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
   }
 
   @media (max-width: 760px) {
-    .v2-hero__index { top: 24px; right: 24px; font-size: 9px; letter-spacing: 0.32em; }
     .v2-hero__scroll { right: 24px; bottom: 32px; }
-    .v2-hero__brand { font-size: clamp(72px, 22vw, 96px); }
+    .v2-hero__brand { font-size: clamp(64px, 18vw, 88px); }
   }
 
   /* ============================================================

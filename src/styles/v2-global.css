@@ -323,19 +323,22 @@ p { margin: 0; }
   backface-visibility: hidden;
   contain: paint;
 }
-/* Two-layer scrim — gradient + corner radial — keeps copy legible
-   without darkening the whole frame */
+/* Three-layer scrim — gradient + bottom-left dark + top-right
+   warm amber wash. The amber wash is the through-line that ties
+   §1 hero (sunrise warmth) → §2 honey (gold) → §3 ghee (amber) →
+   §4 cream into one chromatic arc. Without it the tiles read as
+   isolated cards; with it they read as chapters of one volume. */
 .v2-tile__scrim {
   position: absolute;
   inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 70% 60% at 18% 92%, rgba(0,0,0,0.55) 0%, transparent 70%),
-    radial-gradient(ellipse 40% 30% at 88% 10%, rgba(0,0,0,0.32) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 60% at 18% 92%, rgba(0, 0, 0, 0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 50% 40% at 82% 10%, rgba(226, 201, 138, 0.14) 0%, transparent 70%),
     linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.18) 0%,
+      rgba(0, 0, 0, 0.12) 0%,
       transparent 30%,
       transparent 60%,
       rgba(0, 0, 0, 0.42) 100%
