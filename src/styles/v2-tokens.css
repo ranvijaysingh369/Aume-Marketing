@@ -1,0 +1,63 @@
+/* ============================================================
+ * v2-tokens.css — extends v1 tokens for the /v2/ prototype.
+ *
+ * v1 tokens still authoritative for the brand palette (cream /
+ * mocha / gold ladder). v2 layers on:
+ *   - declared --gold-light (v1 used the literal #E2C98A inline)
+ *   - Plus Jakarta Sans family (replaces v1 Jost; legacy sans barred per /high-end-visual-design)
+ *   - cinematic motion curves
+ *   - macro-whitespace scale for the closing tagline
+ *   - tile-architecture sizing
+ *
+ * Imports v1 tokens.css so any v1 var keeps resolving on a v2 page.
+ * ============================================================ */
+
+@import './tokens.css';
+
+:root {
+  /* --- Type — v2 sans is Plus Jakarta Sans.
+     The Jakarta family ships at 200/300/400/500/600/700; v2 uses
+     200 (atmospheric eyebrows), 300 (body), 500 (CTA labels).
+     Legacy generic sans typefaces barred per /high-end-visual-design §2. */
+  --jakarta: 'Plus Jakarta Sans', 'Jost', system-ui, -apple-system, sans-serif;
+
+  /* Re-declare gold-light as a token so v2 stops the v1 hex literal
+     creep into page styles. v1 inlines #E2C98A; v2 uses the token. */
+  --gold-light: #E2C98A;
+
+  /* --- Cinematic motion curves -------------------------------- */
+  --ease-cinema:  cubic-bezier(0.22, 1, 0.36, 1);   /* reveals — gentle out */
+  --ease-glass:   cubic-bezier(0.77, 0, 0.18, 1);   /* tile cross-fades — slow start, slow end */
+  --ease-spring:  cubic-bezier(0.32, 0.72, 0, 1);   /* CTA press — Apple-style */
+
+  --dur-rise:     2400ms;
+  --dur-reveal-v2: 800ms;
+  --dur-cta:      450ms;
+
+  /* --- Macro-whitespace for the closing tile (§4 cream surface) --
+     Calibrated against the 4-viewport scroll ceiling: 100vh × 3 tiles
+     leaves ~600px for closing + footer + bottom strip. */
+  --pad-cinema-y: clamp(64px, 8vw, 112px);
+
+  /* --- Tile architecture -------------------------------------- */
+  --tile-overlay-pad-x: clamp(28px, 5vw, 72px);
+  --tile-overlay-pad-y: clamp(40px, 7vh, 88px);
+  --tile-meta-max-w:    clamp(280px, 36vw, 460px);
+
+  /* --- Hairlines (gold + parchment) ---------------------------- */
+  --hairline-gold:      1px solid color-mix(in oklab, var(--gold) 70%, transparent);
+  --hairline-cream:     1px solid color-mix(in oklab, var(--cream) 30%, transparent);
+
+  /* --- v2 surface ladder — same hex as v1, used here so any v2
+     section is grep-able as `var(--v2-surface-*)` ------------- */
+  --v2-surface-warm: var(--cream);
+  --v2-surface-deep: var(--mocha);
+}
+
+@media (max-width: 900px) {
+  :root {
+    --tile-overlay-pad-x: 24px;
+    --tile-overlay-pad-y: 40px;
+    --pad-cinema-y: 72px;
+  }
+}

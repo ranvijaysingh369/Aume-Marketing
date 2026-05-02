@@ -1,0 +1,538 @@
+/* ============================================================
+ * v2-global.css — chrome for the /v2/ prototype.
+ *
+ * Authoritative for: body type, fluid-island nav, film-grain
+ * overlay, tile architecture, button-in-button CTA pattern,
+ * cinematic reveal primitive, magazine-grade footer.
+ *
+ * v1 styles (global.css) are NOT imported here — v2 uses its
+ * own typography & nav language. v2-tokens.css imports v1
+ * tokens.css so palette tokens remain shared.
+ * ============================================================ */
+
+@import './v2-tokens.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+ * BASE
+ * ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  font-family: var(--jakarta);
+  font-size: var(--t-body);
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--text-body);
+  background: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  /* Slightly tighter tracking on Jakarta to keep the editorial register */
+  letter-spacing: -0.005em;
+}
+img, video, svg { display: block; max-width: 100%; height: auto; }
+button { background: none; border: 0; font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; padding: 0; margin: 0; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 400; margin: 0; line-height: 1.10; letter-spacing: -0.01em; }
+h3, h4 { line-height: 1.20; }
+p { margin: 0; }
+
+/* Skip link */
+.skip-link {
+  position: absolute; left: -9999px;
+  background: var(--mocha); color: var(--cream);
+  padding: 16px 24px;
+  z-index: 9999;
+}
+.skip-link:focus { left: 16px; top: 16px; }
+
+/* Focus */
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 4px;
+  transition: outline-offset var(--dur-cta) var(--ease-cinema);
+}
+
+/* ============================================================
+ * FILM GRAIN — fixed, pointer-events-none.
+ * mix-blend-mode is intentionally NOT used: a blended fixed layer
+ * forces the compositor to re-blend the full viewport on every
+ * scroll frame, which dropped /v2/ to 46 fps on a 1440×900 perf
+ * trace. Plain opacity gives the photographic-grain look at zero
+ * scroll cost. SVG is data-uri so there's no extra request.
+ * ============================================================ */
+.v2-grain {
+  position: fixed; inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.18  0 0 0 0 0.13  0 0 0 0 0.08  0 0 0 1 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+  /* Promote to its own layer so the cost is paid once at composite. */
+  transform: translateZ(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .v2-grain { display: none; }
+}
+
+/* ============================================================
+ * TYPE UTILITIES
+ * ============================================================ */
+.v2-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--jakarta); font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.40em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0;
+}
+.v2-eyebrow::after {
+  content: ''; display: block;
+  width: 28px; height: 1px;
+  background: var(--gold);
+  opacity: 0.45;
+}
+.v2-eyebrow--solo::after { display: none; }
+.v2-eyebrow--cream { color: var(--gold-light); }
+.v2-eyebrow--center { justify-content: center; }
+
+.v2-h1       { font-size: var(--t-h1); color: var(--mocha); }
+.v2-h2       { font-size: var(--t-h2); color: var(--mocha); }
+.v2-h3       { font-size: var(--t-h3); color: var(--mocha); }
+.v2-display  { font-family: var(--serif); font-weight: 300; font-style: italic; font-size: var(--t-display); line-height: 1; letter-spacing: -0.025em; }
+.v2-body     { font-size: var(--t-body); line-height: 1.7; color: var(--text-body); max-width: 52ch; }
+.v2-numeric  { font-family: var(--serif); font-weight: 300; font-feature-settings: "lnum" 1, "tnum" 1; }
+
+/* ============================================================
+ * FLUID ISLAND NAV — detached glass pill at top.
+ * Styled separately from v1 .nav. Glass-blur is applied to a
+ * fixed element only (rulebook §6).
+ * ============================================================ */
+.v2-nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 36px);
+  padding: 10px 14px 10px 22px;
+  border-radius: 999px;
+  /* Hero-mode: ultralight cream-tinted glass over dark video */
+  background: color-mix(in oklab, var(--cream) 10%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid color-mix(in oklab, var(--cream) 22%, transparent);
+  box-shadow:
+    0 1px 0 0 color-mix(in oklab, var(--cream) 12%, transparent) inset,
+    0 18px 40px -18px rgba(0, 0, 0, 0.55);
+  color: var(--cream);
+  transition:
+    background var(--dur-reveal-v2) var(--ease-cinema),
+    border-color var(--dur-reveal-v2) var(--ease-cinema),
+    color var(--dur-reveal-v2) var(--ease-cinema),
+    box-shadow var(--dur-reveal-v2) var(--ease-cinema),
+    top var(--dur-reveal-v2) var(--ease-cinema);
+}
+/* Past-hero: tighten shadow, switch to mocha-on-cream */
+.v2-nav.is-scrolled {
+  background: color-mix(in oklab, var(--cream) 88%, transparent);
+  border-color: color-mix(in oklab, var(--mocha) 12%, transparent);
+  color: var(--mocha);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.6) inset,
+    0 12px 32px -16px rgba(61, 43, 31, 0.28);
+}
+.v2-nav__logo {
+  font-family: var(--serif); font-weight: 400;
+  font-size: 22px; letter-spacing: 0.04em;
+  padding: 4px 10px 4px 6px;
+  color: inherit;
+}
+.v2-nav__links {
+  display: flex; gap: clamp(12px, 2.4vw, 28px);
+  align-items: center;
+  font-family: var(--jakarta);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.v2-nav__link {
+  color: inherit;
+  opacity: 0.78;
+  transition:
+    opacity var(--dur-cta) var(--ease-cinema),
+    color   var(--dur-cta) var(--ease-cinema);
+}
+.v2-nav__link:hover,
+.v2-nav__link[aria-current="page"] { opacity: 1; }
+.v2-nav__cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 18px 10px 20px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--gold-light) 95%, transparent);
+  color: var(--mocha);
+  font-family: var(--jakarta); font-weight: 500;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  transition:
+    background var(--dur-cta) var(--ease-spring),
+    transform  var(--dur-cta) var(--ease-spring);
+}
+.v2-nav__cta::after {
+  content: '↗';
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--mocha) 12%, transparent);
+  font-size: 11px;
+  transition: transform var(--dur-cta) var(--ease-spring);
+}
+.v2-nav__cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+.v2-nav__cta:hover::after { transform: translate(2px, -2px); }
+.v2-nav__cta:active { transform: scale(0.98); }
+
+@media (max-width: 760px) {
+  .v2-nav { gap: 8px; padding: 8px 10px 8px 14px; top: 12px; }
+  .v2-nav__logo { font-size: 19px; }
+  .v2-nav__links { gap: 14px; font-size: 10px; letter-spacing: 0.18em; }
+  .v2-nav__links .v2-nav__link:nth-child(n+3) { display: none; }
+  .v2-nav__cta { padding: 8px 12px 8px 14px; font-size: 10px; letter-spacing: 0.16em; }
+}
+
+/* ============================================================
+ * BUTTON ARCHITECTURE — button-in-button CTA pattern.
+ * Primary CTA: pill with right-side circular icon-host.
+ * ============================================================ */
+.v2-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 18px 14px 28px;
+  border-radius: 999px;
+  font-family: var(--jakarta); font-weight: 500;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  background: var(--cream);
+  color: var(--mocha);
+  border: 1px solid color-mix(in oklab, var(--mocha) 8%, transparent);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.7) inset,
+    0 10px 32px -16px rgba(61, 43, 31, 0.4);
+  transition:
+    background var(--dur-cta) var(--ease-spring),
+    color      var(--dur-cta) var(--ease-spring),
+    transform  var(--dur-cta) var(--ease-spring),
+    box-shadow var(--dur-cta) var(--ease-spring);
+  position: relative;
+}
+.v2-cta__pip {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  background: color-mix(in oklab, var(--mocha) 10%, transparent);
+  font-family: var(--serif); font-size: 13px;
+  transition: transform var(--dur-cta) var(--ease-spring),
+              background var(--dur-cta) var(--ease-spring);
+}
+.v2-cta:hover {
+  background: var(--gold-light);
+  color: var(--mocha);
+  transform: translateY(-1px);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.9) inset,
+    0 14px 38px -16px rgba(61, 43, 31, 0.55);
+}
+.v2-cta:hover .v2-cta__pip {
+  background: color-mix(in oklab, var(--mocha) 18%, transparent);
+  transform: translate(2px, -2px);
+}
+.v2-cta:active { transform: scale(0.98); }
+
+/* Cream-on-mocha variant for the closing tile */
+.v2-cta--mocha {
+  background: var(--mocha);
+  color: var(--cream);
+  border-color: color-mix(in oklab, var(--gold) 30%, transparent);
+}
+.v2-cta--mocha .v2-cta__pip {
+  background: color-mix(in oklab, var(--cream) 12%, transparent);
+  color: var(--cream);
+}
+.v2-cta--mocha:hover {
+  background: var(--mocha2);
+  color: var(--gold-light);
+}
+
+/* Secondary text link with magnetic underline draw */
+.v2-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--jakarta); font-weight: 500;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--cream);
+  position: relative;
+  padding-bottom: 4px;
+}
+.v2-link::after {
+  content: '';
+  position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: var(--gold-light);
+  transform: scaleX(0.4);
+  transform-origin: left center;
+  transition: transform var(--dur-cta) var(--ease-cinema);
+}
+.v2-link:hover::after { transform: scaleX(1); }
+.v2-link__arrow { transition: transform var(--dur-cta) var(--ease-spring); }
+.v2-link:hover .v2-link__arrow { transform: translateX(4px); }
+
+.v2-link--mocha { color: var(--mocha); }
+.v2-link--mocha::after { background: var(--gold); }
+
+/* ============================================================
+ * TILE ARCHITECTURE
+ * Each tile is 100vh, full-bleed, with a fixed bg video that
+ * pauses when off-screen (IO in V2Base.astro). Copy sits in
+ * absolutely-positioned overlay bottom-left, padded by token.
+ * ============================================================ */
+.v2-tile {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  width: 100vw;
+  overflow: hidden;
+  background: var(--mocha);
+  isolation: isolate;
+}
+.v2-tile__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+  /* GPU promotion — same trick v1 uses on .bg-video.
+     Each tile video gets its own composite layer so they don't
+     contend with one another during the IO play/pause toggle. */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: paint;
+}
+/* Two-layer scrim — gradient + corner radial — keeps copy legible
+   without darkening the whole frame */
+.v2-tile__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 60% at 18% 92%, rgba(0,0,0,0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 30% at 88% 10%, rgba(0,0,0,0.32) 0%, transparent 70%),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.18) 0%,
+      transparent 30%,
+      transparent 60%,
+      rgba(0, 0, 0, 0.42) 100%
+    );
+}
+/* Hairline frame — like an Aesop window-shop frame, set into the tile */
+.v2-tile__frame {
+  position: absolute;
+  inset: clamp(20px, 3vw, 40px);
+  z-index: 2;
+  pointer-events: none;
+  border: 1px solid color-mix(in oklab, var(--cream) 18%, transparent);
+}
+.v2-tile__copy {
+  position: absolute;
+  left: var(--tile-overlay-pad-x);
+  bottom: var(--tile-overlay-pad-y);
+  z-index: 3;
+  color: var(--cream);
+  max-width: 720px;
+  display: flex; flex-direction: column;
+  gap: 14px;
+}
+.v2-tile__title {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 5.4vw, 64px);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  text-shadow:
+    0 2px 10px rgba(0, 0, 0, 0.55),
+    0 4px 36px rgba(0, 0, 0, 0.35);
+  /* Prevent orphan words on the last line — important on a 2-3 word
+     editorial title that wraps unpredictably across viewports. */
+  text-wrap: balance;
+  max-width: 18ch;
+}
+.v2-tile__title em { font-style: italic; color: var(--gold-light); font-weight: 300; }
+.v2-tile__sub {
+  font-family: var(--jakarta);
+  font-weight: 300;
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(247, 240, 230, 0.92);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  /* Wider character spacing — keeps the editorial register */
+}
+.v2-tile__price {
+  display: flex; align-items: baseline; gap: 12px;
+  margin-top: 4px;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+.v2-tile__price-num { font-family: var(--serif); font-weight: 300; font-size: 32px; color: var(--cream); }
+.v2-tile__price-unit { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(247,240,230,0.78); }
+.v2-tile__ctas {
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+  margin-top: 10px;
+}
+/* Top-right index marker — like a Le Labo "N°" tag */
+.v2-tile__index {
+  position: absolute;
+  top: var(--tile-overlay-pad-y);
+  right: var(--tile-overlay-pad-x);
+  z-index: 3;
+  display: flex; align-items: center; gap: 12px;
+  font-family: var(--jakarta);
+  font-size: 10px;
+  letter-spacing: 0.40em;
+  text-transform: uppercase;
+  color: rgba(247, 240, 230, 0.78);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+.v2-tile__index-line {
+  width: 36px; height: 1px;
+  background: var(--gold-light);
+  opacity: 0.7;
+}
+@media (max-width: 760px) {
+  .v2-tile__title { font-size: clamp(36px, 9vw, 48px); }
+  .v2-tile__index { top: 24px; right: 24px; font-size: 9px; }
+  .v2-tile__index-line { width: 24px; }
+  .v2-tile__price-num { font-size: 26px; }
+}
+
+/* ============================================================
+ * REVEAL PRIMITIVE — gentle fade-up, no blur (perf), 800ms.
+ * IntersectionObserver in V2Base.astro toggles .is-in.
+ * ============================================================ */
+.v2-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   var(--dur-reveal-v2) var(--ease-cinema),
+    transform var(--dur-reveal-v2) var(--ease-cinema);
+  will-change: opacity, transform;
+}
+.v2-reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.v2-reveal.is-in { will-change: auto; }
+
+/* Stagger helpers — used on a small group of children */
+.v2-reveal[data-delay="80"]  { transition-delay: 80ms; }
+.v2-reveal[data-delay="160"] { transition-delay: 160ms; }
+.v2-reveal[data-delay="240"] { transition-delay: 240ms; }
+.v2-reveal[data-delay="320"] { transition-delay: 320ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .v2-reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+ * v2 FOOTER — mocha bg, gold accent, dual-product copy.
+ * Same proportions as v1 footer so scroll budget stays the same.
+ * ============================================================ */
+.v2-footer {
+  background: var(--mocha);
+  padding: 48px var(--tile-overlay-pad-x) 28px;
+  color: rgba(247, 240, 230, 0.82);
+  position: relative;
+  z-index: var(--z-content);
+}
+.v2-footer__top {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 32px;
+  max-width: var(--container);
+  margin: 0 auto 28px;
+}
+.v2-footer__brand {
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 32px;
+  letter-spacing: 0.04em;
+  color: var(--cream);
+}
+.v2-footer__from {
+  font-size: 9px;
+  letter-spacing: 0.50em;
+  text-transform: uppercase;
+  color: var(--sand);
+  margin-top: 8px;
+}
+.v2-footer__bio {
+  margin-top: 16px;
+  font-style: italic;
+  font-family: var(--serif);
+  font-size: 14px;
+  color: rgba(247, 240, 230, 0.6);
+  line-height: 1.65;
+  max-width: 32ch;
+}
+.v2-footer__col-head {
+  font-size: 9px;
+  letter-spacing: 0.40em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 14px;
+}
+.v2-footer__links li { margin-bottom: 8px; }
+.v2-footer__links a {
+  color: rgba(247, 240, 230, 0.55);
+  font-size: 13px;
+  transition: color var(--dur-cta) var(--ease-cinema);
+}
+.v2-footer__links a:hover { color: var(--cream); }
+.v2-footer__bottom {
+  border-top: 1px solid rgba(247, 240, 230, 0.10);
+  padding-top: 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: var(--container);
+  margin: 0 auto;
+  font-size: 11px; color: rgba(247, 240, 230, 0.42);
+  gap: 16px;
+}
+.v2-footer__logo-img { height: 64px; width: auto; opacity: 0.92; }
+@media (max-width: 760px) {
+  .v2-footer { padding: 48px 24px 24px; }
+  .v2-footer__top { grid-template-columns: 1fr 1fr; gap: 28px; }
+  .v2-footer__bottom { flex-direction: column; gap: 14px; align-items: flex-start; }
+}
+
+/* ============================================================
+ * REDUCED MOTION
+ * ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

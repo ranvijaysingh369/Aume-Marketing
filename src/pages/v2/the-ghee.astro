@@ -1,0 +1,291 @@
+---
+/**
+ * /v2/the-ghee — A2 Bilona Ghee product page (3 sections).
+ *
+ * Brief §5.3 layout. Brand-strategy hard rules from §2.2 of the
+ * build brief: this page proves ghee on its own legible levers
+ * (A2 + Bilona + 5,000 years + COA + Gir lineage). Geographic
+ * provenance words from the honey side of the brand are kept off
+ * this page entirely. See §7.5 of the brief.
+ *
+ * Sections:
+ *   §1 Product hero    placeholder video, copy left, price + CTAs
+ *   §2 Specifications  table — Origin / Cattle / Method / Tradition / COA / Weight
+ *   §3 Notes           "Traditionally used for" + "A spoonful contains"
+ *
+ * Hyphen discipline: every hyphen in display copy is the Unicode
+ * non-breaking hyphen (U+2011, &#8209;) so the §7.4 sweep stays clean.
+ */
+import V2Base from '@layouts/V2Base.astro';
+import { videos } from '@lib/assets';
+const heroVid = videos['ghee-tile'];   // placeholder until real ghee tile delivered
+---
+<V2Base
+  title="A2 Bilona Ghee — aumé"
+  description="A2 Bilona Ghee. Slow hand churned from Gir cow milk. The original cattle breed. Bilona method. Five thousand years."
+  navMode="over-hero"
+  currentPath="/v2/the-ghee"
+>
+
+<!-- ============================================================
+     §1 PRODUCT HERO — full-bleed placeholder video, copy left
+     ============================================================ -->
+<section class="v2-tile" data-tile-video-host>
+  <video
+    class="v2-tile__video"
+    data-tile-video
+    autoplay muted loop playsinline preload="metadata"
+    poster={heroVid.poster}
+    disablepictureinpicture disableremoteplayback
+    aria-hidden="true"
+  >
+    <source src={heroVid.src720} type="video/mp4" media="(max-width: 768px)" />
+    <source src={heroVid.src} type="video/mp4" />
+  </video>
+  <div class="v2-tile__scrim v2-tile__scrim--ghee" aria-hidden="true"></div>
+  <div class="v2-tile__frame" aria-hidden="true"></div>
+
+  <div class="v2-tile__index">
+    <span>N° 03 · The Ghee</span>
+    <span class="v2-tile__index-line" aria-hidden="true"></span>
+  </div>
+
+  <div class="v2-tile__copy v2-tile__copy--product">
+    <span class="v2-eyebrow v2-eyebrow--cream">The Ghee</span>
+    <h1 class="v2-tile__title">A2 <em>Bilona&nbsp;Ghee.</em></h1>
+    <p class="v2-tile__notes">
+      <em>A2&nbsp;Beta&#8209;Casein.</em>&nbsp;<em>Bilona&nbsp;Churned.</em>&nbsp;<em>Five Thousand Years.</em>
+    </p>
+    <div class="v2-tile__price">
+      <span class="v2-tile__price-num">$25</span>
+      <span class="v2-tile__price-unit">/ 7.9 oz · 225 g</span>
+    </div>
+    <div class="v2-tile__ctas">
+      <a class="v2-cta" href="/buy">
+        Add to Cart
+        <span class="v2-cta__pip" aria-hidden="true">↗</span>
+      </a>
+      <a class="v2-link" href="#specifications">
+        Specifications
+        <span class="v2-link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <p class="v2-tile__caption">
+      In stock&nbsp;&middot;&nbsp;Spring 2026 batch&nbsp;&middot;&nbsp;Ships from New Jersey
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     §2 SPECIFICATIONS — table, no body paragraph
+     ============================================================ -->
+<section class="v2-specs" id="specifications">
+  <div class="v2-specs__inner">
+    <div class="v2-specs__head v2-reveal">
+      <span class="v2-eyebrow v2-eyebrow--center">Specifications</span>
+      <h2 class="v2-specs__title">What's <em>in&nbsp;the&nbsp;jar.</em></h2>
+    </div>
+    <table class="v2-specs__table" aria-label="Product specifications">
+      <tbody>
+        <tr class="v2-reveal">
+          <td class="v2-specs__lbl">Origin</td>
+          <td class="v2-specs__val">Gir Forest, Gujarat&nbsp;&middot;&nbsp;India</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="80">
+          <td class="v2-specs__lbl">Cattle breed</td>
+          <td class="v2-specs__val">Gir&nbsp;&mdash; the original Bos&nbsp;indicus, A2 beta&#8209;casein verified</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="160">
+          <td class="v2-specs__lbl">Method</td>
+          <td class="v2-specs__val">Bilona&nbsp;&mdash; hand churned curd, slow fire clarification</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="240">
+          <td class="v2-specs__lbl">Tradition</td>
+          <td class="v2-specs__val v2-numeric">5,000&nbsp;years, unbroken</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="320">
+          <td class="v2-specs__lbl">Batch testing</td>
+          <td class="v2-specs__val">Independent COA, every lot</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="400">
+          <td class="v2-specs__lbl">Net weight</td>
+          <td class="v2-specs__val v2-numeric">225 g&nbsp;&middot;&nbsp;7.9 oz</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================
+     §3 NOTES — "Traditionally used for" + "A spoonful contains"
+     Mirrors /the-honey §3 pattern with a single image-free editorial column.
+     ============================================================ -->
+<section class="v2-notes">
+  <div class="v2-notes__inner">
+    <span class="v2-eyebrow v2-reveal">Notes</span>
+    <h2 class="v2-notes__head v2-reveal" data-delay="80">Traditionally used for.</h2>
+    <p class="v2-body v2-reveal" data-delay="160">
+      For morning coffee. For cooking on high heat&nbsp;&mdash; smoke point near
+      485°F. For ghrita&#8209;based Ayurvedic preparations. Stable at room
+      temperature without refrigeration. The shelf&#8209;stable ancestral cooking fat.
+    </p>
+
+    <h2 class="v2-notes__head v2-reveal" data-delay="240" style="margin-top: 56px">A spoonful contains.</h2>
+    <p class="v2-body v2-reveal" data-delay="320">
+      Saturated and short&#8209;chain fatty acids&nbsp;&mdash; including butyrate.
+      Fat&#8209;soluble vitamins A, D, E and K2 in their native form. No lactose,
+      no casein&nbsp;&mdash; both separated during the bilona churn. No additives,
+      no fillers, no industrial seed oils. Tested for purity, batch by batch.
+    </p>
+
+    <div class="v2-notes__rule v2-reveal" data-delay="400" aria-hidden="true"></div>
+
+    <p class="v2-notes__quiet v2-reveal" data-delay="480">
+      <em>The fat humans cooked with for five thousand years.<br/>
+      Less than a century replaced by an industrial invention.</em>
+    </p>
+  </div>
+</section>
+
+</V2Base>
+
+<style>
+  /* ============================================================
+   * §1 inherits .v2-tile / .v2-tile__copy from v2-global.css.
+   * Adds: .v2-tile__copy--product (slightly tighter), .v2-tile__notes
+   * (italic Cormorant accent line), .v2-tile__caption (footer line).
+   * ============================================================ */
+  .v2-tile__copy--product { gap: 18px; max-width: 760px; }
+  .v2-tile__notes {
+    margin-top: 4px;
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.35;
+    color: rgba(247, 240, 230, 0.96);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+  }
+  .v2-tile__notes em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+  .v2-tile__caption {
+    margin-top: 12px;
+    font-family: var(--jakarta);
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(247, 240, 230, 0.84);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+  }
+
+  /* ============================================================
+   * §2 SPECIFICATIONS — cream surface, hairline rows
+   * ============================================================ */
+  .v2-specs {
+    background: var(--white);
+    padding: var(--pad-cinema-y) var(--tile-overlay-pad-x);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .v2-specs__inner {
+    max-width: var(--container);
+    margin: 0 auto;
+  }
+  .v2-specs__head {
+    margin-bottom: 56px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .v2-specs__title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: var(--t-h2);
+    color: var(--mocha);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .v2-notes__head {
+    text-wrap: balance;
+  }
+  .v2-specs__title em { font-style: italic; color: var(--mocha2); }
+  .v2-specs__table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid color-mix(in oklab, var(--gold) 24%, transparent);
+  }
+  .v2-specs__table tr {
+    border-bottom: 1px solid color-mix(in oklab, var(--mocha) 6%, transparent);
+  }
+  .v2-specs__table td {
+    padding: 22px 0;
+    vertical-align: baseline;
+  }
+  .v2-specs__lbl {
+    width: 30%;
+    font-family: var(--jakarta);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.40em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .v2-specs__val {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(20px, 2.2vw, 26px);
+    color: var(--mocha);
+  }
+
+  /* ============================================================
+   * §3 NOTES — single column, max 60ch reading width
+   * ============================================================ */
+  .v2-notes {
+    background: var(--cream);
+    padding: var(--pad-cinema-y) var(--tile-overlay-pad-x);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .v2-notes__inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .v2-notes__head {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 36px);
+    color: var(--mocha);
+    margin-top: 16px;
+    line-height: 1.18;
+  }
+  .v2-notes__rule {
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: var(--gold);
+    margin: 64px auto;
+    opacity: 0.55;
+  }
+  .v2-notes__quiet {
+    text-align: center;
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.55;
+    color: var(--mocha2);
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+  .v2-notes__quiet em { font-style: italic; }
+
+  @media (max-width: 760px) {
+    .v2-tile__notes { font-size: 18px; }
+    .v2-specs__lbl { width: 40%; font-size: 9px; letter-spacing: 0.32em; }
+    .v2-specs__val { font-size: 18px; }
+    .v2-notes__head { font-size: 26px; }
+  }
+</style>

@@ -1,0 +1,196 @@
+---
+/**
+ * V2Base.astro — fluid-island nav + magazine footer + cinematic
+ * reveal observer + per-tile bg-video pause logic.
+ *
+ * v2 is its own layout. Edits here cannot break v1 (Base.astro).
+ *
+ * Sources:
+ *   docs/v2-build-brief.md §5.1, §11
+ *   /high-end-visual-design rulebook (Editorial Luxury + fluid island)
+ *   /premium-frontend-ui rulebook (cinematic reveal, fixed-only blur)
+ */
+import '../styles/v2-global.css';
+import { images } from '@lib/assets';
+const logo = images['logo-3d'];
+
+interface Props {
+  title: string;
+  description?: string;
+  navMode?: 'over-hero' | 'solid';
+  currentPath?: string;
+  ogImage?: string;
+}
+const {
+  title,
+  description = 'aumé — Himalayan Clear Honey + A2 Bilona Ghee. Two ancestral originals, taken at first light.',
+  navMode = 'solid',
+  currentPath = '/v2/',
+  ogImage = '/assets/images/poster-aume-hero.jpg',
+} = Astro.props;
+const canonicalURL = new URL(currentPath, Astro.site ?? 'https://aume.honey');
+const ogImageURL = new URL(ogImage, Astro.site ?? 'https://aume.honey');
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content={description} />
+  <title>{title}</title>
+  <link rel="canonical" href={canonicalURL} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonicalURL} />
+  <meta property="og:image" content={ogImageURL} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImageURL} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Plus+Jakarta+Sans:wght@200;300;400;500;600&display=swap"
+  />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Fixed film-grain overlay (rulebook-compliant: fixed, pointer-events:none) -->
+<div class="v2-grain" aria-hidden="true"></div>
+
+<header class={`v2-nav ${navMode === 'over-hero' ? '' : 'is-scrolled'}`} id="v2-nav">
+  <a class="v2-nav__logo" href="/v2/" aria-label="aumé — v2 home">aumé</a>
+  <nav class="v2-nav__links" aria-label="Primary">
+    <a class="v2-nav__link" href="/the-honey"
+       aria-current={currentPath === '/the-honey' ? 'page' : undefined}>The Honey</a>
+    <a class="v2-nav__link" href="/v2/the-ghee"
+       aria-current={currentPath === '/v2/the-ghee' ? 'page' : undefined}>The Ghee</a>
+  </nav>
+  <a class="v2-nav__cta" href="/buy"
+     aria-current={currentPath === '/buy' ? 'page' : undefined}>Shop Now</a>
+</header>
+
+<main id="main">
+  <slot />
+</main>
+
+<footer class="v2-footer" role="contentinfo">
+  <div class="v2-footer__top">
+    <div>
+      <div class="v2-footer__brand">aumé</div>
+      <div class="v2-footer__from">From the Earth · At First Light</div>
+      <p class="v2-footer__bio">
+        Himalayan Clear Honey + A2 Bilona Ghee — two ancestral originals,
+        taken at first light.
+      </p>
+    </div>
+    <div>
+      <div class="v2-footer__col-head">Shop</div>
+      <ul class="v2-footer__links">
+        <li><a href="/the-honey">Himalayan Clear Honey</a></li>
+        <li><a href="/v2/the-ghee">A2 Bilona Ghee</a></li>
+        <li><a href="/buy">Order</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="v2-footer__col-head">Learn</div>
+      <ul class="v2-footer__links">
+        <li><a href="/story">Our Origin</a></li>
+        <li><a href="/the-honey">The Honey Process</a></li>
+        <li><a href="/v2/the-ghee">The Bilona Method</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="v2-footer__col-head">Support</div>
+      <ul class="v2-footer__links">
+        <li><a href="mailto:hello@aume.honey">Contact</a></li>
+        <li><a href="mailto:wholesale@aume.honey">Wholesale</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="v2-footer__bottom">
+    <span>© 2026 aumé. Product of India. Distributed by aumé LLC, New Jersey, USA.</span>
+    <img class="v2-footer__logo-img" src={logo.webp} alt="aumé" width="64" height="64" loading="lazy" decoding="async" />
+  </div>
+</footer>
+
+<script>
+  /* ============================================================
+   * v2 — site-wide motion glue
+   *  1. Nav glass-state: light over hero, solid past hero
+   *  2. Cinematic reveal observer (.v2-reveal → .is-in once)
+   *  3. Per-tile bg-video pause when off-screen
+   * No scroll listeners except the nav threshold check (passive).
+   * ============================================================ */
+
+  // --- 1. Nav state ---
+  const nav = document.getElementById('v2-nav');
+  if (nav && !nav.classList.contains('is-scrolled')) {
+    const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // --- 2. Reveal observer ---
+  const reveals = document.querySelectorAll<HTMLElement>('.v2-reveal');
+  if (reveals.length) {
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.add('is-in');
+          io.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' }
+    );
+    reveals.forEach((el) => io.observe(el));
+  }
+
+  // --- 3. Per-tile video pause ---
+  // Threshold: 0.55. Only play the tile that's *majority* on-screen.
+  // During fast scroll-through this means only one video decodes at
+  // any given moment, which keeps the compositor unblocked.
+  // Plus a 220 ms debounce: scrolling past a tile in <220ms never
+  // triggers play(). The poster carries that frame instead.
+  const tiles = document.querySelectorAll<HTMLElement>('[data-tile-video-host]');
+  if (tiles.length) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const playTimers = new WeakMap<HTMLElement, number>();
+    const vio = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const host = entry.target as HTMLElement;
+          const v = host.querySelector<HTMLVideoElement>('video[data-tile-video]');
+          if (!v) return;
+          // Always cancel any queued play when state changes.
+          const queued = playTimers.get(host);
+          if (queued) { window.clearTimeout(queued); playTimers.delete(host); }
+          if (entry.isIntersecting && !reduceMotion) {
+            const t = window.setTimeout(() => {
+              v.play().catch(() => {});
+              playTimers.delete(host);
+            }, 220);
+            playTimers.set(host, t);
+          } else {
+            v.pause();
+          }
+        });
+      },
+      { threshold: 0.55 }
+    );
+    tiles.forEach((t) => vio.observe(t));
+    if (reduceMotion) {
+      tiles.forEach((t) => {
+        const v = t.querySelector<HTMLVideoElement>('video[data-tile-video]');
+        if (v) v.pause();
+      });
+    }
+  }
+</script>
+
+</body>
+</html>

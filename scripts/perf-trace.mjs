@@ -19,7 +19,7 @@ import path from 'node:path';
 
 const PORT = process.env.PORT || 4321;
 const BASE = `http://127.0.0.1:${PORT}`;
-const ROUTES = ['/', '/story', '/the-honey', '/buy'];
+const ROUTES = ['/', '/story', '/the-honey', '/buy', '/v2/', '/v2/the-ghee'];
 const VIEWPORT = { width: 1440, height: 900 };
 const OUT_DIR = path.resolve('docs/screenshots');
 await fs.mkdir(OUT_DIR, { recursive: true });
@@ -40,6 +40,30 @@ for (const route of ROUTES) {
 
   if (route === '/') {
     await page.screenshot({ path: path.join(OUT_DIR, 'home-hero.png'), fullPage: false });
+  }
+  if (route === '/v2/') {
+    // Catch the wordmark mid-rise (~1.6 s into the choreography)
+    await page.waitForTimeout(1200);
+    await page.screenshot({ path: path.join(OUT_DIR, 'v2-hero.png'), fullPage: false });
+    // Scroll into the honey tile and capture
+    const vh = VIEWPORT.height;
+    await page.evaluate((y) => window.scrollTo(0, y), vh);
+    await page.waitForTimeout(900);
+    await page.screenshot({ path: path.join(OUT_DIR, 'v2-honey-tile.png'), fullPage: false });
+    // Ghee tile
+    await page.evaluate((y) => window.scrollTo(0, y), vh * 2);
+    await page.waitForTimeout(900);
+    await page.screenshot({ path: path.join(OUT_DIR, 'v2-ghee-tile.png'), fullPage: false });
+    // Closing tagline
+    await page.evaluate((y) => window.scrollTo(0, y), vh * 3);
+    await page.waitForTimeout(700);
+    await page.screenshot({ path: path.join(OUT_DIR, 'v2-tagline.png'), fullPage: false });
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.waitForTimeout(300);
+  }
+  if (route === '/v2/the-ghee') {
+    await page.waitForTimeout(800);
+    await page.screenshot({ path: path.join(OUT_DIR, 'v2-the-ghee.png'), fullPage: false });
   }
 
   // Install perf hooks in the page

@@ -1,0 +1,491 @@
+---
+/**
+ * /v2/ — Home (4 vertical tiles, ~3.5 viewport budget)
+ *
+ *   §1 Hero            Himalayan first-light video, "aumé" rises from
+ *                      optical center, gold hairline draws, tagline lifts
+ *   §2 Honey tile      honey-hover backdrop, copy bottom-left
+ *   §3 Ghee tile       PLACEHOLDER (honey-hover) until ghee video lands
+ *   §4 Closing tagline cream surface, centered serif italic, macro whitespace
+ *
+ * Hard rules from docs/v2-build-brief.md §2.2:
+ *   - hero text is abstract — never names a place
+ *   - ghee never claims mountains anywhere on this page
+ *   - tagline is "From the Earth · At First Light" (abstract)
+ *
+ * Sources:
+ *   docs/v2-build-brief.md §2.3 (page architecture), §2.4 (rising hero), §11 (CSS spec)
+ *   /high-end-visual-design Editorial Luxury archetype
+ *   /premium-frontend-ui cinematic pacing + character-split typography
+ */
+import V2Base from '@layouts/V2Base.astro';
+import { videos } from '@lib/assets';
+const heroVid  = videos['aume-hero'];
+const honeyVid = videos['honey-hover'];
+const gheeVid  = videos['ghee-tile'];   // placeholder until real ghee delivered
+---
+<V2Base
+  title="aumé — From the Earth · At First Light"
+  description="Two ancestral originals, taken at first light. Himalayan Clear Honey + A2 Bilona Ghee."
+  navMode="over-hero"
+  currentPath="/v2/"
+>
+
+<!-- ============================================================
+     §1 HERO — Himalayan first light, wordmark rises from center
+     ============================================================ -->
+<section class="v2-hero" data-tile-video-host>
+  <video
+    class="v2-hero__video"
+    data-tile-video
+    autoplay muted loop playsinline preload="metadata"
+    poster={heroVid.poster}
+    disablepictureinpicture disableremoteplayback
+    aria-hidden="true"
+  >
+    <source src={heroVid.src720} type="video/mp4" media="(max-width: 768px)" />
+    <source src={heroVid.src} type="video/mp4" />
+  </video>
+
+  <!-- Vignette: corner radial at copy + bottom gradient. Lifts text without
+       darkening the whole frame. -->
+  <div class="v2-hero__scrim" aria-hidden="true"></div>
+
+  <!-- Hairline frame — Aesop window-shop set-in -->
+  <div class="v2-hero__frame" aria-hidden="true"></div>
+
+  <!-- Top-right index marker -->
+  <div class="v2-hero__index">
+    <span>N° 01 · The Pairing</span>
+    <span class="v2-tile__index-line" aria-hidden="true"></span>
+  </div>
+
+  <!-- The lockup -->
+  <div class="v2-hero__copy">
+    <h1 class="v2-hero__brand" aria-label="aumé">
+      <span class="v2-hero__brand-char" style="--ch:0">a</span><span
+            class="v2-hero__brand-char" style="--ch:1">u</span><span
+            class="v2-hero__brand-char" style="--ch:2">m</span><span
+            class="v2-hero__brand-char" style="--ch:3">é</span>
+    </h1>
+    <span class="v2-hero__hairline" aria-hidden="true"></span>
+    <p class="v2-hero__tag">From&nbsp;the&nbsp;Earth&nbsp;&nbsp;·&nbsp;&nbsp;At&nbsp;First&nbsp;Light</p>
+  </div>
+
+  <!-- Bottom scroll cue, mirrored from v1 — minimal, gold hairline -->
+  <div class="v2-hero__scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <span class="v2-hero__scroll-line"></span>
+  </div>
+</section>
+
+<!-- ============================================================
+     §2 THE HONEY — honey-hover backdrop, Editorial Split copy
+     ============================================================ -->
+<section class="v2-tile" data-tile-video-host id="the-honey">
+  <video
+    class="v2-tile__video"
+    data-tile-video
+    autoplay muted loop playsinline preload="metadata"
+    poster={honeyVid.poster}
+    disablepictureinpicture disableremoteplayback
+    aria-hidden="true"
+  >
+    <source src={honeyVid.src720} type="video/mp4" media="(max-width: 768px)" />
+    <source src={honeyVid.src} type="video/mp4" />
+  </video>
+  <div class="v2-tile__scrim" aria-hidden="true"></div>
+  <div class="v2-tile__frame" aria-hidden="true"></div>
+
+  <div class="v2-tile__index">
+    <span>N° 02 · The Honey</span>
+    <span class="v2-tile__index-line" aria-hidden="true"></span>
+  </div>
+
+  <div class="v2-tile__copy">
+    <span class="v2-eyebrow v2-eyebrow--cream v2-reveal" data-delay="0">The&nbsp;Honey</span>
+    <h2 class="v2-tile__title v2-reveal" data-delay="80">
+      Himalayan <em>Clear&nbsp;Honey.</em>
+    </h2>
+    <p class="v2-tile__sub v2-reveal" data-delay="160">
+      Kashmir Valley&nbsp;&middot;&nbsp;11,000&nbsp;ft+&nbsp;&middot;&nbsp;Single Origin&nbsp;&middot;&nbsp;Raw
+    </p>
+    <div class="v2-tile__price v2-reveal" data-delay="240">
+      <span class="v2-tile__price-num">$44.99</span>
+      <span class="v2-tile__price-unit">/ 12 oz · 340 g</span>
+    </div>
+    <div class="v2-tile__ctas v2-reveal" data-delay="320">
+      <a class="v2-cta" href="/buy">
+        Add to Cart
+        <span class="v2-cta__pip" aria-hidden="true">↗</span>
+      </a>
+      <a class="v2-link" href="/the-honey">
+        The Story
+        <span class="v2-link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     §3 THE GHEE — placeholder video until real ghee tile delivered.
+     HARD RULE (brief §2.2): ghee never claims mountains here.
+     Ghee proves itself on A2 + Bilona + 5,000 years.
+     ============================================================ -->
+<section class="v2-tile v2-tile--ghee" data-tile-video-host id="the-ghee">
+  <video
+    class="v2-tile__video"
+    data-tile-video
+    autoplay muted loop playsinline preload="metadata"
+    poster={gheeVid.poster}
+    disablepictureinpicture disableremoteplayback
+    aria-hidden="true"
+  >
+    <source src={gheeVid.src720} type="video/mp4" media="(max-width: 768px)" />
+    <source src={gheeVid.src} type="video/mp4" />
+  </video>
+  <!-- Slightly warmer scrim on the ghee tile so the placeholder reads
+       as "amber" not "honey". -->
+  <div class="v2-tile__scrim v2-tile__scrim--ghee" aria-hidden="true"></div>
+  <div class="v2-tile__frame" aria-hidden="true"></div>
+
+  <div class="v2-tile__index">
+    <span>N° 03 · The Ghee</span>
+    <span class="v2-tile__index-line" aria-hidden="true"></span>
+  </div>
+
+  <div class="v2-tile__copy">
+    <span class="v2-eyebrow v2-eyebrow--cream v2-reveal" data-delay="0">The&nbsp;Ghee</span>
+    <h2 class="v2-tile__title v2-reveal" data-delay="80">
+      A2 <em>Bilona&nbsp;Ghee.</em>
+    </h2>
+    <p class="v2-tile__sub v2-reveal" data-delay="160">
+      A2 Beta&#8209;Casein&nbsp;&middot;&nbsp;Bilona Churned&nbsp;&middot;&nbsp;5,000&nbsp;Years
+    </p>
+    <div class="v2-tile__price v2-reveal" data-delay="240">
+      <span class="v2-tile__price-num">$25</span>
+      <span class="v2-tile__price-unit">/ 7.9 oz · 225 g</span>
+    </div>
+    <div class="v2-tile__ctas v2-reveal" data-delay="320">
+      <a class="v2-cta" href="/v2/the-ghee">
+        Add to Cart
+        <span class="v2-cta__pip" aria-hidden="true">↗</span>
+      </a>
+      <a class="v2-link" href="/v2/the-ghee">
+        The Story
+        <span class="v2-link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     §4 CLOSING TAGLINE — cream surface, italic serif, macro whitespace.
+     Quiet ending. No CTAs.
+     ============================================================ -->
+<section class="v2-closing">
+  <div class="v2-closing__inner">
+    <span class="v2-eyebrow v2-eyebrow--center v2-eyebrow--solo v2-reveal">A&nbsp;Morning&nbsp;Ritual</span>
+    <p class="v2-closing__line v2-reveal" data-delay="120">
+      <em>From the Earth.</em><br />At first&nbsp;light.
+    </p>
+    <p class="v2-closing__sub v2-reveal" data-delay="240">
+      Two ancestral originals.&nbsp;&nbsp;One mission.
+    </p>
+    <span class="v2-closing__rule v2-reveal" data-delay="320" aria-hidden="true"></span>
+  </div>
+</section>
+
+</V2Base>
+
+<style>
+  /* ============================================================
+   * §1 HERO — full-bleed video + rising wordmark
+   * Canonical CSS from docs/v2-build-brief.md §11.
+   * Adapted: char-split for cascading rise, tighter tracking,
+   * gold hairline beneath, abstract tagline tracked 0.40em.
+   * ============================================================ */
+  .v2-hero {
+    position: relative;
+    height: 100vh;
+    min-height: 640px;
+    width: 100vw;
+    overflow: hidden;
+    background: var(--mocha);
+    isolation: isolate;
+  }
+  .v2-hero__video {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    z-index: 0;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+  .v2-hero__scrim {
+    position: absolute; inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 50%, transparent 0%, rgba(0,0,0,0.32) 80%),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.18) 0%,
+        rgba(0, 0, 0, 0.12) 40%,
+        rgba(0, 0, 0, 0.30) 100%
+      );
+  }
+  .v2-hero__frame {
+    position: absolute;
+    inset: clamp(20px, 3vw, 40px);
+    z-index: 2;
+    pointer-events: none;
+    border: 1px solid color-mix(in oklab, var(--cream) 18%, transparent);
+  }
+  .v2-hero__index {
+    position: absolute;
+    top: var(--tile-overlay-pad-y);
+    right: var(--tile-overlay-pad-x);
+    z-index: 3;
+    display: flex; align-items: center; gap: 12px;
+    font-family: var(--jakarta);
+    font-size: 10px;
+    letter-spacing: 0.40em;
+    text-transform: uppercase;
+    color: rgba(247, 240, 230, 0.86);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+    /* Slow fade in alongside the wordmark choreography */
+    opacity: 0;
+    animation: v2-hero-fade 1200ms var(--ease-cinema) 1800ms forwards;
+  }
+  .v2-hero__copy {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    color: var(--cream);
+    text-align: center;
+    pointer-events: none;
+    padding-bottom: 6vh;  /* optical-center bias, not mathematical */
+  }
+
+  /* The wordmark — character split for cascading rise. Each <span>
+     is a glyph that rises from translateY(56px) scale(0.94) on a
+     stagger keyed by --ch (80ms apart). All glyphs land by ~3.2 s,
+     matching the brief's "wordmark settles at 3.2s" target.
+     Solid cream fill with a warm gold-light glow paints the
+     editorial-luxury tone without relying on background-clip:text
+     (which doesn't propagate through inline-block children). */
+  .v2-hero__brand {
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: var(--t-display);
+    line-height: 1;
+    letter-spacing: 0.05em;
+    color: var(--cream);
+    margin: 0;
+    text-shadow:
+      0 0 48px rgba(226, 201, 138, 0.28),
+      0 2px 14px rgba(0, 0, 0, 0.55),
+      0 0 96px rgba(0, 0, 0, 0.35);
+  }
+  .v2-hero__brand-char {
+    display: inline-block;
+    color: var(--cream);
+    /* Subtle vertical gradient on each glyph — top cream, bottom
+       gold-light — using `background-clip: text` per-glyph (the
+       glyph IS the painted element, so the technique works here). */
+    background: linear-gradient(180deg, var(--cream) 28%, var(--gold-light) 100%);
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transform: translateY(56px) scale(0.94);
+    animation:
+      v2-hero-rise var(--dur-rise) var(--ease-cinema)
+        calc(800ms + var(--ch) * 90ms)
+        both;
+  }
+  /* Older WebKit / non-clip-text fallback — keep the cream so the
+     mark is never invisible. */
+  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
+    .v2-hero__brand-char {
+      background: none;
+      -webkit-text-fill-color: var(--cream);
+      color: var(--cream);
+    }
+  }
+
+  .v2-hero__hairline {
+    display: block;
+    width: 0;
+    height: 1px;
+    background: var(--gold-light);
+    margin: 28px 0 18px;
+    box-shadow: 0 0 18px rgba(226, 201, 138, 0.55);
+    animation: v2-hero-hairline 900ms var(--ease-cinema) 2900ms both;
+  }
+
+  .v2-hero__tag {
+    font-family: var(--jakarta);
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.40em;
+    text-transform: uppercase;
+    color: rgba(247, 240, 230, 0.94);
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transform: translateY(14px);
+    animation: v2-hero-tag 1200ms var(--ease-cinema) 3300ms forwards;
+  }
+
+  .v2-hero__scroll {
+    position: absolute;
+    right: var(--tile-overlay-pad-x);
+    bottom: var(--tile-overlay-pad-y);
+    z-index: 3;
+    display: flex; align-items: center; gap: 14px;
+    font-family: var(--jakarta);
+    font-size: 9px;
+    letter-spacing: 0.40em;
+    text-transform: uppercase;
+    color: rgba(247, 240, 230, 0.86);
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
+    opacity: 0;
+    animation: v2-hero-fade 1200ms var(--ease-cinema) 4000ms forwards;
+  }
+  .v2-hero__scroll-line {
+    width: 64px; height: 1px;
+    background: var(--gold-light);
+    position: relative; overflow: hidden;
+  }
+  .v2-hero__scroll-line::before {
+    content: '';
+    position: absolute; left: -40%; top: 0;
+    width: 40%; height: 100%;
+    background: linear-gradient(90deg, transparent, var(--cream) 50%, transparent);
+    animation: v2-hero-scroll 2.6s var(--ease-cinema) infinite;
+  }
+
+  @keyframes v2-hero-rise {
+    0%   { opacity: 0; transform: translateY(56px) scale(0.94); }
+    100% { opacity: 1; transform: translateY(0)    scale(1.00); }
+  }
+  @keyframes v2-hero-hairline {
+    0%   { width: 0; }
+    100% { width: 112px; }
+  }
+  @keyframes v2-hero-tag {
+    0%   { opacity: 0; transform: translateY(14px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes v2-hero-fade {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes v2-hero-scroll {
+    to { left: 120%; }
+  }
+
+  /* Reduced motion — instant, no rise, no scroll cue animation */
+  @media (prefers-reduced-motion: reduce) {
+    .v2-hero__brand-char {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    .v2-hero__hairline {
+      animation: none;
+      width: 112px;
+    }
+    .v2-hero__tag,
+    .v2-hero__index,
+    .v2-hero__scroll {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+    .v2-hero__scroll-line::before { animation: none; }
+  }
+
+  @media (max-width: 760px) {
+    .v2-hero__index { top: 24px; right: 24px; font-size: 9px; letter-spacing: 0.32em; }
+    .v2-hero__scroll { right: 24px; bottom: 32px; }
+    .v2-hero__brand { font-size: clamp(72px, 22vw, 96px); }
+  }
+
+  /* ============================================================
+   * §3 GHEE TILE — warmer scrim variant (placeholder colour cue)
+   * ============================================================ */
+  .v2-tile__scrim--ghee {
+    background:
+      radial-gradient(ellipse 70% 60% at 18% 92%, rgba(61, 43, 31, 0.55) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 84% 8%, rgba(184, 146, 74, 0.18) 0%, transparent 70%),
+      linear-gradient(
+        to bottom,
+        rgba(61, 43, 31, 0.20) 0%,
+        transparent 35%,
+        transparent 60%,
+        rgba(61, 43, 31, 0.45) 100%
+      );
+  }
+
+  /* ============================================================
+   * §4 CLOSING — cream surface, macro-whitespace, italic line
+   * ============================================================ */
+  .v2-closing {
+    background: var(--cream);
+    padding: var(--pad-cinema-y) var(--tile-overlay-pad-x);
+    position: relative;
+    z-index: var(--z-content);
+    /* Subtle directional gradient — almost imperceptible */
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, color-mix(in oklab, var(--gold-light) 18%, var(--cream)) 0%, var(--cream) 60%),
+      var(--cream);
+  }
+  .v2-closing__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(22px, 2.6vw, 32px);
+  }
+  .v2-closing__line {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(40px, 5.4vw, 64px);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
+    color: var(--mocha);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .v2-closing__line em {
+    font-style: italic;
+    color: var(--mocha2);
+  }
+  .v2-closing__sub {
+    font-family: var(--jakarta);
+    font-weight: 400;
+    font-size: 11px;
+    letter-spacing: 0.40em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin: 0;
+  }
+  .v2-closing__rule {
+    width: 56px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.6;
+  }
+  @media (max-width: 760px) {
+    .v2-closing { padding: 96px 24px; }
+    .v2-closing__line { font-size: clamp(34px, 9vw, 44px); }
+  }
+</style>

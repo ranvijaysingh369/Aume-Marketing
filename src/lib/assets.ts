@@ -84,6 +84,25 @@ export const videos = {
     subject: 'Honey drinking flower — encoded native CRF 17 from canonical source',
     usedOn: ['/story full-bleed backdrop'],
   },
+  'aume-hero': {
+    id: 'aume-hero',
+    source: 'aume hero page video.mp4',
+    src:    '/assets/video/aume-hero.mp4',
+    src720: '/assets/video/aume-hero-720.mp4',
+    poster: '/assets/images/poster-aume-hero.jpg',
+    subject: 'Himalayan first-light footage — brand-level signifier hero (not a product origin claim)',
+    usedOn: ['/v2/ §1 hero backdrop'],
+  },
+  // PLACEHOLDER paths until the real ghee tile video lands. See docs/v2-build-brief.md §6 + §10.
+  'ghee-tile': {
+    id: 'ghee-tile',
+    source: '(pending — see docs/v2-build-brief.md §6 + §10)',
+    src:    '/assets/video/honey-hover.mp4',
+    src720: '/assets/video/honey-hover-720.mp4',
+    poster: '/assets/images/poster-honey-hover.jpg',
+    subject: 'PLACEHOLDER — to be replaced with golden ghee video on delivery',
+    usedOn: ['/v2/ §3 ghee tile backdrop'],
+  },
 } as const satisfies Record<string, VideoAsset>;
 
 export function img(id: keyof typeof images): ImageAsset { return images[id]; }

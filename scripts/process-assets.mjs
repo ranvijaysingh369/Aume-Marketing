@@ -111,6 +111,7 @@ const VIDEOS = [
   { src: 'dancer honey.mp4',         id: 'dancer-honey' },
   { src: 'honey hover.mp4',          id: 'honey-hover'  },
   { src: 'honey drinking flower.mp4', id: 'honey-drinking-flower' },
+  { src: 'aume hero page video.mp4', id: 'aume-hero' },
 ];
 
 async function ensureDir(p) { await fs.mkdir(p, { recursive: true }); }
