@@ -227,8 +227,12 @@ async function processVideo(entry) {
       // Mobile variant on the perf preset (saves bandwidth).
       await transcode(srcPath, mobileOut);
     } else {
-      await transcode(srcPath, fullOut);              // default: 720p CRF 28, 2.5Mbps
-      await fs.copyFile(fullOut, mobileOut);          // mobile = same file (perf preset is invisible at backdrop scale)
+      // Standard backdrop tile: 720p main + true mobile-calibrated
+      // variant (854x480 CRF 30 1.4Mbps) so cellular loads fast.
+      await transcode(srcPath, fullOut);
+      await transcode(srcPath, mobileOut, {
+        maxW: 854, maxH: 480, crf: 30, preset: 'slow', maxBitrate: '1400k',
+      });
     }
     const at = Math.min(0.5, Math.max(0.05, durationSec / 2));
     await extractPoster(srcPath, posterOut, at);
