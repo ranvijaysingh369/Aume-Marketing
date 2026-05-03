@@ -18,7 +18,7 @@ import { chromium } from 'playwright';
 
 const PORT = process.env.PORT || 4321;
 const BASE = `http://127.0.0.1:${PORT}`;
-const ROUTES = ['/', '/story', '/the-honey', '/buy', '/v2/', '/v2/the-ghee'];
+const ROUTES = ['/', '/story', '/the-honey', '/buy', '/v2/', '/v2/the-honey', '/v2/the-ghee', '/v2/shop'];
 const VIEWPORT = { width: 1440, height: 900 };
 const CEILING = 4 * VIEWPORT.height; // 3600
 
