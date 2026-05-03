@@ -290,11 +290,10 @@ const jarImage = images['honey-same-bg'];
   .v2-notes__image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
     /* Subtle enhance — boosts the honey gold and sharpens the
-       label detail without darkening or color-shifting. The
-       source already has a black background, so no blend needed. */
+       label detail. */
     filter: contrast(1.06) saturate(1.10);
   }
   .v2-notes__copy {
