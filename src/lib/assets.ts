@@ -123,16 +123,14 @@ export const videos = {
     subject: 'Bilona ghee hero 2 — process footage',
     usedOn: ['/v2/ §3 ghee tile backdrop'],
   },
-  // /v2/the-ghee §1 product hero — separate slot. Placeholder until
-  // the user provides the bottle/jar product video. When it lands,
-  // swap the src/src720/poster paths in this entry only.
+  // /v2/the-ghee §1 product hero — Bilona Ghee Making footage.
   'ghee-product': {
     id: 'ghee-product',
-    source: '(pending — separate ghee bottle/jar video coming)',
-    src:    '/assets/video/honey-drinking-flower.mp4',
-    src720: '/assets/video/honey-drinking-flower-720.mp4',
-    poster: '/assets/images/poster-honey-drinking-flower.jpg',
-    subject: 'PLACEHOLDER — to be replaced with ghee bottle/jar product video',
+    source: 'Bilona Ghee Making Video.mp4',
+    src:    '/assets/video/aume-ghee.mp4',
+    src720: '/assets/video/aume-ghee-720.mp4',
+    poster: '/assets/images/poster-aume-ghee.jpg',
+    subject: 'Bilona ghee making — slow hand-churn process footage',
     usedOn: ['/v2/the-ghee §1 product hero'],
   },
   // /v2/the-honey §1 product hero — bees drinking from blossoms.
