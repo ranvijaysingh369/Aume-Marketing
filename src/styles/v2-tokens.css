@@ -16,14 +16,17 @@
      Legacy generic sans typefaces barred per /high-end-visual-design §2. */
   --jakarta: 'Plus Jakarta Sans', 'Jost', system-ui, -apple-system, sans-serif;
 
-  /* --- v2 dark-cinema palette --------------------------------- */
-  --v2-bg:      #060504;   /* deep near-black, single page surface */
-  --v2-bg2:     #0B0907;   /* one stop lighter for divisions in shadow */
-  --v2-cream:   #FAF5EB;   /* primary text — cream, never pure white */
-  --v2-beige:   #D4C4A8;   /* body / sub copy on dark */
-  --v2-gold:    #C5952A;   /* accent only — eyebrows, hairlines, marks */
-  --v2-gold-2:  #DBB35E;   /* warmer gold accent — wordmark gradient end */
-  --v2-sage:    #7A8B6F;   /* secondary muted accent (used sparingly) */
+  /* --- v2 cream/beige palette (founder-redirected) ---
+     Surface is warm cream, ink is deep mocha. The same five-token
+     vocabulary; values flipped. --v2-bg is the page surface,
+     --v2-cream / --v2-beige now name primary + body text on cream. */
+  --v2-bg:      #F4ECDC;   /* warm beige — single page surface */
+  --v2-bg2:     #EEE4D4;   /* one stop deeper for divisions */
+  --v2-cream:   #2E2117;   /* primary text — deep mocha on cream */
+  --v2-beige:   #5A4434;   /* body / sub copy — warm brown on cream */
+  --v2-gold:    #A87A1F;   /* accent — readable on cream */
+  --v2-gold-2:  #8C661A;   /* deeper gold for italic emphasis on cream */
+  --v2-sage:    #6E7E64;   /* secondary muted accent (used sparingly) */
 
   /* Re-declare gold-light token (legacy) — points at v2-gold-2 now */
   --gold-light: var(--v2-gold-2);
