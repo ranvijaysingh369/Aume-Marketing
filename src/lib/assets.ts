@@ -54,6 +54,16 @@ export const images = {
     description: 'aumé Himalayan Clear Honey jar — front and back labels visible',
     usedOn: ['/story §2 the valley', '/the-honey §3 back label'],
   },
+  // Black-background variant — used on /v2/the-honey §3 so the
+  // photograph blends into the dark page surface.
+  'honey-front-and-back-black': {
+    id: 'honey-front-and-back-black',
+    source: 'honey front and back - black.JPG',
+    webp: '/assets/images/honey-front-and-back-black.webp',
+    jpg:  '/assets/images/honey-front-and-back-black.jpg',
+    description: 'aumé Himalayan Clear Honey jar — front and back labels visible, black background',
+    usedOn: ['/v2/the-honey §3 notes'],
+  },
 } as const satisfies Record<string, ImageAsset>;
 
 export const videos = {

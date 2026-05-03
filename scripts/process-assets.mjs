@@ -105,6 +105,7 @@ const IMAGES = [
   // Two product photos, each with a distinct job (see src/lib/assets.ts)
   { src: 'hf_20260501_043643_a2959d2a-0872-4201-a628-f438cc22ea37.png', id: 'honey-jar', longest: 1600, role: 'photo' },
   { src: 'honey front and back.jpeg', id: 'honey-front-and-back', longest: 2000, role: 'photo' },
+  { src: 'honey front and back - black.JPG', id: 'honey-front-and-back-black', longest: 2000, role: 'photo' },
 ];
 
 const VIDEOS = [

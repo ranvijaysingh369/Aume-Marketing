@@ -23,7 +23,7 @@
 import V2Base from '@layouts/V2Base.astro';
 import { videos, images } from '@lib/assets';
 const heroVid  = videos['honey-product'];
-const jarImage = images['honey-front-and-back'];
+const jarImage = images['honey-front-and-back-black'];
 ---
 <V2Base
   title="Himalayan Clear Honey — aumé"
@@ -285,22 +285,24 @@ const jarImage = images['honey-front-and-back'];
     height: 100%;
     object-fit: cover;
     display: block;
-    /* Pull the cream linen photo background into the page surface
-       (deep near-black). multiply blend darkens the bright pixels
-       toward bg colour while keeping the honey amber visible. The
-       brightness/contrast tune brings the jar back up so it doesn't
-       disappear into the surface. */
-    mix-blend-mode: multiply;
-    filter: brightness(1.4) contrast(1.05);
+    /* Image untouched — bottles stay bright. The vignette below
+       fades the cream linen edges into the page surface so the
+       photograph blends rather than reading as a bright card. */
   }
-  /* Soft inner vignette to seat the image into the surface */
+  /* Heavy radial vignette — center transparent (bottles visible),
+     edges fully match the page surface (cream linen disappears). */
   .v2-notes__image::after {
     content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
     background:
-      radial-gradient(ellipse 90% 90% at 50% 50%, transparent 55%, rgba(6, 5, 4, 0.55) 100%);
+      radial-gradient(
+        ellipse 60% 70% at 50% 50%,
+        transparent 35%,
+        rgba(6, 5, 4, 0.55) 70%,
+        rgba(6, 5, 4, 1) 100%
+      );
     z-index: 1;
   }
   .v2-notes__copy {
