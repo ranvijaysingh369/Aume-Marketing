@@ -211,20 +211,25 @@ const logo       = images['logo-3d'];
   }
 
   .v2-shop__form { display: flex; flex-direction: column; gap: clamp(48px, 6vh, 72px); }
+  /* Vertical stack — products read top-to-bottom, each card spans
+     the same constrained width so the row of cards is uniform. */
   .v2-shop__products {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(32px, 4vw, 56px);
-    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(56px, 8vh, 96px);
+    max-width: 720px;
     margin: 0 auto;
     width: 100%;
   }
   .v2-shop__product {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    display: grid;
+    grid-template-columns: minmax(240px, 360px) 1fr;
+    gap: clamp(28px, 4vw, 48px);
+    align-items: center;
   }
-  /* Both cards use the same 2:3 portrait aspect. */
+  /* Image column is a 2:3 portrait frame; both source images are
+     natively 2:3 (honey was padded at the pipeline) so cover fills
+     cleanly. */
   .v2-shop__image {
     margin: 0;
     aspect-ratio: 2 / 3;
@@ -240,11 +245,8 @@ const logo       = images['logo-3d'];
     display: block;
     filter: contrast(1.06) saturate(1.10);
   }
-  /* Honey image was padded to 2:3 with cream linen at the pipeline.
-     Scaling 1.5x on display zooms past the padding (the outer 1/6
-     top + 1/6 bottom is exactly the padded margin), revealing only
-     the original square photo with the two honey jars filling the
-     card. No grey linen padding visible, no jar crop. */
+  /* Honey was source-padded — scale 1.5 exactly counters the
+     padding so only the original square jars area is visible. */
   .v2-shop__product:first-child .v2-shop__image img {
     transform: scale(1.5);
     transform-origin: center center;
@@ -399,9 +401,13 @@ const logo       = images['logo-3d'];
     padding: clamp(48px, 8vh, 96px) 0;
   }
 
-  @media (max-width: 900px) {
+  @media (max-width: 700px) {
     .v2-shop { padding: clamp(96px, 14vh, 140px) 24px 64px; }
-    .v2-shop__products { grid-template-columns: 1fr; }
+    .v2-shop__product {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .v2-shop__image { max-width: 320px; margin: 0 auto; }
     .v2-shop__row { grid-template-columns: 1fr; }
   }
 
