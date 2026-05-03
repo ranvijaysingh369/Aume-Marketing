@@ -60,12 +60,8 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
     <span class="v2-tile__index-line" aria-hidden="true"></span>
   </div>
 
-  <!-- Top-left brand wordmark — italic Cormorant in the same
-       editorial register as the lettering baked into the
-       From-the-Earth video. Doubles as the home link. -->
-  <a class="v2-hero__mark" href="/v2/" aria-label="aumé — home">
-    <h1 class="v2-hero__brand">aumé</h1>
-  </a>
+  <!-- No corner wordmark on the home page — the From-the-Earth
+       hero video has the wordmark baked in. -->
 </section>
 
 <!-- ============================================================
@@ -203,35 +199,6 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
     overflow: hidden;
     background: var(--v2-bg);
     isolation: isolate;
-  }
-  /* Top-left brand wordmark — warm chocolate brown to match the
-     wordmark colour baked into the From-the-Earth hero video.
-     Cream halo behind the glyphs lifts them off darker frames. */
-  .v2-hero__mark {
-    position: absolute;
-    top: clamp(24px, 3vh, 36px);
-    left: clamp(24px, 4vw, 56px);
-    z-index: 4;
-    text-decoration: none;
-    color: #3D2B1F;
-    text-shadow:
-      0 0 14px rgba(244, 236, 220, 0.55),
-      0 1px 4px rgba(244, 236, 220, 0.4);
-    transition: opacity var(--dur-cta) var(--ease-cinema);
-  }
-  .v2-hero__mark:hover { opacity: 0.85; }
-  .v2-hero__brand {
-    margin: 0;
-    font-family: 'DM Serif Display', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: clamp(34px, 3.4vw, 46px);
-    letter-spacing: 0.01em;
-    line-height: 1;
-    color: inherit;
-  }
-  @media (max-width: 760px) {
-    .v2-hero__mark { top: 18px; left: 22px; }
   }
   .v2-hero__video {
     position: absolute; inset: 0;
