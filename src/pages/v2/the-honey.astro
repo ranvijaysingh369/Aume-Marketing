@@ -1,0 +1,291 @@
+---
+/**
+ * /v2/the-honey — Himalayan Clear Honey product page (3 sections, dark-cinema).
+ *
+ * Mirror of /v2/the-ghee structure with honey copy + provenance.
+ * Sources: content-brief.md §C `/the-honey` (v1 honey copy), brief §2.2
+ * (positioning rules — honey leans on origin: Kashmir Valley, 11,000 ft+,
+ * single-origin, raw, cold-extracted).
+ *
+ * UI rules from ui-ux-pro-max:
+ *   - single dark surface throughout
+ *   - eyebrows ALL CAPS gold tracked 0.22em above each Cormorant headline
+ *   - no text-shadows
+ *
+ * Sections:
+ *   §1 Product hero    honey-drinking-flower video, copy left, price + CTAs
+ *   §2 Specifications  table on dark — Origin / Altitude / Floral / etc
+ *   §3 Notes           "Traditionally used for" + "A spoonful contains"
+ *
+ * Hyphen discipline: every hyphen in display copy is U+2011
+ * non-breaking hyphen (&#8209;) so the §7.4 sweep stays clean.
+ */
+import V2Base from '@layouts/V2Base.astro';
+import { videos } from '@lib/assets';
+const heroVid = videos['honey-product'];
+---
+<V2Base
+  title="Himalayan Clear Honey — aumé"
+  description="Himalayan Clear Honey. Cold extracted, raw, single origin from Kashmir Valley above 11,000 ft."
+  navMode="over-hero"
+  currentPath="/v2/the-honey"
+>
+
+<!-- ============================================================
+     §1 PRODUCT HERO — full-bleed video, copy bottom-left
+     ============================================================ -->
+<section class="v2-tile" data-tile-video-host>
+  <video
+    class="v2-tile__video"
+    data-tile-video
+    autoplay muted loop playsinline preload="metadata"
+    poster={heroVid.poster}
+    disablepictureinpicture disableremoteplayback
+    aria-hidden="true"
+  >
+    <source src={heroVid.src720} type="video/mp4" media="(max-width: 768px)" />
+    <source src={heroVid.src} type="video/mp4" />
+  </video>
+  <div class="v2-tile__scrim" aria-hidden="true"></div>
+  <div class="v2-tile__frame" aria-hidden="true"></div>
+
+  <div class="v2-tile__index">
+    <span>N° 02 · The Honey</span>
+    <span class="v2-tile__index-line" aria-hidden="true"></span>
+  </div>
+
+  <div class="v2-tile__copy v2-tile__copy--product">
+    <span class="v2-eyebrow">The Honey</span>
+    <h1 class="v2-tile__title">Himalayan <em>Clear&nbsp;Honey.</em></h1>
+    <p class="v2-tile__notes">
+      <em>Floral.</em>&nbsp;<em>Bright.</em>&nbsp;<em>Mineral.</em>
+    </p>
+    <div class="v2-tile__price">
+      <span class="v2-tile__price-num">$44.99</span>
+      <span class="v2-tile__price-unit">/ 12 oz · 340 g</span>
+    </div>
+    <div class="v2-tile__ctas">
+      <a class="v2-cta" href="/buy">
+        Add to Cart
+        <span class="v2-cta__pip" aria-hidden="true">↗</span>
+      </a>
+      <a class="v2-link" href="#specifications">
+        Specifications
+        <span class="v2-link__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <p class="v2-tile__caption">
+      In stock&nbsp;&middot;&nbsp;Spring 2026 harvest&nbsp;&middot;&nbsp;Ships from New Jersey
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     §2 SPECIFICATIONS — dark surface table
+     ============================================================ -->
+<section class="v2-specs" id="specifications">
+  <div class="v2-specs__inner">
+    <div class="v2-specs__head v2-reveal">
+      <span class="v2-eyebrow v2-eyebrow--center">Specifications</span>
+      <h2 class="v2-specs__title">What's <em>in&nbsp;the&nbsp;jar.</em></h2>
+    </div>
+    <table class="v2-specs__table" aria-label="Product specifications">
+      <tbody>
+        <tr class="v2-reveal">
+          <td class="v2-specs__lbl">Origin</td>
+          <td class="v2-specs__val">Kashmir Valley&nbsp;&middot;&nbsp;India</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="80">
+          <td class="v2-specs__lbl">Altitude</td>
+          <td class="v2-specs__val v2-numeric">11,000&nbsp;ft +</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="160">
+          <td class="v2-specs__lbl">Floral source</td>
+          <td class="v2-specs__val">Wild clover, thyme, rhododendron</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="240">
+          <td class="v2-specs__lbl">Harvest</td>
+          <td class="v2-specs__val">Spring 2026</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="320">
+          <td class="v2-specs__lbl">Process</td>
+          <td class="v2-specs__val">Cold extracted, linen strained at ambient temperature</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="400">
+          <td class="v2-specs__lbl">Net weight</td>
+          <td class="v2-specs__val v2-numeric">340 g&nbsp;&middot;&nbsp;12 oz</td>
+        </tr>
+        <tr class="v2-reveal" data-delay="480">
+          <td class="v2-specs__lbl">Source to seal</td>
+          <td class="v2-specs__val v2-numeric">48&nbsp;hrs, every batch</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================================================
+     §3 NOTES — provenance + storage
+     ============================================================ -->
+<section class="v2-notes">
+  <div class="v2-notes__inner">
+    <span class="v2-eyebrow v2-reveal">Notes</span>
+    <h2 class="v2-notes__head v2-reveal" data-delay="80">Traditionally used for.</h2>
+    <p class="v2-body v2-reveal" data-delay="160">
+      In the valleys it comes from, raw honey has been taken at first
+      light for soothing the throat, settling the stomach, and lifting
+      the morning. We carry the tradition forward without changing it.
+    </p>
+
+    <h2 class="v2-notes__head v2-reveal" data-delay="240" style="margin-top: 56px">A spoonful contains.</h2>
+    <p class="v2-body v2-reveal" data-delay="320">
+      Naturally occurring antioxidants and polyphenols. Trace minerals
+      from high altitude soil. Live enzymes&nbsp;&mdash; glucose oxidase,
+      invertase, diastase&nbsp;&mdash; that pasteurised honey no longer has.
+      And nothing else. No additives, no fillers, no heat above 38°C.
+    </p>
+
+    <div class="v2-notes__rule v2-reveal" data-delay="400" aria-hidden="true"></div>
+
+    <p class="v2-notes__quiet v2-reveal" data-delay="480">
+      <em>Cold extracted from above 11,000 ft.<br/>
+      Sealed within forty&#8209;eight hours of harvest.</em>
+    </p>
+  </div>
+</section>
+
+</V2Base>
+
+<style>
+  /* §1 inherits .v2-tile / .v2-tile__copy from v2-global.css. */
+  .v2-tile__copy--product { gap: 18px; max-width: 760px; }
+  .v2-tile__notes {
+    margin-top: 4px;
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(20px, 2.4vw, 26px);
+    line-height: 1.35;
+    color: var(--v2-cream);
+  }
+  .v2-tile__notes em {
+    font-style: italic;
+    color: var(--v2-gold-2);
+  }
+  .v2-tile__caption {
+    margin-top: 12px;
+    font-family: var(--jakarta);
+    font-weight: 300;
+    font-size: 11px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--v2-beige) 75%, transparent);
+  }
+
+  /* ============================================================
+   * §2 SPECIFICATIONS — dark surface
+   * ============================================================ */
+  .v2-specs {
+    background: var(--v2-bg);
+    padding: var(--pad-cinema-y) var(--tile-overlay-pad-x);
+    position: relative;
+    z-index: var(--z-content);
+  }
+  .v2-specs__inner {
+    max-width: var(--container);
+    margin: 0 auto;
+  }
+  .v2-specs__head {
+    margin-bottom: 56px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .v2-specs__title {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: var(--t-h2);
+    color: var(--v2-cream);
+    margin: 0;
+    text-wrap: balance;
+  }
+  .v2-specs__title em { font-style: italic; color: var(--v2-gold-2); }
+  .v2-specs__table {
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid color-mix(in oklab, var(--v2-gold) 30%, transparent);
+  }
+  .v2-specs__table tr {
+    border-bottom: 1px solid color-mix(in oklab, var(--v2-cream) 8%, transparent);
+  }
+  .v2-specs__table td {
+    padding: 22px 0;
+    vertical-align: baseline;
+  }
+  .v2-specs__lbl {
+    width: 30%;
+    font-family: var(--jakarta);
+    font-weight: 500;
+    font-size: 10px;
+    letter-spacing: 0.40em;
+    text-transform: uppercase;
+    color: color-mix(in oklab, var(--v2-gold) 80%, transparent);
+  }
+  .v2-specs__val {
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(20px, 2.2vw, 26px);
+    color: var(--v2-cream);
+  }
+
+  /* ============================================================
+   * §3 NOTES — dark surface, beige body, max 60ch
+   * ============================================================ */
+  .v2-notes {
+    background: var(--v2-bg);
+    padding: var(--pad-cinema-y) var(--tile-overlay-pad-x) calc(var(--pad-cinema-y) + 32px);
+    position: relative;
+    z-index: var(--z-content);
+    border-top: 1px solid color-mix(in oklab, var(--v2-cream) 6%, transparent);
+  }
+  .v2-notes__inner {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+  .v2-notes__head {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: clamp(28px, 3.4vw, 36px);
+    color: var(--v2-cream);
+    margin-top: 16px;
+    line-height: 1.18;
+    text-wrap: balance;
+  }
+  .v2-notes__rule {
+    display: block;
+    width: 56px;
+    height: 1px;
+    background: var(--v2-gold);
+    margin: 64px auto;
+    opacity: 0.55;
+  }
+  .v2-notes__quiet {
+    text-align: center;
+    font-family: var(--serif);
+    font-weight: 300;
+    font-size: clamp(18px, 2vw, 24px);
+    line-height: 1.55;
+    color: color-mix(in oklab, var(--v2-beige) 88%, transparent);
+    max-width: 56ch;
+    margin: 0 auto;
+  }
+  .v2-notes__quiet em { font-style: italic; }
+
+  @media (max-width: 760px) {
+    .v2-tile__notes { font-size: 18px; }
+    .v2-specs__lbl { width: 40%; font-size: 9px; letter-spacing: 0.32em; }
+    .v2-specs__val { font-size: 18px; }
+    .v2-notes__head { font-size: 26px; }
+  }
+</style>

@@ -125,6 +125,16 @@ export const videos = {
     subject: 'PLACEHOLDER — to be replaced with ghee bottle/jar product video',
     usedOn: ['/v2/the-ghee §1 product hero'],
   },
+  // /v2/the-honey §1 product hero — bees drinking from blossoms.
+  'honey-product': {
+    id: 'honey-product',
+    source: 'honey drinking flower.mp4',
+    src:    '/assets/video/honey-drinking-flower.mp4',
+    src720: '/assets/video/honey-drinking-flower-720.mp4',
+    poster: '/assets/images/poster-honey-drinking-flower.jpg',
+    subject: 'Bees drinking nectar from blossoms — provenance footage',
+    usedOn: ['/v2/the-honey §1 product hero'],
+  },
 } as const satisfies Record<string, VideoAsset>;
 
 export function img(id: keyof typeof images): ImageAsset { return images[id]; }

@@ -65,8 +65,8 @@ const ogImageURL = new URL(ogImage, Astro.site ?? 'https://aume.honey');
 <header class={`v2-nav ${navMode === 'over-hero' ? '' : 'is-scrolled'}`} id="v2-nav">
   <a class="v2-nav__logo" href="/v2/" aria-label="aumé — v2 home">aumé</a>
   <nav class="v2-nav__links" aria-label="Primary">
-    <a class="v2-nav__link" href="/the-honey"
-       aria-current={currentPath === '/the-honey' ? 'page' : undefined}>The Honey</a>
+    <a class="v2-nav__link" href="/v2/the-honey"
+       aria-current={currentPath === '/v2/the-honey' ? 'page' : undefined}>The Honey</a>
     <a class="v2-nav__link" href="/v2/the-ghee"
        aria-current={currentPath === '/v2/the-ghee' ? 'page' : undefined}>The Ghee</a>
   </nav>
@@ -90,7 +90,7 @@ const ogImageURL = new URL(ogImage, Astro.site ?? 'https://aume.honey');
     <div>
       <div class="v2-footer__col-head">Shop</div>
       <ul class="v2-footer__links">
-        <li><a href="/the-honey">Himalayan Clear Honey</a></li>
+        <li><a href="/v2/the-honey">Himalayan Clear Honey</a></li>
         <li><a href="/v2/the-ghee">A2 Bilona Ghee</a></li>
         <li><a href="/buy">Order</a></li>
       </ul>
@@ -99,7 +99,7 @@ const ogImageURL = new URL(ogImage, Astro.site ?? 'https://aume.honey');
       <div class="v2-footer__col-head">Learn</div>
       <ul class="v2-footer__links">
         <li><a href="/story">Our Origin</a></li>
-        <li><a href="/the-honey">The Honey Process</a></li>
+        <li><a href="/v2/the-honey">The Honey Process</a></li>
         <li><a href="/v2/the-ghee">The Bilona Method</a></li>
       </ul>
     </div>
