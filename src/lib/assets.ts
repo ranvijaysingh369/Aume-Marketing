@@ -112,14 +112,14 @@ export const videos = {
     subject: 'From the Earth hero footage — brand-level signifier (not a product origin claim)',
     usedOn: ['/v2/ §1 hero backdrop'],
   },
-  // v2 §2 honey tile — dancer-honey per founder direction.
+  // v2 §2 honey tile — honey-hover footage per founder direction.
   'honey-tile': {
     id: 'honey-tile',
-    source: 'dancer honey.mp4',
-    src:    '/assets/video/dancer-honey.mp4',
-    src720: '/assets/video/dancer-honey-720.mp4',
-    poster: '/assets/images/poster-dancer-honey.jpg',
-    subject: 'Dancer honey footage',
+    source: 'honey hover.mp4',
+    src:    '/assets/video/honey-hover.mp4',
+    src720: '/assets/video/honey-hover-720.mp4',
+    poster: '/assets/images/poster-honey-hover.jpg',
+    subject: 'Honey hover — close-up jar with bees and dripping honey',
     usedOn: ['/v2/ §2 honey tile backdrop'],
   },
   // §3 ghee tile on /v2/ home — bilona ghee hero footage.
