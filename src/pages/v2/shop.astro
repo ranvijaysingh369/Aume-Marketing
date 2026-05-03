@@ -223,23 +223,23 @@ const logo       = images['logo-3d'];
     display: flex;
     flex-direction: column;
     gap: 24px;
-    /* Pin the body to the bottom so price + CTAs align across cards
-       even when the image heights differ (square honey vs portrait ghee). */
-    justify-content: flex-end;
   }
-  /* Per-card image area sizes naturally to its source. Honey square
-     fills as a square; ghee portrait fills as a portrait. Either way
-     the entire photograph is shown with no crop and no letterbox. */
+  /* Both cards use the same 2:3 portrait aspect so the row is even.
+     Ghee source is 2:3 — fills naturally, no crop visible. Honey
+     source is 1:1 — cover crops the cream linen edges minimally
+     (the jar stays fully in frame). */
   .v2-shop__image {
     margin: 0;
+    aspect-ratio: 2 / 3;
     overflow: hidden;
     background: var(--v2-bg2);
-    align-self: flex-start;
     width: 100%;
   }
   .v2-shop__image img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
     display: block;
     filter: contrast(1.06) saturate(1.10);
   }
