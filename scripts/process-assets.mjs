@@ -107,7 +107,7 @@ const IMAGES = [
   { src: 'honey front and back.jpeg', id: 'honey-front-and-back', longest: 2000, role: 'photo' },
   { src: 'honey front and back - black.JPG', id: 'honey-front-and-back-black', longest: 2000, role: 'photo', quality: 'high' },
   { src: 'bilona v2.png', id: 'bilona-v2', longest: 2000, role: 'photo', quality: 'high' },
-  { src: 'honey same background.jpg', id: 'honey-same-bg', longest: 2000, role: 'photo', quality: 'high' },
+  { src: 'honey same background.jpg', id: 'honey-same-bg', longest: 2000, role: 'photo', quality: 'high', padTo: '2/3' },
   { src: 'ghee same background.png', id: 'ghee-same-bg', longest: 2000, role: 'photo', quality: 'high' },
 ];
 
@@ -153,14 +153,34 @@ async function processImage(entry) {
         : Math.round(meta.width * (entry.longest / meta.height)))
     : meta.width;
 
+  // Optional aspect-pad — extends shorter dimension with a sampled
+  // background colour so the output reaches the requested ratio.
+  // Used to harmonise card sizes on the shop page.
+  let pipeline = sharp(buf).resize({ width: targetW, withoutEnlargement: true });
+  if (entry.padTo) {
+    const [aw, ah] = entry.padTo.split('/').map(Number);
+    const tmp = await pipeline.toBuffer({ resolveWithObject: true });
+    const cw = tmp.info.width;
+    const ch = tmp.info.height;
+    const targetH = Math.round(cw * (ah / aw));
+    if (targetH > ch) {
+      const pad = targetH - ch;
+      pipeline = sharp(tmp.data).extend({
+        top: Math.floor(pad / 2),
+        bottom: Math.ceil(pad / 2),
+        left: 0,
+        right: 0,
+        background: entry.padBg || { r: 213, g: 205, b: 195 },
+      });
+    }
+  }
+
   // Per-entry quality: 'high' bumps webp/jpg quality for hero photos
   // (e.g. /v2/the-honey §3 jar shot) where detail matters.
   const wq = entry.quality === 'high' ? 92 : 82;
   const jq = entry.quality === 'high' ? 94 : 85;
-  await sharp(buf).resize({ width: targetW, withoutEnlargement: true })
-    .webp({ quality: wq }).toFile(path.join(OUT_IMG, `${entry.id}.webp`));
-  await sharp(buf).resize({ width: targetW, withoutEnlargement: true })
-    .jpeg({ quality: jq, progressive: true }).toFile(path.join(OUT_IMG, `${entry.id}.jpg`));
+  await pipeline.clone().webp({ quality: wq }).toFile(path.join(OUT_IMG, `${entry.id}.webp`));
+  await pipeline.clone().jpeg({ quality: jq, progressive: true }).toFile(path.join(OUT_IMG, `${entry.id}.jpg`));
 
   if (entry.cropHalves) {
     const halfW = Math.floor(meta.width / 2);
