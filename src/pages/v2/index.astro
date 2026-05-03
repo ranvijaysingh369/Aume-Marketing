@@ -117,50 +117,53 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
 </section>
 
 <!-- ============================================================
-     §3 THE GHEE — sub-section sized (~62vh), independent block.
+     §3 THE GHEE — split layout (matches §2 honey tile format).
      Hard rule: ghee never claims mountains on this page.
+     bilona-ghee-hero-2 is 3:4 portrait — object-fit:cover on the
+     1:1 media slot crops the vertical edges (centered subject
+     stays visible).
      ============================================================ -->
-<section class="v2-tile v2-tile--sub" data-tile-video-host id="the-ghee">
-  <video
-    class="v2-tile__video"
-    data-tile-video
-    autoplay muted loop playsinline preload="metadata"
-    poster={gheeVid.poster}
-    disablepictureinpicture disableremoteplayback
-    aria-hidden="true"
-  >
-    <source src={gheeVid.src720} type="video/mp4" media="(max-width: 768px)" />
-    <source src={gheeVid.src} type="video/mp4" />
-  </video>
-  <div class="v2-tile__scrim" aria-hidden="true"></div>
-  <div class="v2-tile__frame" aria-hidden="true"></div>
-
-  <div class="v2-tile__index">
-    <span>N° 03 · The Ghee</span>
-    <span class="v2-tile__index-line" aria-hidden="true"></span>
-  </div>
-
-  <div class="v2-tile__copy">
-    <span class="v2-eyebrow v2-reveal" data-delay="0">The&nbsp;Ghee</span>
-    <h2 class="v2-tile__title v2-reveal" data-delay="120">
-      A2 <em>Bilona&nbsp;Ghee.</em>
-    </h2>
-    <p class="v2-tile__sub v2-reveal" data-delay="160">
-      A2 Beta&#8209;Casein&nbsp;&middot;&nbsp;Bilona Churned&nbsp;&middot;&nbsp;5,000&nbsp;Years
-    </p>
-    <div class="v2-tile__price v2-reveal" data-delay="240">
-      <span class="v2-tile__price-num">$25</span>
-      <span class="v2-tile__price-unit">/ 7.9 oz · 225 g</span>
+<section class="v2-tile v2-tile--split" data-tile-video-host id="the-ghee">
+  <div class="v2-tile__split-inner">
+    <div class="v2-tile__split-copy">
+      <span class="v2-eyebrow v2-reveal" data-delay="0">The&nbsp;Ghee</span>
+      <h2 class="v2-tile__title v2-reveal" data-delay="120">
+        A2 <em>Bilona&nbsp;Ghee.</em>
+      </h2>
+      <p class="v2-tile__sub v2-reveal" data-delay="160">
+        A2 Beta&#8209;Casein&nbsp;&middot;&nbsp;Bilona Churned&nbsp;&middot;&nbsp;5,000&nbsp;Years
+      </p>
+      <div class="v2-tile__price v2-reveal" data-delay="240">
+        <span class="v2-tile__price-num">$25</span>
+        <span class="v2-tile__price-unit">/ 7.9 oz · 225 g</span>
+      </div>
+      <div class="v2-tile__ctas v2-reveal" data-delay="320">
+        <a class="v2-cta" href="/v2/the-ghee">
+          Add to Cart
+          <span class="v2-cta__pip" aria-hidden="true">↗</span>
+        </a>
+        <a class="v2-link" href="/v2/the-ghee">
+          The Story
+          <span class="v2-link__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
-    <div class="v2-tile__ctas v2-reveal" data-delay="320">
-      <a class="v2-cta" href="/v2/the-ghee">
-        Add to Cart
-        <span class="v2-cta__pip" aria-hidden="true">↗</span>
-      </a>
-      <a class="v2-link" href="/v2/the-ghee">
-        The Story
-        <span class="v2-link__arrow" aria-hidden="true">→</span>
-      </a>
+    <div class="v2-tile__split-media">
+      <span class="v2-tile__split-index">
+        N° 03&nbsp;&middot;&nbsp;The Ghee
+        <span class="v2-tile__index-line" aria-hidden="true"></span>
+      </span>
+      <video
+        class="v2-tile__split-video"
+        data-tile-video
+        autoplay muted loop playsinline preload="metadata"
+        poster={gheeVid.poster}
+        disablepictureinpicture disableremoteplayback
+        aria-hidden="true"
+      >
+        <source src={gheeVid.src720} type="video/mp4" media="(max-width: 768px)" />
+        <source src={gheeVid.src} type="video/mp4" />
+      </video>
     </div>
   </div>
 </section>
