@@ -276,13 +276,32 @@ const jarImage = images['honey-front-and-back'];
     margin: 0;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    background: var(--v2-bg2);
+    background: var(--v2-bg);
+    position: relative;
+    isolation: isolate;
   }
   .v2-notes__image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+    /* Pull the cream linen photo background into the page surface
+       (deep near-black). multiply blend darkens the bright pixels
+       toward bg colour while keeping the honey amber visible. The
+       brightness/contrast tune brings the jar back up so it doesn't
+       disappear into the surface. */
+    mix-blend-mode: multiply;
+    filter: brightness(1.4) contrast(1.05);
+  }
+  /* Soft inner vignette to seat the image into the surface */
+  .v2-notes__image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 90% 90% at 50% 50%, transparent 55%, rgba(6, 5, 4, 0.55) 100%);
+    z-index: 1;
   }
   .v2-notes__copy {
     display: flex;
