@@ -596,9 +596,6 @@ p { margin: 0; }
   z-index: 4;
   text-decoration: none;
   color: #3D2B1F;
-  text-shadow:
-    0 0 14px rgba(244, 236, 220, 0.55),
-    0 1px 4px rgba(244, 236, 220, 0.4);
   transition: opacity var(--dur-cta) var(--ease-cinema);
 }
 .v2-corner-mark:hover { opacity: 0.85; }
