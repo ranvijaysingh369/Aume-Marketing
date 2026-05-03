@@ -292,8 +292,8 @@ p { margin: 0; }
    page surface bleeding through (no tile gap needed since the
    surface is continuous). */
 .v2-tile--sub {
-  height: clamp(540px, 62vh, 720px);
-  min-height: 540px;
+  height: clamp(440px, 52vh, 600px);
+  min-height: 440px;
 }
 .v2-tile--sub .v2-tile__title {
   font-size: clamp(34px, 4.4vw, 52px);
@@ -314,19 +314,18 @@ p { margin: 0; }
 }
 
 /* ============================================================
- * SQUARE VARIANT — tile shape matches a 1:1 source video.
- * Tile becomes a centered aspect-1/1 frame, max 1100px wide.
- * The full video plays AND fills the tile completely, with the
- * dark page surface bleeding through on the sides as editorial
- * negative space (no card edges, no boxed look).
+ * SQUARE VARIANT — full viewport width, square aspect.
+ * Tile is edge-to-edge with the source video filling completely.
+ * For a 1:1 source the tile becomes 100vw × 100vw — taller than
+ * the viewport, but the only way to satisfy "no crop, no letter-
+ * box, no boxed look" simultaneously.
  * ============================================================ */
 .v2-tile--square {
-  /* Override the default 100vw / 100vh sizing */
   height: auto;
   min-height: 0;
-  width: min(100%, 1100px);
+  width: 100vw;
   aspect-ratio: 1 / 1;
-  margin: clamp(40px, 6vh, 72px) auto;
+  margin: 0;
 }
 .v2-tile--square .v2-tile__title {
   font-size: clamp(34px, 4.4vw, 52px);
