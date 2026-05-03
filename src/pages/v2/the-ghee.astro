@@ -169,7 +169,15 @@ const jarImage = images['ghee-same-bg'];
 </V2Base>
 
 <style>
-  /* §1 inherits .v2-tile / .v2-tile__copy from v2-global.css. */
+  /* §1 inherits .v2-tile / .v2-tile__copy from v2-global.css.
+     Page-scoped overrides:
+       - object-fit: contain so the entire video frame shows
+       - vibrance lift matching /v2/the-honey */
+  .v2-tile__video {
+    object-fit: contain;
+    background: var(--v2-bg);
+    filter: brightness(1.12) saturate(1.40) contrast(1.08);
+  }
   .v2-tile__copy--product { gap: 18px; max-width: 760px; }
   .v2-tile__notes {
     margin-top: 4px;
