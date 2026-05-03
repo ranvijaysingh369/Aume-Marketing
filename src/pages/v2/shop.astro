@@ -240,13 +240,13 @@ const logo       = images['logo-3d'];
     display: block;
     filter: contrast(1.06) saturate(1.10);
   }
-  /* Honey jars sit centered on a wide cream-linen frame, so they
-     read smaller than the ghee jars at the same card size. Scaling
-     the image up zooms in on the centred subject — the cream linen
-     edges fall off the figure (overflow: hidden clips them) while
-     the jars themselves are never cropped. */
+  /* Honey image was padded to 2:3 with cream linen at the pipeline.
+     Scaling 1.5x on display zooms past the padding (the outer 1/6
+     top + 1/6 bottom is exactly the padded margin), revealing only
+     the original square photo with the two honey jars filling the
+     card. No grey linen padding visible, no jar crop. */
   .v2-shop__product:first-child .v2-shop__image img {
-    transform: scale(1.45);
+    transform: scale(1.5);
     transform-origin: center center;
   }
   .v2-shop__product-body {
