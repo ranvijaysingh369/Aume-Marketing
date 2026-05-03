@@ -93,15 +93,14 @@ export const videos = {
     subject: 'From the Earth hero footage — brand-level signifier (not a product origin claim)',
     usedOn: ['/v2/ §1 hero backdrop'],
   },
-  // v2 §2 honey tile — honey-drinking-flower (atmospheric flower
-  // and bee scene) per founder direction.
+  // v2 §2 honey tile — dancer-honey per founder direction.
   'honey-tile': {
     id: 'honey-tile',
-    source: 'honey drinking flower.mp4',
-    src:    '/assets/video/honey-drinking-flower.mp4',
-    src720: '/assets/video/honey-drinking-flower-720.mp4',
-    poster: '/assets/images/poster-honey-drinking-flower.jpg',
-    subject: 'Bees drinking nectar from white blossoms — atmospheric, slow',
+    source: 'dancer honey.mp4',
+    src:    '/assets/video/dancer-honey.mp4',
+    src720: '/assets/video/dancer-honey-720.mp4',
+    poster: '/assets/images/poster-dancer-honey.jpg',
+    subject: 'Dancer honey footage',
     usedOn: ['/v2/ §2 honey tile backdrop'],
   },
   // §3 ghee tile on /v2/ home — Bilona Ghee Making process footage.
