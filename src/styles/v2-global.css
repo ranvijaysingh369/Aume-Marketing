@@ -314,18 +314,18 @@ p { margin: 0; }
 }
 
 /* ============================================================
- * SQUARE VARIANT — full viewport width, square aspect.
- * Tile is edge-to-edge with the source video filling completely.
- * For a 1:1 source the tile becomes 100vw × 100vw — taller than
- * the viewport, but the only way to satisfy "no crop, no letter-
- * box, no boxed look" simultaneously.
+ * SQUARE VARIANT — half-viewport width, square aspect.
+ * Founder direction: tile sized at 50vw (half the previous full-
+ * bleed). Centered with editorial breathing room on the sides.
+ * The 1:1 source still fills entirely — no crop, no letterbox.
  * ============================================================ */
 .v2-tile--square {
   height: auto;
   min-height: 0;
-  width: 100vw;
+  width: 50vw;
+  min-width: 320px;
   aspect-ratio: 1 / 1;
-  margin: 0;
+  margin: clamp(40px, 6vh, 72px) auto;
 }
 .v2-tile--square .v2-tile__title {
   font-size: clamp(34px, 4.4vw, 52px);
