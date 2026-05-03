@@ -64,6 +64,15 @@ export const images = {
     description: 'aumé Himalayan Clear Honey jar — front and back labels visible, black background',
     usedOn: ['/v2/the-honey §3 notes'],
   },
+  // /v2/the-ghee §3 product photograph — A2 Bilona Ghee jar.
+  'bilona-v2': {
+    id: 'bilona-v2',
+    source: 'bilona v2.png',
+    webp: '/assets/images/bilona-v2.webp',
+    jpg:  '/assets/images/bilona-v2.jpg',
+    description: 'aumé A2 Bilona Ghee jar — product photograph',
+    usedOn: ['/v2/the-ghee §3 notes'],
+  },
 } as const satisfies Record<string, ImageAsset>;
 
 export const videos = {
