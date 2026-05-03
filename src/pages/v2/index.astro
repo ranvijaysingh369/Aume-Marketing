@@ -33,6 +33,7 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
   description="Himalayan Clear Honey + A2 Bilona Ghee. Two ancestral originals. From the Earth."
   navMode="over-hero"
   currentPath="/v2/"
+  hideNavLogo={true}
 >
 
 <!-- ============================================================
@@ -59,12 +60,12 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
     <span class="v2-tile__index-line" aria-hidden="true"></span>
   </div>
 
-  <!-- Hero copy intentionally omitted — the From-the-Earth video
-       has the wordmark + tagline baked in, so any HTML overlay
-       would double up. The video IS the lockup.
-       Semantic <h1> for SEO/a11y is provided as a visually-hidden
-       label below. -->
-  <h1 class="v2-hero__sr">aumé — From the Earth</h1>
+  <!-- Top-left brand wordmark — italic Cormorant in the same
+       editorial register as the lettering baked into the
+       From-the-Earth video. Doubles as the home link. -->
+  <a class="v2-hero__mark" href="/v2/" aria-label="aumé — home">
+    <h1 class="v2-hero__brand">aumé</h1>
+  </a>
 </section>
 
 <!-- ============================================================
@@ -203,17 +204,34 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
     background: var(--v2-bg);
     isolation: isolate;
   }
-  /* Visually-hidden semantic h1 for SEO + a11y. The video has the
-     wordmark + tagline baked in, so we don't render text overlay. */
-  .v2-hero__sr {
+  /* Top-left brand wordmark — sits in the upper-left corner of
+     the hero, italic Cormorant 300 to match the lettering in the
+     hero video. Cream on media + shadow for legibility. */
+  .v2-hero__mark {
     position: absolute;
-    width: 1px; height: 1px;
-    margin: -1px; padding: 0;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    border: 0;
-    white-space: nowrap;
+    top: clamp(24px, 3vh, 36px);
+    left: clamp(24px, 4vw, 56px);
+    z-index: 4;
+    text-decoration: none;
+    color: var(--v2-on-media);
+    text-shadow:
+      0 1px 8px rgba(0, 0, 0, 0.55),
+      0 0 28px rgba(0, 0, 0, 0.35);
+    transition: opacity var(--dur-cta) var(--ease-cinema);
+  }
+  .v2-hero__mark:hover { opacity: 0.85; }
+  .v2-hero__brand {
+    margin: 0;
+    font-family: var(--serif);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(34px, 3.4vw, 46px);
+    letter-spacing: 0.02em;
+    line-height: 1;
+    color: inherit;
+  }
+  @media (max-width: 760px) {
+    .v2-hero__mark { top: 18px; left: 22px; }
   }
   .v2-hero__video {
     position: absolute; inset: 0;

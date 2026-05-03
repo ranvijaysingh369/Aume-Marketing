@@ -20,6 +20,7 @@ interface Props {
   navMode?: 'over-hero' | 'solid';
   currentPath?: string;
   ogImage?: string;
+  hideNavLogo?: boolean;
 }
 const {
   title,
@@ -27,6 +28,7 @@ const {
   navMode = 'solid',
   currentPath = '/v2/',
   ogImage = '/assets/images/poster-aume-hero.jpg',
+  hideNavLogo = false,
 } = Astro.props;
 const canonicalURL = new URL(currentPath, Astro.site ?? 'https://aume.honey');
 const ogImageURL = new URL(ogImage, Astro.site ?? 'https://aume.honey');
@@ -63,7 +65,9 @@ const ogImageURL = new URL(ogImage, Astro.site ?? 'https://aume.honey');
 <div class="v2-grain" aria-hidden="true"></div>
 
 <header class={`v2-nav ${navMode === 'over-hero' ? '' : 'is-scrolled'}`} id="v2-nav">
-  <a class="v2-nav__logo" href="/v2/" aria-label="aumé — v2 home">aumé</a>
+  {!hideNavLogo && (
+    <a class="v2-nav__logo" href="/v2/" aria-label="aumé — v2 home">aumé</a>
+  )}
   <nav class="v2-nav__links" aria-label="Primary">
     <a class="v2-nav__link" href="/v2/the-honey"
        aria-current={currentPath === '/v2/the-honey' ? 'page' : undefined}>The Honey</a>
