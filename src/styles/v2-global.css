@@ -347,12 +347,12 @@ p { margin: 0; }
   height: auto;
   min-height: 0;
   background: var(--v2-bg);
-  padding: clamp(48px, 7vh, 96px) var(--tile-overlay-pad-x);
+  padding: clamp(56px, 8vh, 112px) var(--tile-overlay-pad-x);
 }
 .v2-tile__split-inner {
   display: grid;
-  grid-template-columns: 1fr minmax(360px, 560px);
-  gap: clamp(32px, 6vw, 96px);
+  grid-template-columns: 1fr minmax(480px, 760px);
+  gap: clamp(40px, 6vw, 96px);
   align-items: center;
   max-width: var(--container-wide);
   margin: 0 auto;
