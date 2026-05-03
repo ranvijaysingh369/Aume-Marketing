@@ -172,7 +172,12 @@ const jarImage = images['honey-same-bg'];
 </V2Base>
 
 <style>
-  /* §1 inherits .v2-tile / .v2-tile__copy from v2-global.css. */
+  /* §1 inherits .v2-tile / .v2-tile__copy from v2-global.css.
+     Lift honey-drinking-flower vibrance — Astro page-scopes this
+     style block so the rule only applies on /v2/the-honey. */
+  .v2-tile__video {
+    filter: brightness(1.12) saturate(1.40) contrast(1.08);
+  }
   .v2-tile__copy--product { gap: 18px; max-width: 760px; }
   .v2-tile__notes {
     margin-top: 4px;
