@@ -63,7 +63,7 @@ const logo       = images['logo-3d'];
 
         <!-- GHEE -->
         <article class="v2-shop__product v2-reveal" data-delay="120">
-          <figure class="v2-shop__image v2-shop__image--cover">
+          <figure class="v2-shop__image">
             <img src={gheeImage.webp} alt={gheeImage.description} loading="eager" decoding="async" />
           </figure>
           <div class="v2-shop__product-body">
@@ -223,23 +223,25 @@ const logo       = images['logo-3d'];
     display: flex;
     flex-direction: column;
     gap: 24px;
+    /* Pin the body to the bottom so price + CTAs align across cards
+       even when the image heights differ (square honey vs portrait ghee). */
+    justify-content: flex-end;
   }
+  /* Per-card image area sizes naturally to its source. Honey square
+     fills as a square; ghee portrait fills as a portrait. Either way
+     the entire photograph is shown with no crop and no letterbox. */
   .v2-shop__image {
     margin: 0;
-    aspect-ratio: 1 / 1;
     overflow: hidden;
     background: var(--v2-bg2);
+    align-self: flex-start;
+    width: 100%;
   }
   .v2-shop__image img {
-    width: 100%; height: 100%;
-    object-fit: contain;
+    width: 100%;
+    height: auto;
     display: block;
     filter: contrast(1.06) saturate(1.10);
-  }
-  /* Cover variant — fills the square, crops the aspect mismatch
-     (used on ghee where the source is portrait 2:3). */
-  .v2-shop__image--cover img {
-    object-fit: cover;
   }
   .v2-shop__product-body {
     display: flex;
