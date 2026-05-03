@@ -269,110 +269,23 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
       );
   }
 
-  /* Hero copy — overlay centered (per founder request). Eyebrow
-     above wordmark, hairline below. The whole lockup centers
-     horizontally, sits ~6vh above optical center for visual weight. */
-  .v2-hero__copy {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    text-align: center;
-    pointer-events: none;
-    padding-bottom: 6vh;
-    gap: 8px;
-  }
-  /* Tagline now appears AFTER the wordmark+hairline lockup settles —
-     fires at 4000ms, just after the hairline finishes drawing (3900ms).
-     Sits beneath the hairline with a small visual breath above. */
-  .v2-hero__eyebrow {
-    margin-top: 6px;
-    opacity: 0;
-    animation: v2-hero-fade 1100ms var(--ease-cinema) 4000ms forwards;
-  }
-
-  /* Wordmark — char-split rise. Each glyph rises from
-     translateY(56px) scale(0.94) on a stagger keyed by --ch
-     (90ms apart). Choreography starts 800ms; last glyph settles
-     at ~3.47s (matches brief §2.4 "settles at 3.2s" spec). */
-  .v2-hero__brand {
-    font-family: var(--serif);
-    font-style: italic;
-    font-weight: 300;
-    font-size: var(--t-display);
-    line-height: 0.95;
-    letter-spacing: -0.02em;
-    color: var(--v2-cream);
-    margin: 0;
-  }
-  .v2-hero__brand-char {
-    display: inline-block;
-    color: var(--v2-cream);
-    background: linear-gradient(180deg, var(--v2-cream) 30%, var(--v2-gold-2) 100%);
-    -webkit-background-clip: text;
-            background-clip: text;
-    -webkit-text-fill-color: transparent;
-    opacity: 0;
-    transform: translateY(56px) scale(0.94);
-    animation:
-      v2-hero-rise var(--dur-rise) var(--ease-cinema)
-        calc(800ms + var(--ch) * 90ms)
-        both;
-  }
-  @supports not ((-webkit-background-clip: text) or (background-clip: text)) {
-    .v2-hero__brand-char {
-      background: none;
-      -webkit-text-fill-color: var(--v2-cream);
-      color: var(--v2-cream);
-    }
-  }
-
-  .v2-hero__hairline {
-    display: block;
-    width: 0;
-    height: 1px;
-    background: var(--v2-gold);
-    margin: 14px 0 0;
-    box-shadow: 0 0 18px rgba(197, 149, 42, 0.45);
-    animation: v2-hero-hairline 900ms var(--ease-cinema) 3000ms both;
-  }
-
+  /* Hero index marker fades in (rest of hero is the bare video) */
   .v2-hero .v2-tile__index {
     opacity: 0;
     animation: v2-hero-fade 1200ms var(--ease-cinema) 1800ms forwards;
   }
 
-  @keyframes v2-hero-rise {
-    0%   { opacity: 0; transform: translateY(56px) scale(0.94); }
-    100% { opacity: 1; transform: translateY(0)    scale(1.00); }
-  }
-  @keyframes v2-hero-hairline {
-    0%   { width: 0; }
-    100% { width: 84px; }
-  }
   @keyframes v2-hero-fade {
     0%   { opacity: 0; }
     100% { opacity: 1; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .v2-hero__brand-char {
-      animation: none;
-      opacity: 1;
-      transform: none;
-    }
-    .v2-hero__hairline { animation: none; width: 84px; }
-    .v2-hero__eyebrow,
     .v2-hero .v2-tile__index {
       animation: none;
       opacity: 1;
       transform: none;
     }
-  }
-
-  @media (max-width: 760px) {
-    .v2-hero__brand { font-size: clamp(64px, 18vw, 88px); }
   }
 
   /* ============================================================
