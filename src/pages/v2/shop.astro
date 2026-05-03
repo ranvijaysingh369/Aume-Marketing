@@ -63,7 +63,7 @@ const logo       = images['logo-3d'];
 
         <!-- GHEE -->
         <article class="v2-shop__product v2-reveal" data-delay="120">
-          <figure class="v2-shop__image">
+          <figure class="v2-shop__image v2-shop__image--cover">
             <img src={gheeImage.webp} alt={gheeImage.description} loading="eager" decoding="async" />
           </figure>
           <div class="v2-shop__product-body">
@@ -235,6 +235,11 @@ const logo       = images['logo-3d'];
     object-fit: contain;
     display: block;
     filter: contrast(1.06) saturate(1.10);
+  }
+  /* Cover variant — fills the square, crops the aspect mismatch
+     (used on ghee where the source is portrait 2:3). */
+  .v2-shop__image--cover img {
+    object-fit: cover;
   }
   .v2-shop__product-body {
     display: flex;
