@@ -28,6 +28,12 @@
   --v2-gold-2:  #8C661A;   /* deeper gold for italic emphasis on cream */
   --v2-sage:    #6E7E64;   /* secondary muted accent (used sparingly) */
 
+  /* --- Text-over-media tokens — ALWAYS light, regardless of
+     surface theme. Used on text/CTAs overlaid on video tiles. */
+  --v2-on-media:       #FAF5EB;   /* cream — primary text on video */
+  --v2-on-media-soft:  #D4C4A8;   /* beige — sub copy on video */
+  --v2-on-media-gold:  #DBB35E;   /* warmer gold accent on video */
+
   /* Re-declare gold-light token (legacy) — points at v2-gold-2 now */
   --gold-light: var(--v2-gold-2);
 
