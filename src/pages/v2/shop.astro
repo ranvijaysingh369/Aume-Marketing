@@ -224,9 +224,7 @@ const logo       = images['logo-3d'];
     flex-direction: column;
     gap: 24px;
   }
-  /* Both cards use the same 2:3 portrait aspect. Both source images
-     are now natively 2:3 (honey is padded with linen at the pipeline
-     stage) so cover fills cleanly with no crop and no letterbox. */
+  /* Both cards use the same 2:3 portrait aspect. */
   .v2-shop__image {
     margin: 0;
     aspect-ratio: 2 / 3;
@@ -241,6 +239,15 @@ const logo       = images['logo-3d'];
     object-position: center;
     display: block;
     filter: contrast(1.06) saturate(1.10);
+  }
+  /* Honey jars sit centered on a wide cream-linen frame, so they
+     read smaller than the ghee jars at the same card size. Scaling
+     the image up zooms in on the centred subject — the cream linen
+     edges fall off the figure (overflow: hidden clips them) while
+     the jars themselves are never cropped. */
+  .v2-shop__product:first-child .v2-shop__image img {
+    transform: scale(1.45);
+    transform-origin: center center;
   }
   .v2-shop__product-body {
     display: flex;
