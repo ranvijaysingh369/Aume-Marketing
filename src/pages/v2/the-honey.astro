@@ -285,8 +285,10 @@ const jarImage = images['honey-front-and-back-black'];
     height: 100%;
     object-fit: cover;
     display: block;
-    /* No filter / blend / vignette — the source has a black
-       background that blends naturally into the page surface. */
+    /* Subtle enhance — boosts the honey gold and sharpens the
+       label detail without darkening or color-shifting. The
+       source already has a black background, so no blend needed. */
+    filter: contrast(1.06) saturate(1.10);
   }
   .v2-notes__copy {
     display: flex;

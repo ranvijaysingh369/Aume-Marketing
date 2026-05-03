@@ -105,7 +105,7 @@ const IMAGES = [
   // Two product photos, each with a distinct job (see src/lib/assets.ts)
   { src: 'hf_20260501_043643_a2959d2a-0872-4201-a628-f438cc22ea37.png', id: 'honey-jar', longest: 1600, role: 'photo' },
   { src: 'honey front and back.jpeg', id: 'honey-front-and-back', longest: 2000, role: 'photo' },
-  { src: 'honey front and back - black.JPG', id: 'honey-front-and-back-black', longest: 2000, role: 'photo' },
+  { src: 'honey front and back - black.JPG', id: 'honey-front-and-back-black', longest: 2000, role: 'photo', quality: 'high' },
 ];
 
 const VIDEOS = [
@@ -149,10 +149,14 @@ async function processImage(entry) {
         : Math.round(meta.width * (entry.longest / meta.height)))
     : meta.width;
 
+  // Per-entry quality: 'high' bumps webp/jpg quality for hero photos
+  // (e.g. /v2/the-honey §3 jar shot) where detail matters.
+  const wq = entry.quality === 'high' ? 92 : 82;
+  const jq = entry.quality === 'high' ? 94 : 85;
   await sharp(buf).resize({ width: targetW, withoutEnlargement: true })
-    .webp({ quality: 82 }).toFile(path.join(OUT_IMG, `${entry.id}.webp`));
+    .webp({ quality: wq }).toFile(path.join(OUT_IMG, `${entry.id}.webp`));
   await sharp(buf).resize({ width: targetW, withoutEnlargement: true })
-    .jpeg({ quality: 85, progressive: true }).toFile(path.join(OUT_IMG, `${entry.id}.jpg`));
+    .jpeg({ quality: jq, progressive: true }).toFile(path.join(OUT_IMG, `${entry.id}.jpg`));
 
   if (entry.cropHalves) {
     const halfW = Math.floor(meta.width / 2);
