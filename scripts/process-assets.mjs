@@ -120,6 +120,7 @@ const VIDEOS = [
   // detail clarity matters. Mobile variant stays on the perf preset.
   { src: 'From the earth hero page.mp4', id: 'aume-hero-fte', quality: 'hero' },
   { src: 'bilona ghee hero 2.mp4', id: 'bilona-ghee-hero-2', quality: 'hero' },
+  { src: 'bilona ghee hero.mp4', id: 'bilona-ghee-hero', quality: 'hero' },
 ];
 
 async function ensureDir(p) { await fs.mkdir(p, { recursive: true }); }
