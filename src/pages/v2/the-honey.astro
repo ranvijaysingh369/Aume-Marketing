@@ -285,25 +285,8 @@ const jarImage = images['honey-front-and-back-black'];
     height: 100%;
     object-fit: cover;
     display: block;
-    /* Image untouched — bottles stay bright. The vignette below
-       fades the cream linen edges into the page surface so the
-       photograph blends rather than reading as a bright card. */
-  }
-  /* Heavy radial vignette — center transparent (bottles visible),
-     edges fully match the page surface (cream linen disappears). */
-  .v2-notes__image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background:
-      radial-gradient(
-        ellipse 60% 70% at 50% 50%,
-        transparent 35%,
-        rgba(6, 5, 4, 0.55) 70%,
-        rgba(6, 5, 4, 1) 100%
-      );
-    z-index: 1;
+    /* No filter / blend / vignette — the source has a black
+       background that blends naturally into the page surface. */
   }
   .v2-notes__copy {
     display: flex;
