@@ -225,20 +225,20 @@ const logo       = images['logo-3d'];
     gap: 24px;
   }
   /* Both cards use the same 2:3 portrait aspect so the row is even.
-     Ghee source is 2:3 — fills naturally, no crop visible. Honey
-     source is 1:1 — cover crops the cream linen edges minimally
-     (the jar stays fully in frame). */
+     Both images sit on contain so the entire photograph is shown —
+     the figure background matches the page surface so any aspect-
+     mismatch margins blend invisibly into the surrounding cream. */
   .v2-shop__image {
     margin: 0;
     aspect-ratio: 2 / 3;
     overflow: hidden;
-    background: var(--v2-bg2);
+    background: var(--v2-bg);
     width: 100%;
   }
   .v2-shop__image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     display: block;
     filter: contrast(1.06) saturate(1.10);
