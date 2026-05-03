@@ -107,7 +107,7 @@ const IMAGES = [
   { src: 'honey front and back.jpeg', id: 'honey-front-and-back', longest: 2000, role: 'photo' },
   { src: 'honey front and back - black.JPG', id: 'honey-front-and-back-black', longest: 2000, role: 'photo', quality: 'high' },
   { src: 'bilona v2.png', id: 'bilona-v2', longest: 2000, role: 'photo', quality: 'high' },
-  { src: 'honey same background.jpg', id: 'honey-same-bg', longest: 2000, role: 'photo', quality: 'high', padTo: '2/3' },
+  { src: 'honey same background.jpg', id: 'honey-same-bg', longest: 2000, role: 'photo', quality: 'high' },
   { src: 'ghee same background.png', id: 'ghee-same-bg', longest: 2000, role: 'photo', quality: 'high' },
 ];
 
