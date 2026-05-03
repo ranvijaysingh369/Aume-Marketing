@@ -73,6 +73,23 @@ export const images = {
     description: 'aumé A2 Bilona Ghee jar — product photograph',
     usedOn: ['/v2/the-ghee §3 notes'],
   },
+  // Same-background variants for the product pages
+  'honey-same-bg': {
+    id: 'honey-same-bg',
+    source: 'honey same background.jpg',
+    webp: '/assets/images/honey-same-bg.webp',
+    jpg:  '/assets/images/honey-same-bg.jpg',
+    description: 'aumé Himalayan Clear Honey — same-background product photograph',
+    usedOn: ['/v2/the-honey §3 notes'],
+  },
+  'ghee-same-bg': {
+    id: 'ghee-same-bg',
+    source: 'ghee same background.png',
+    webp: '/assets/images/ghee-same-bg.webp',
+    jpg:  '/assets/images/ghee-same-bg.jpg',
+    description: 'aumé A2 Bilona Ghee — same-background product photograph',
+    usedOn: ['/v2/the-ghee §3 notes'],
+  },
 } as const satisfies Record<string, ImageAsset>;
 
 export const videos = {
