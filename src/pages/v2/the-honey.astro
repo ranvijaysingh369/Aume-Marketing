@@ -21,8 +21,9 @@
  * non-breaking hyphen (&#8209;) so the §7.4 sweep stays clean.
  */
 import V2Base from '@layouts/V2Base.astro';
-import { videos } from '@lib/assets';
-const heroVid = videos['honey-product'];
+import { videos, images } from '@lib/assets';
+const heroVid  = videos['honey-product'];
+const jarImage = images['honey-front-and-back'];
 ---
 <V2Base
   title="Himalayan Clear Honey — aumé"
@@ -125,32 +126,41 @@ const heroVid = videos['honey-product'];
 </section>
 
 <!-- ============================================================
-     §3 NOTES — provenance + storage
+     §3 NOTES — split: jar product image left, copy right
+     (mirrors v1 /the-honey §3 back-label pattern)
      ============================================================ -->
-<section class="v2-notes">
-  <div class="v2-notes__inner">
-    <span class="v2-eyebrow v2-reveal">Notes</span>
-    <h2 class="v2-notes__head v2-reveal" data-delay="80">Traditionally used for.</h2>
-    <p class="v2-body v2-reveal" data-delay="160">
-      In the valleys it comes from, raw honey has been taken at first
-      light for soothing the throat, settling the stomach, and lifting
-      the morning. We carry the tradition forward without changing it.
-    </p>
+<section class="v2-notes v2-notes--split">
+  <div class="v2-notes__split-inner">
+    <figure class="v2-notes__image v2-reveal">
+      <img
+        src={jarImage.webp}
+        alt={jarImage.description}
+        loading="lazy"
+        decoding="async"
+      />
+    </figure>
+    <div class="v2-notes__copy">
+      <span class="v2-eyebrow v2-reveal">Notes</span>
+      <h2 class="v2-notes__head v2-reveal" data-delay="80">Traditionally used for.</h2>
+      <p class="v2-body v2-reveal" data-delay="160">
+        In the valleys it comes from, raw honey has been taken at first
+        light for soothing the throat, settling the stomach, and lifting
+        the morning. We carry the tradition forward without changing it.
+      </p>
 
-    <h2 class="v2-notes__head v2-reveal" data-delay="240" style="margin-top: 56px">A spoonful contains.</h2>
-    <p class="v2-body v2-reveal" data-delay="320">
-      Naturally occurring antioxidants and polyphenols. Trace minerals
-      from high altitude soil. Live enzymes&nbsp;&mdash; glucose oxidase,
-      invertase, diastase&nbsp;&mdash; that pasteurised honey no longer has.
-      And nothing else. No additives, no fillers, no heat above 38°C.
-    </p>
+      <h2 class="v2-notes__head v2-reveal" data-delay="240" style="margin-top: 40px">A spoonful contains.</h2>
+      <p class="v2-body v2-reveal" data-delay="320">
+        Naturally occurring antioxidants and polyphenols. Trace minerals
+        from high altitude soil. Live enzymes&nbsp;&mdash; glucose oxidase,
+        invertase, diastase&nbsp;&mdash; that pasteurised honey no longer has.
+        And nothing else. No additives, no fillers, no heat above 38°C.
+      </p>
 
-    <div class="v2-notes__rule v2-reveal" data-delay="400" aria-hidden="true"></div>
-
-    <p class="v2-notes__quiet v2-reveal" data-delay="480">
-      <em>Cold extracted from above 11,000 ft.<br/>
-      Sealed within forty&#8209;eight hours of harvest.</em>
-    </p>
+      <p class="v2-notes__quiet v2-reveal" data-delay="400" style="margin-top: 40px">
+        <em>Cold extracted from above 11,000 ft.<br/>
+        Sealed within forty&#8209;eight hours of harvest.</em>
+      </p>
+    </div>
   </div>
 </section>
 
@@ -240,7 +250,7 @@ const heroVid = videos['honey-product'];
   }
 
   /* ============================================================
-   * §3 NOTES — dark surface, beige body, max 60ch
+   * §3 NOTES — dark surface; split variant pairs jar image with copy
    * ============================================================ */
   .v2-notes {
     background: var(--v2-bg);
@@ -252,6 +262,40 @@ const heroVid = videos['honey-product'];
   .v2-notes__inner {
     max-width: 680px;
     margin: 0 auto;
+  }
+  .v2-notes--split { padding-top: var(--pad-cinema-y); }
+  .v2-notes__split-inner {
+    display: grid;
+    grid-template-columns: minmax(320px, 520px) 1fr;
+    gap: clamp(32px, 6vw, 96px);
+    align-items: center;
+    max-width: var(--container-wide);
+    margin: 0 auto;
+  }
+  .v2-notes__image {
+    margin: 0;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: var(--v2-bg2);
+  }
+  .v2-notes__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .v2-notes__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 56ch;
+  }
+  @media (max-width: 900px) {
+    .v2-notes__split-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .v2-notes__image { aspect-ratio: 4 / 5; max-width: 80%; margin: 0 auto; }
   }
   .v2-notes__head {
     font-family: var(--serif);
