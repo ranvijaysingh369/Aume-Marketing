@@ -222,11 +222,13 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
   .v2-hero__mark:hover { opacity: 0.85; }
   .v2-hero__brand {
     margin: 0;
-    font-family: var(--serif);
+    /* Playfair Display matches the lettering style baked into the
+       From-the-Earth hero video — fuller strokes than Cormorant. */
+    font-family: 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 500;
     font-size: clamp(34px, 3.4vw, 46px);
-    letter-spacing: 0.02em;
+    letter-spacing: 0.01em;
     line-height: 1;
     color: inherit;
   }
