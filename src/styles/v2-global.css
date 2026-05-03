@@ -385,11 +385,6 @@ p { margin: 0; }
   /* Default vibrance lift for tile videos. */
   filter: saturate(1.18) contrast(1.06);
 }
-/* Honey tile reads dull from the H.264 transcode — push brighter
-   + more saturated than the default lift. */
-#the-honey .v2-tile__split-video {
-  filter: brightness(1.12) saturate(1.40) contrast(1.08);
-}
 .v2-tile__split-index {
   position: absolute;
   top: clamp(16px, 2.4vw, 28px);
