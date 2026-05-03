@@ -314,6 +314,31 @@ p { margin: 0; }
 }
 
 /* ============================================================
+ * SQUARE VARIANT — tile shape matches a 1:1 source video.
+ * Tile becomes a centered aspect-1/1 frame, max 1100px wide.
+ * The full video plays AND fills the tile completely, with the
+ * dark page surface bleeding through on the sides as editorial
+ * negative space (no card edges, no boxed look).
+ * ============================================================ */
+.v2-tile--square {
+  /* Override the default 100vw / 100vh sizing */
+  height: auto;
+  min-height: 0;
+  width: min(100%, 1100px);
+  aspect-ratio: 1 / 1;
+  margin: clamp(40px, 6vh, 72px) auto;
+}
+.v2-tile--square .v2-tile__title {
+  font-size: clamp(34px, 4.4vw, 52px);
+}
+.v2-tile--square .v2-tile__copy {
+  gap: 12px;
+}
+.v2-tile--square .v2-tile__frame {
+  inset: clamp(16px, 2.4vw, 28px);
+}
+
+/* ============================================================
  * SPLIT VARIANT — copy left, media right (or vice-versa).
  * Used when the source video has a non-rectangular aspect ratio
  * and we don't want to crop. The media column owns its own
