@@ -103,14 +103,14 @@ export const videos = {
     subject: 'Dancer honey footage',
     usedOn: ['/v2/ §2 honey tile backdrop'],
   },
-  // §3 ghee tile on /v2/ home — Bilona Ghee Making process footage.
+  // §3 ghee tile on /v2/ home — bilona ghee hero 2 footage.
   'ghee-tile': {
     id: 'ghee-tile',
-    source: 'Bilona Ghee Making Video.mp4',
-    src:    '/assets/video/aume-ghee.mp4',
-    src720: '/assets/video/aume-ghee-720.mp4',
-    poster: '/assets/images/poster-aume-ghee.jpg',
-    subject: 'Bilona ghee making — slow hand-churn process footage',
+    source: 'bilona ghee hero 2.mp4',
+    src:    '/assets/video/bilona-ghee-hero-2.mp4',
+    src720: '/assets/video/bilona-ghee-hero-2-720.mp4',
+    poster: '/assets/images/poster-bilona-ghee-hero-2.jpg',
+    subject: 'Bilona ghee hero 2 — process footage',
     usedOn: ['/v2/ §3 ghee tile backdrop'],
   },
   // /v2/the-ghee §1 product hero — separate slot. Placeholder until

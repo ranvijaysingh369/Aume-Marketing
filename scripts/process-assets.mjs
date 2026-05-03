@@ -117,6 +117,7 @@ const VIDEOS = [
   // /v2/ §1 hero where the wordmark + tagline are baked in and
   // detail clarity matters. Mobile variant stays on the perf preset.
   { src: 'From the earth hero page.mp4', id: 'aume-hero-fte', quality: 'hero' },
+  { src: 'bilona ghee hero 2.mp4', id: 'bilona-ghee-hero-2' },
 ];
 
 async function ensureDir(p) { await fs.mkdir(p, { recursive: true }); }
