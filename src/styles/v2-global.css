@@ -595,7 +595,8 @@ p { margin: 0; }
   left: clamp(24px, 4vw, 56px);
   z-index: 4;
   text-decoration: none;
-  color: #3D2B1F;
+  color: var(--v2-on-media);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.55);
   transition: opacity var(--dur-cta) var(--ease-cinema);
 }
 .v2-corner-mark:hover { opacity: 0.85; }
