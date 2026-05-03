@@ -464,14 +464,14 @@ p { margin: 0; }
   pointer-events: none;
   border: 1px solid color-mix(in oklab, var(--v2-cream) 14%, transparent);
 }
-/* Overlay copy on video tiles — text is always light (cream) and
-   carries shadow for legibility, regardless of the surface theme. */
+/* Base tile typography — sits on the page surface (cream theme:
+   mocha ink). Overrides for video-overlay context follow below. */
 .v2-tile__copy {
   position: absolute;
   left: var(--tile-overlay-pad-x);
   bottom: var(--tile-overlay-pad-y);
   z-index: 3;
-  color: var(--v2-on-media);
+  color: var(--v2-cream);
   max-width: 720px;
   display: flex; flex-direction: column;
   gap: 16px;
@@ -482,29 +482,49 @@ p { margin: 0; }
   font-size: clamp(40px, 5.4vw, 64px);
   line-height: 1.04;
   letter-spacing: -0.015em;
-  color: var(--v2-on-media);
+  color: var(--v2-cream);
   text-wrap: balance;
   max-width: 18ch;
-  text-shadow:
-    0 2px 12px rgba(0, 0, 0, 0.55),
-    0 4px 36px rgba(0, 0, 0, 0.4);
 }
-.v2-tile__title em { font-style: italic; color: var(--v2-on-media-gold); font-weight: 300; }
+.v2-tile__title em { font-style: italic; color: var(--v2-gold-2); font-weight: 300; }
 .v2-tile__sub {
   font-family: var(--jakarta);
   font-weight: 300;
   font-size: 13px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--v2-on-media-soft);
-  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+  color: var(--v2-beige);
 }
 .v2-tile__price {
   display: flex; align-items: baseline; gap: 12px;
   margin-top: 4px;
 }
-.v2-tile__price-num { font-family: var(--serif); font-weight: 300; font-size: 32px; color: var(--v2-on-media); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); }
-.v2-tile__price-unit { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--v2-on-media-soft); text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6); }
+.v2-tile__price-num { font-family: var(--serif); font-weight: 300; font-size: 32px; color: var(--v2-cream); }
+.v2-tile__price-unit { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--v2-beige); }
+
+/* Overlay-on-video override — when these elements live inside
+   .v2-tile__copy (the absolute-positioned overlay block on a
+   full-bleed video tile), they use the always-light tokens and
+   carry text-shadow for legibility. */
+.v2-tile__copy .v2-tile__title {
+  color: var(--v2-on-media);
+  text-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.55),
+    0 4px 36px rgba(0, 0, 0, 0.4);
+}
+.v2-tile__copy .v2-tile__title em { color: var(--v2-on-media-gold); }
+.v2-tile__copy .v2-tile__sub {
+  color: var(--v2-on-media-soft);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+.v2-tile__copy .v2-tile__price-num {
+  color: var(--v2-on-media);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
+.v2-tile__copy .v2-tile__price-unit {
+  color: var(--v2-on-media-soft);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6);
+}
 .v2-tile__ctas {
   display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
   margin-top: 10px;
