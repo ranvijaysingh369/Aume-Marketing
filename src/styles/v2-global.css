@@ -305,6 +305,13 @@ p { margin: 0; }
 .v2-tile--sub .v2-tile__frame {
   inset: clamp(16px, 2.4vw, 28px);
 }
+/* Contain variant — shows the entire video frame inside the tile
+   (no crop). Letterbox bars become the page surface (--v2-bg) so
+   they blend in rather than reading as black bars. */
+.v2-tile--contain .v2-tile__video {
+  object-fit: contain;
+  background: var(--v2-bg);
+}
 .v2-tile__video {
   position: absolute;
   inset: 0;
