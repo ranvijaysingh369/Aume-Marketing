@@ -9,8 +9,8 @@
  */
 import V2Base from '@layouts/V2Base.astro';
 import { images } from '@lib/assets';
-const honeyImage = images['honey-front-and-back'];
-const gheeImage  = images['bilona-v2'];
+const honeyImage = images['honey-same-bg'];
+const gheeImage  = images['ghee-same-bg'];
 const logo       = images['logo-3d'];
 ---
 <V2Base
@@ -232,9 +232,9 @@ const logo       = images['logo-3d'];
   }
   .v2-shop__image img {
     width: 100%; height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     display: block;
-    filter: contrast(1.04) saturate(1.06);
+    filter: contrast(1.06) saturate(1.10);
   }
   .v2-shop__product-body {
     display: flex;
