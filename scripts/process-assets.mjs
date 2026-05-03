@@ -111,7 +111,7 @@ const IMAGES = [
 
 const VIDEOS = [
   { src: 'dancer honey.mp4',         id: 'dancer-honey' },
-  { src: 'honey hover.mp4',          id: 'honey-hover'  },
+  { src: 'honey hover.mp4',          id: 'honey-hover', quality: 'hero' },
   { src: 'honey drinking flower.mp4', id: 'honey-drinking-flower' },
   { src: 'aume hero page video.mp4', id: 'aume-hero' },
   { src: 'Bilona Ghee Making Video.mp4', id: 'aume-ghee' },

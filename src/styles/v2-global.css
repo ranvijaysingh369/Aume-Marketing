@@ -382,6 +382,9 @@ p { margin: 0; }
   transform: translateZ(0);
   backface-visibility: hidden;
   contain: paint;
+  /* Lift colour vibrance — pushes the honey gold and ghee amber
+     past the slight desaturation introduced by H.264 transcode. */
+  filter: saturate(1.18) contrast(1.06);
 }
 .v2-tile__split-index {
   position: absolute;
