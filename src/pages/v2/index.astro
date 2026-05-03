@@ -68,52 +68,52 @@ const gheeVid  = videos['ghee-tile'];      // placeholder until real ghee delive
 </section>
 
 <!-- ============================================================
-     §2 THE HONEY — split layout: copy left | square video right.
-     Required because dancer-honey is 1:1 (1440x1440) — overlay
-     mode either crops it or letterboxes it. Split lets the full
-     square frame play AND fill its half of the tile.
+     §2 THE HONEY — full-bleed overlay tile (same language as §3
+     ghee). Video fills the tile; the 1:1 dancer-honey source is
+     cropped at top/bottom to fit the wide slot. Composition
+     matches §3 so they read as paired chapters.
      ============================================================ -->
-<section class="v2-tile v2-tile--split" data-tile-video-host id="the-honey">
-  <div class="v2-tile__split-inner">
-    <div class="v2-tile__split-copy">
-      <span class="v2-eyebrow v2-reveal" data-delay="0">The&nbsp;Honey</span>
-      <h2 class="v2-tile__title v2-reveal" data-delay="120">
-        Himalayan <em>Clear&nbsp;Honey.</em>
-      </h2>
-      <p class="v2-tile__sub v2-reveal" data-delay="160">
-        Kashmir Valley&nbsp;&middot;&nbsp;11,000&nbsp;ft+&nbsp;&middot;&nbsp;Single Origin&nbsp;&middot;&nbsp;Raw
-      </p>
-      <div class="v2-tile__price v2-reveal" data-delay="240">
-        <span class="v2-tile__price-num">$44.99</span>
-        <span class="v2-tile__price-unit">/ 12 oz · 340 g</span>
-      </div>
-      <div class="v2-tile__ctas v2-reveal" data-delay="320">
-        <a class="v2-cta" href="/buy">
-          Add to Cart
-          <span class="v2-cta__pip" aria-hidden="true">↗</span>
-        </a>
-        <a class="v2-link" href="/the-honey">
-          The Story
-          <span class="v2-link__arrow" aria-hidden="true">→</span>
-        </a>
-      </div>
+<section class="v2-tile v2-tile--sub" data-tile-video-host id="the-honey">
+  <video
+    class="v2-tile__video"
+    data-tile-video
+    autoplay muted loop playsinline preload="metadata"
+    poster={honeyVid.poster}
+    disablepictureinpicture disableremoteplayback
+    aria-hidden="true"
+  >
+    <source src={honeyVid.src720} type="video/mp4" media="(max-width: 768px)" />
+    <source src={honeyVid.src} type="video/mp4" />
+  </video>
+  <div class="v2-tile__scrim" aria-hidden="true"></div>
+  <div class="v2-tile__frame" aria-hidden="true"></div>
+
+  <div class="v2-tile__index">
+    <span>N° 02 · The Honey</span>
+    <span class="v2-tile__index-line" aria-hidden="true"></span>
+  </div>
+
+  <div class="v2-tile__copy">
+    <span class="v2-eyebrow v2-reveal" data-delay="0">The&nbsp;Honey</span>
+    <h2 class="v2-tile__title v2-reveal" data-delay="120">
+      Himalayan <em>Clear&nbsp;Honey.</em>
+    </h2>
+    <p class="v2-tile__sub v2-reveal" data-delay="160">
+      Kashmir Valley&nbsp;&middot;&nbsp;11,000&nbsp;ft+&nbsp;&middot;&nbsp;Single Origin&nbsp;&middot;&nbsp;Raw
+    </p>
+    <div class="v2-tile__price v2-reveal" data-delay="240">
+      <span class="v2-tile__price-num">$44.99</span>
+      <span class="v2-tile__price-unit">/ 12 oz · 340 g</span>
     </div>
-    <div class="v2-tile__split-media">
-      <span class="v2-tile__split-index">
-        N° 02&nbsp;&middot;&nbsp;The Honey
-        <span class="v2-tile__index-line" aria-hidden="true"></span>
-      </span>
-      <video
-        class="v2-tile__split-video"
-        data-tile-video
-        autoplay muted loop playsinline preload="metadata"
-        poster={honeyVid.poster}
-        disablepictureinpicture disableremoteplayback
-        aria-hidden="true"
-      >
-        <source src={honeyVid.src720} type="video/mp4" media="(max-width: 768px)" />
-        <source src={honeyVid.src} type="video/mp4" />
-      </video>
+    <div class="v2-tile__ctas v2-reveal" data-delay="320">
+      <a class="v2-cta" href="/buy">
+        Add to Cart
+        <span class="v2-cta__pip" aria-hidden="true">↗</span>
+      </a>
+      <a class="v2-link" href="/the-honey">
+        The Story
+        <span class="v2-link__arrow" aria-hidden="true">→</span>
+      </a>
     </div>
   </div>
 </section>
